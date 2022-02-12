@@ -1,0 +1,9 @@
+*
+!/.gitignore.d
+!/.gitignore.d/nvim
+!/.README.d
+!/.README.d/nvim.md
+!/.config
+!/.config/nvim
+!/.config/nvim/init.lua
+!/.config/nvim/lua/
