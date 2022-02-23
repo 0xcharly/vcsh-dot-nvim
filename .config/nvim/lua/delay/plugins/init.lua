@@ -91,7 +91,7 @@ return require('packer').startup({
     }
 
     -- Colorschemes.
-    use {'tjdevries/colorbuddy.nvim', config = conf 'colorbuddy.dracula'}
+    use {'tjdevries/colorbuddy.nvim', config = conf 'colorbuddy.github'}
 
     -- Language support.
     --- Formatters.

@@ -76,7 +76,7 @@ return function()
   -- Syntax.
   Color.new('syntaxComment', scale.gray.shade3)
   Color.new('syntaxConstant', scale.blue.shade2)
-  Color.new('syntaxFunction', scale.blue.shade2)
+  Color.new('syntaxFunction', scale.purple.shade2)
   Color.new('syntaxEntity', theme.fg.default)
   Color.new('syntaxEntityTag', scale.green.shade1)
   Color.new('syntaxKeyword', scale.red.shade3)
