@@ -1,8 +1,7 @@
 return function()
-  local clangformat_style = {exe = 'clang-format', args = {'--style=Google'}}
-  vim.g.neoformat_c_clangformat = clangformat_style
-  vim.g.neoformat_cpp_clangformat = clangformat_style
+  vim.g.neoformat_c_clangformat = {exe = 'clang-format', args = {'--style=file'}, stdin = 1}
   vim.g.neoformat_enabled_c = {'clangformat'}
+  vim.g.neoformat_cpp_clangformat = {exe = 'clang-format', args = {'--style=file'}, stdin = 1}
   vim.g.neoformat_enabled_cpp = {'clangformat'}
 
   vim.g.neoformat_lua_luaformat = {
@@ -25,7 +24,7 @@ return function()
   vim.cmd [[ autocmd BufWritePre *.lua Neoformat ]]
   vim.cmd [[ autocmd BufWritePre *.beancount Neoformat ]]
   vim.cmd [[ autocmd BufWritePre *.py Neoformat ]]
-  vim.cmd [[ autocmd BufWritePre *.c,*.h,*.cc Neoformat ]]
+  vim.cmd [[ autocmd BufWritePre *.c,*.h,*.cc,*.hh,*.cpp,*.hpp Neoformat ]]
   vim.cmd [[ autocmd BufWritePre *.md,*.yaml,*.yml Neoformat ]]
   vim.cmd [[ augroup END ]]
 end
