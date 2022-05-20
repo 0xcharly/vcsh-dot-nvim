@@ -40,6 +40,7 @@ return function()
   Color.new('brightMagenta', '#dcbdfb')
   Color.new('orange', '#d18616')
 
+  Color.new('fg', nil) -- Special value "fg", which references the "Normal" group.  Actual color value ignored.
   Color.new('fgOnCanvas', theme.fg.default)
   Color.new('fgOnCanvasMuted', theme.fg.muted)
   Color.new('fgOnEmphasis', theme.fg.onEmphasis)
@@ -131,28 +132,28 @@ return function()
   -- TermCursorNC= { }, -- cursor in an unfocused terminal
   Group.new('ErrorMsg', c.roleDanger) -- error messages on the command line
   Group.new('VertSplit', c.border) -- the column separating vertically split windows
-  Group.new('Folded', c.fgOnCanvas, c.selectionBg) -- line used for closed folds
-  Group.new('FoldColumn', c.fgOnCanvas, c.selectionBg) -- 'foldcolumn'
+  Group.new('Folded', c.fg, c.selectionBg) -- line used for closed folds
+  Group.new('FoldColumn', c.fg, c.selectionBg) -- 'foldcolumn'
   Group.new('SignColumn', c.roleNeutral, c.canvas) -- column where |signs| are displayed
   Group.new('SignColumnSB', c.roleNeutral, c.canvas) -- column where |signs| are displayed
   Group.new('Substitute', c.roleAccent, c.pmenuBg, s.italic) -- |:substitute| replacement text highlighting
   Group.new('LineNr', c.lineNr) -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
   Group.new('CursorLineNr', c.lineNrCursor) -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-  Group.new('MatchParen', c.fgOnCanvas, c.hl, s.underline + s.bold) -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
-  Group.new('ModeMsg', c.fgOnCanvas, nil, s.bold) -- 'showmode' message (e.g., "-- INSERT -- ")
-  Group.new('MsgArea', c.fgOnCanvas) -- Area for messages and cmdline
+  Group.new('MatchParen', c.fg, c.hl, s.underline + s.bold) -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+  Group.new('ModeMsg', c.fg, nil, s.bold) -- 'showmode' message (e.g., "-- INSERT -- ")
+  Group.new('MsgArea', c.fg) -- Area for messages and cmdline
   -- MsgSeparator= { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
   Group.new('MoreMsg', c.roleAccent) -- |more-prompt|
   Group.new('NonText', c.whitespace) -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
   Group.new('Normal', c.fgOnCanvas, c.canvas) -- normal text
-  Group.new('NormalNC', c.fgOnCanvas, c.canvas) -- normal text in non-current windows
-  Group.new('NormalSB', c.fgOnCanvas, c.canvas) -- normal text in non-current windows
-  Group.new('NormalFloat', c.fgOnCanvas, c.pmenuBg) -- Normal text in floating windows.
+  Group.new('NormalNC', c.fg, c.canvas) -- normal text in non-current windows
+  Group.new('NormalSB', c.fg, c.canvas) -- normal text in non-current windows
+  Group.new('NormalFloat', c.fg, c.pmenuBg) -- Normal text in floating windows.
   Group.new('FloatBorder', c.pmenuBorder, c.pmenuBg)
   Group.new('FloatShadow', nil, c.canvas)
   Group.new('FloatShadowThrough', nil, c.canvas)
-  Group.new('Pmenu', c.fgOnCanvas, c.pmenuBg) -- Popup menu: normal item.
-  Group.new('PmenuSel', c.fgOnCanvas, c.pmenuSelect) -- Popup menu: selected item.
+  Group.new('Pmenu', c.fg, c.pmenuBg) -- Popup menu: normal item.
+  Group.new('PmenuSel', c.fg, c.pmenuSelect) -- Popup menu: selected item.
   Group.new('PmenuSbar', nil, c.pmenuBg) -- Popup menu: scrollbar.
   Group.new('PmenuThumb', nil, c.pmenuSbar) -- Popup menu: Thumb of the scrollbar.
   Group.new('Question', c.roleAccent) -- |hit-enter| prompt and yes/no questions
@@ -165,8 +166,8 @@ return function()
   Group.new('SpellLocal', nil, nil, s.undercurl, c.roleAccent) -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
   Group.new('SpellRare', nil, nil, s.undercurl, c.roleNeutral) -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
   Group.new('StatusLine', c.canvas, c.roleAccentBg) -- status line of current window
-  Group.new('StatusLineNC', c.fgOnCanvas, c.canvas) -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-  Group.new('TabLine', c.fgOnCanvas, c.canvas) -- tab pages line, not active tab page label
+  Group.new('StatusLineNC', c.fg, c.canvas) -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+  Group.new('TabLine', c.fg, c.canvas) -- tab pages line, not active tab page label
   Group.new('TabLineFill', nil, c.pmenuBg) -- tab pages line, where there are no labels
   Group.new('TabLineSel', c.pmenuSelect, c.roleAccent) -- tab pages line, active tab page label
   Group.new('Title', c.syntaxVariable, nil, s.bold) -- titles for output from ":set all", ":autocmd" etc.
@@ -235,18 +236,18 @@ return function()
   Group.new('qfLineNr', c.lineNr)
   Group.new('qfFileName', c.roleAccent)
 
-  -- mkdCode = { bg = c.bg2, fg = c.fgOnCanvas },
+  -- mkdCode = { bg = c.bg2, fg = c.fg },
   -- mkdHeading = { fg = c.orange, style = "bold" },
   -- mkdLink = { fg = c.roleAccent, style = "underline" },
-  Group.new('mkdCodeDelimiter', c.fgOnCanvas)
+  Group.new('mkdCodeDelimiter', c.fg)
   Group.new('mkdCodeStart', c.syntaxVariable, nil, s.bold)
   Group.new('mkdCodeEnd', c.syntaxVariable, nil, s.bold)
   Group.new('markdownHeadingDelimiter', c.syntaxVariable, nil, s.bold)
   Group.new('markdownH1', c.syntaxVariable, nil, s.bold)
   Group.new('markdownH2', c.syntaxVariable, nil, s.bold)
   Group.new('markdownH3', c.syntaxVariable, nil, s.bold)
-  Group.new('markdownLinkText', c.fgOnCanvas, nil, s.underline)
-  Group.new('markdownUrl', c.fgOnCanvas, nil, s.underline)
+  Group.new('markdownLinkText', c.fg, nil, s.underline)
+  Group.new('markdownUrl', c.fg, nil, s.underline)
 
   Group.new('debugPC', nil, c.canvas) -- used for highlighting the current line in terminal-debug
   Group.new('debugBreakpoint', c.roleAccent, c.roleAccentBg) -- used for breakpoint colors in terminal-debug
@@ -307,17 +308,17 @@ return function()
   Group.new('TSCharacter', c.syntaxLiteral) -- Character literals: `'a'` in C.
   Group.new('TSComment', c.syntaxComment, nil, s.italic) -- Line comments and block comments.
   -- TSConditional       = { };    -- Keywords related to conditionals: `if`, `when`, `cond`, etc.
-  Group.new('TSConstant', c.fgOnCanvas) -- Constants identifiers. These might not be semantically constant.  E.g. uppercase variables in Python.
+  Group.new('TSConstant', c.fg) -- Constants identifiers. These might not be semantically constant.  E.g. uppercase variables in Python.
   Group.new('TSConstBuiltin', c.syntaxSpecial, nil, s.italic) -- Built-in constant values: `nil` in Lua.
   Group.new('TSConstMacro', c.syntaxSpecial, nil, s.italic) -- Constants defined by macros: `NULL` in C.
   Group.new('TSConstructor', c.syntaxVariable) -- Constructor calls and definitions: `{}` in Lua, and Java constructors.
   -- TSError             = { };    -- Syntax/parser errors. This might highlight large sections of code while the user is typing still incomplete code, use a sensible highlight.
   -- TSException         = { };    -- Exception related keywords: `try`, `except`, `finally` in Python.
-  Group.new('TSField', c.fgOnCanvas) -- Object and struct fields.
+  Group.new('TSField', c.fg) -- Object and struct fields.
   -- TSFloat             = { };    -- Floating-point number literals.
   Group.new('TSFunction', c.syntaxFunction) -- Function calls and definitions.
   -- TSFuncBuiltin       = { };    -- Built-in functions: `print` in Lua.
-  Group.new('TSFuncMacro', c.fgOnCanvas) -- Macro defined functions (calls and definitions): each `macro_rules` in Rust.
+  Group.new('TSFuncMacro', c.fg) -- Macro defined functions (calls and definitions): each `macro_rules` in Rust.
   Group.new('TSInclude', c.syntaxPreprocessor) -- File or module inclusion keywords: `#include` in C, `use` or `extern crate` in Rust.
   Group.new('TSKeyword', c.syntaxKeyword) -- Keywords that don't fit into other categories.
   Group.new('TSKeywordFunction', c.syntaxKeyword) -- Keywords used to define a function: `function` in Lua, `def` and `lambda` in Python.
@@ -325,7 +326,7 @@ return function()
   Group.new('TSKeywordReturn', c.syntaxKeyword, nil, s.italic) -- Keywords like `return` and `yield`.
   Group.new('TSLabel', c.roleAccent) -- GOTO labels: `label:` in C, and `::label::` in Lua.
   -- TSMethod            = { };    -- Method calls and definitions.
-  Group.new('TSNamespace', c.fgOnCanvas) -- Identifiers referring to modules and namespaces.
+  Group.new('TSNamespace', c.fg) -- Identifiers referring to modules and namespaces.
   -- TSNone              = { };    -- No highlighting (sets all highlight arguments to `NONE`). this group is used to clear certain ranges, for example, string interpolations. Don't change the values of this highlight group.
   -- TSNumber            = { };    -- Numeric literals that don't fit into other categories.
   Group.new('TSOperator', c.syntaxKeyword) -- Binary or unary operators: `+`, and also `->` and `*` in C.
@@ -334,7 +335,7 @@ return function()
   Group.new('TSProperty', c.syntaxEntity) -- Same as `TSField`.
   Group.new('TSPunctDelimiter', c.syntaxPunctuation) -- Punctuation delimiters: Periods, commas, semicolons, etc.
   Group.new('TSPunctBracket', c.syntaxPunctuation) -- Brackets, braces, parentheses, etc.
-  Group.new('TSPunctSpecial', c.fgOnCanvas) -- Special punctuation that doesn't fit into the previous categories.
+  Group.new('TSPunctSpecial', c.fg) -- Special punctuation that doesn't fit into the previous categories.
   -- TSRepeat            = { };    -- Keywords related to loops: `for`, `while`, etc.
   Group.new('TSString', c.syntaxString) -- String literals.
   Group.new('TSStringRegex', c.syntaxVariable) -- Regular expression literals.
@@ -343,7 +344,7 @@ return function()
   -- TSSymbol            = { };    -- Identifiers referring to symbols or atoms.
   Group.new('TSTag', c.syntaxEntityTag) -- Tags like HTML tag names.
   -- TSTagAttribute      = { };    -- HTML tag attributes.
-  Group.new('TSTagDelimiter', c.fgOnCanvas) -- Tag delimiter like `<` `>` `/`
+  Group.new('TSTagDelimiter', c.fg) -- Tag delimiter like `<` `>` `/`
   -- TSText              = { };    -- Non-structured text. Like text in a markup language.
   -- TSStrong            = { };    -- Text to be represented in bold.
   -- TSEmphasis          = { };    -- Text to be represented with emphasis.
@@ -365,12 +366,12 @@ return function()
   Group.new('TSVariableBuiltin', c.syntaxVariable) -- Variable names defined by the language: `this` or `self` in Javascript.
 
   -- Lua
-  Group.new('luaTSConstructor', c.fgOnCanvas)
+  Group.new('luaTSConstructor', c.fg)
 
   -- akinsho/bufferline.nvim
   Group.new('BufferLineFill', nil, c.pmenuBg)
   Group.new('BufferLineBufferInactive', nil, c.activeLineBg)
-  Group.new('BufferLineBufferSelected', c.fgOnCanvas, c.canvas)
+  Group.new('BufferLineBufferSelected', c.fg, c.canvas)
   Group.new('BufferLineBufferVisible', nil, c.canvas)
 
   -- lukas-reineke/indent-blankline.nvim
@@ -384,24 +385,24 @@ return function()
   Group.new('WhichKey', c.syntaxConstant) -- the key
   Group.new('WhichKeyGroup', c.syntaxKeyword) -- a group
   Group.new('WhichKeySeparator', c.syntaxComment) -- the separator between the key and its label
-  Group.new('WhichKeyDesc', c.fgOnCanvas) -- the label of the key
+  Group.new('WhichKeyDesc', c.fg) -- the label of the key
   Group.new('WhichKeyFloat', nil, c.pmenuBg) -- Normal in the popup window
   Group.new('WhichKeyValue', c.syntaxComment) -- used by plugins that provide values
 
   -- Telescope
-  Group.new('TelescopeNormal', c.fgOnCanvas, c.canvas)
+  Group.new('TelescopeNormal', c.fg, c.canvas)
   Group.new('TelescopeBorder', c.roleNeutral, c.canvas)
   Group.new('TelescopePromptBorder', c.roleAccent, c.canvas)
   Group.new('TelescopeSelection', c.fgOnEmphasis, c.pmenuBg, s.bold)
   Group.new('TelescopePromptPrefix', c.roleDanger)
   Group.new('TelescopeSelectionCaret', c.roleSuccess, c.pmenuBg)
   Group.new('TelescopeMatching', c.roleAccent, nil, s.bold)
-  Group.new('TelescopePreviewNormal', c.fgOnCanvas, c.canvas)
+  Group.new('TelescopePreviewNormal', c.fg, c.canvas)
 
   -- diff
-  Group.new('diffAdded', c.fgOnCanvas, c.diffAddLineBg)
-  Group.new('diffRemoved', c.fgOnCanvas, c.diffDeleteLineBg)
-  Group.new('diffChanged', c.fgOnCanvas, c.diffChangeLineBg)
+  Group.new('diffAdded', c.fg, c.diffAddLineBg)
+  Group.new('diffRemoved', c.fg, c.diffDeleteLineBg)
+  Group.new('diffChanged', c.fg, c.diffChangeLineBg)
   Group.new('diffOldFile', c.yellow)
   Group.new('diffNewFile', c.orange)
   Group.new('diffFile', c.roleAccent)
@@ -411,11 +412,11 @@ return function()
   -- Neogit
   Group.new('NeogitBranch', c.syntaxKeyword)
   Group.new('NeogitRemote', c.syntaxKeyword)
-  Group.new('NeogitHunkHeader', c.fgOnCanvas, c.activeLineBg)
+  Group.new('NeogitHunkHeader', c.fg, c.activeLineBg)
   Group.new('NeogitHunkHeaderHighlight', c.roleAccent, c.activeLineBg, s.italic)
-  Group.new('NeogitDiffContextHighlight', c.fgOnCanvas, c.canvas)
-  Group.new('NeogitDiffDeleteHighlight', c.fgOnCanvas, c.diffDeleteLineBg)
-  Group.new('NeogitDiffAddHighlight', c.fgOnCanvas, c.diffAddLineBg)
+  Group.new('NeogitDiffContextHighlight', c.fg, c.canvas)
+  Group.new('NeogitDiffDeleteHighlight', c.fg, c.diffDeleteLineBg)
+  Group.new('NeogitDiffAddHighlight', c.fg, c.diffAddLineBg)
 
   -- GitGutter
   Group.new('GitGutterAdd', c.diffAddSign) -- diff mode: Added line |diff.txt|
