@@ -3,8 +3,9 @@ return function()
   require('nvim-treesitter.configs').setup {
     ensure_installed = {
       'bash', 'beancount', 'c', 'cmake', 'comment', 'cpp', 'css', 'dart',
-      'fish', 'go', 'haskell', 'html', 'java', 'javascript', 'json', 'json5',
-      'kotlin', 'lua', 'rst', 'rust', 'scss', 'typescript', 'vim', 'yaml',
+      'devicetree', 'fish', 'go', 'haskell', 'html', 'java', 'javascript',
+      'json', 'json5', 'kotlin', 'lua', 'rst', 'rust', 'scss', 'typescript',
+      'vim', 'yaml',
     },
     highlight = {enable = true},
     incremental_selection = {

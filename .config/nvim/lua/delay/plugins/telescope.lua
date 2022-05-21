@@ -82,21 +82,18 @@ return function()
       c = {builtins.git_commits, 'Commits'},
       f = {builtins.find_files, 'Files'},
       g = {builtins.live_grep, 'Grep'},
-      m = {builtins.man_pages, 'Man pages'},
       h = {frecency, 'History'},
+      m = {builtins.man_pages, 'Man pages'},
       r = {reloader, 'Module reloader'},
-      w = {workspace_symbols, 'Workspace symbols', silent = false},
-      ['<space>'] = {files, 'Smart files'},
-      ['?'] = {builtins.help_tags, 'Help'},
-    },
-    t = {
-      name = '+tab',
-      f = {
+      t = {
         function()
           vim.api.nvim_command('tabnew')
           files()
         end, 'Open Telescope in a new tab',
       },
+      w = {workspace_symbols, 'Workspace symbols', silent = false},
+      ['<space>'] = {files, 'Smart files'},
+      ['?'] = {builtins.help_tags, 'Help'},
     },
   }, {prefix = '<leader>'})
 end

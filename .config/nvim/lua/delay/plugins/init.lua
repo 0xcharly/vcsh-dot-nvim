@@ -17,7 +17,7 @@ return require('packer').startup({
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       config = conf 'treesitter',
-      requires = 'folke/which-key.nvim',
+      requires = {'folke/which-key.nvim', 'joelspadin/tree-sitter-devicetree'},
     }
     --- Fancy icons.
     use 'kyazdani42/nvim-web-devicons'
@@ -38,25 +38,12 @@ return require('packer').startup({
     }
 
     -- Navigation.
-    --- Tmux integration.
-    use {
-      'nathom/tmux.nvim',
-      config = conf 'tmux',
-      requires = 'folke/which-key.nvim',
-    }
-    --- File tree.
-    use({
-      'kyazdani42/nvim-tree.lua',
-      cmd = {'NvimTreeToggle', 'NvimTreeClose'},
-      config = conf 'tree',
-    })
+    use {'mrjones2014/smart-splits.nvim', config = conf 'smartsplits'}
     --- Remember cursor position when reopening files.
     use {
       'ethanholz/nvim-lastplace',
       config = function() require('nvim-lastplace').setup() end,
     }
-    --- Undo tree visualization.
-    use {'mbbill/undotree', cmd = 'UndotreeToggle'}
 
     -- Window decorations.
     --- Indentation.
@@ -81,13 +68,13 @@ return require('packer').startup({
       config = conf 'gitsigns',
       requires = 'nvim-lua/plenary.nvim',
     }
-    -- RGB hex codes.
+    --- Tree viewer.
     use {
-      'norcalli/nvim-colorizer.lua',
-      config = function()
-        require('colorizer').setup({'*', '!beancount'}, {mode = 'background'})
-      end,
-      event = 'BufReadPre',
+      'ms-jpq/chadtree',
+      branch = 'chad',
+      run = ':CHADdeps',
+      config = conf 'fileexplorer',
+      requires = {'folke/which-key.nvim'},
     }
 
     -- Colorschemes.
@@ -96,9 +83,13 @@ return require('packer').startup({
     -- Language support.
     --- Formatters.
     use {'sbdchd/neoformat', config = conf 'neoformat'}
-    --- LSP.
-    use {'neovim/nvim-lspconfig', config = conf 'lspconfig'}
-    --- Completion.
+    --- LSP & Completion.
+    use {'williamboman/nvim-lsp-installer'}
+    use {
+      'neovim/nvim-lspconfig',
+      config = conf 'lspconfig',
+      requires = 'williamboman/nvim-lsp-installer',
+    }
     use {
       'hrsh7th/nvim-cmp',
       config = conf 'cmp',
