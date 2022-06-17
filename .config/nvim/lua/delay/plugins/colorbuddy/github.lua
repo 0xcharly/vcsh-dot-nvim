@@ -2,7 +2,6 @@ return function()
   local colorscheme = require 'delay.plugins.colorscheme'
   local scale = colorscheme.scale
   local theme = colorscheme.theme
-  local util = colorscheme.util
 
   -- vim.cmd [[ hi clear ]]
   -- vim.cmd [[ syntax reset ]]
@@ -76,6 +75,7 @@ return function()
 
   -- Syntax.
   Color.new('syntaxComment', scale.gray.shade3)
+  Color.new('syntaxDeprecated', scale.gray.shade3)
   Color.new('syntaxConstant', scale.blue.shade2)
   Color.new('syntaxFunction', scale.purple.shade2)
   Color.new('syntaxEntity', theme.fg.default)
@@ -490,4 +490,15 @@ return function()
   -- Cmp
   Group.link('CmpDocumentation', g.NormalFloat)
   Group.link('CmpDocumentationBorder', g.FloatBorder)
+  Group.new('CmpItemAbbrDeprecated', c.syntaxDeprecated, nil, s.strikethrough)
+  Group.new('CmpItemAbbrMatch', c.roleAccent)
+  Group.new('CmpItemAbbrMatchFuzzy', c.roleAccent)
+  Group.new('CmpItemKindVariable', c.syntaxEntityTag)
+  Group.new('CmpItemKindInterface', c.syntaxEntityTag)
+  Group.new('CmpItemKindText', c.syntaxEntityTag)
+  Group.new('CmpItemKindFunction', c.syntaxFunction)
+  Group.new('CmpItemKindMethod', c.syntaxFunction)
+  Group.new('CmpItemKindKeyword', c.syntaxKeyword)
+  Group.new('CmpItemKindProperty', c.syntaxKeyword)
+  Group.new('CmpItemKindUnit', c.syntaxKeyword)
 end
