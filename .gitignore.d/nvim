@@ -30,7 +30,6 @@
 !/.config/nvim/lua/delay/plugins/cmp.lua
 !/.config/nvim/lua/delay/plugins/treesitter.lua
 !/.config/nvim/lua/delay/plugins/scroll.lua
-!/.config/nvim/lua/delay/plugins/fileexplorer.lua
 !/.config/nvim/lua/delay/plugins/bufferline.lua
 !/.config/nvim/lua/delay/plugins/smartsplits.lua
 !/.config/nvim/lua/delay/highlight.lua

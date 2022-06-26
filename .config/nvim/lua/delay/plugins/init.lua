@@ -68,14 +68,6 @@ return require('packer').startup({
       config = conf 'gitsigns',
       requires = 'nvim-lua/plenary.nvim',
     }
-    --- Tree viewer.
-    use {
-      'ms-jpq/chadtree',
-      branch = 'chad',
-      run = ':CHADdeps',
-      config = conf 'fileexplorer',
-      requires = {'folke/which-key.nvim'},
-    }
 
     -- Colorschemes.
     use {'tjdevries/colorbuddy.nvim', config = conf 'colorbuddy.github'}
