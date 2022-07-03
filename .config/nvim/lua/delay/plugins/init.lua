@@ -17,18 +17,24 @@ return require('packer').startup({
       'nvim-treesitter/nvim-treesitter',
       run = ':TSUpdate',
       config = conf 'treesitter',
-      requires = {'folke/which-key.nvim', 'joelspadin/tree-sitter-devicetree'},
+      requires = {
+        'nvim-treesitter/nvim-treesitter-context', 'folke/which-key.nvim',
+        'joelspadin/tree-sitter-devicetree',
+      },
     }
     --- Fancy icons.
     use 'kyazdani42/nvim-web-devicons'
+    use 'yamatsum/nvim-web-nonicons'
     --- Fuzzy finder.
     use {
       'nvim-telescope/telescope.nvim',
       config = conf 'telescope',
       requires = {
         'nvim-lua/plenary.nvim', 'folke/which-key.nvim', 'nvim-lua/popup.nvim',
+        'nvim-telescope/telescope-packer.nvim',
         'nvim-telescope/telescope-fzf-writer.nvim',
         'nvim-telescope/telescope-symbols.nvim',
+        'nvim-telescope/telescope-file-browser.nvim',
         {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}, {
           'nvim-telescope/telescope-frecency.nvim',
           requires = 'tami5/sql.nvim',
@@ -87,8 +93,9 @@ return require('packer').startup({
       config = conf 'cmp',
       requires = {
         'hrsh7th/cmp-buffer', 'hrsh7th/cmp-cmdline', 'hrsh7th/cmp-nvim-lua',
-        'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-path', 'neovim/nvim-lspconfig',
-        'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip',
+        'hrsh7th/cmp-nvim-lsp', 'hrsh7th/cmp-nvim-lsp-document-symbol',
+        'hrsh7th/cmp-path', 'neovim/nvim-lspconfig', 'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip',
       },
       after = {'nvim-lspconfig'},
     }

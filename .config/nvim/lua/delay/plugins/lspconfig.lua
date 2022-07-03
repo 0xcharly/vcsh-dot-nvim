@@ -68,9 +68,10 @@ return function()
                                 '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   end
 
-  -- Use a loop to conveniently call 'setup' on multiple servers and
-  -- map buffer local keybindings when the language server attaches
-  local servers = {'jedi_language_server', 'sumneko_lua'} -- {'dartls', 'rust_analyzer'}
-  for _, lsp in pairs(servers) do lspconfig[lsp].setup({on_attach = on_attach}) end
+  lspconfig.jedi_language_server.setup {on_attach = on_attach}
+  lspconfig.sumneko_lua.setup {
+    on_attach = on_attach,
+    settings = {Lua = {diagnostics = {globals = {'vim', 'use'}}}},
+  }
 
 end

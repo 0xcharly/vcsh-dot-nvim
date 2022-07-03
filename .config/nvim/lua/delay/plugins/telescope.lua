@@ -7,13 +7,15 @@ return function()
 
   telescope.setup {
     defaults = {
-      prompt_prefix = '  ',
+      prompt_prefix = '   ',
       entry_prefix = '   ',
       selection_caret = ' ❯ ',
       file_ignore_patterns = {'%.jpg', '%.jpeg', '%.png', '%.otf', '%.ttf'},
       layout_strategy = 'flex',
-      -- winblend = 7,
+      winblend = 7,
     },
+    file_previewer = require('telescope.previewers').vim_buffer_cat.new,
+    grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
     extensions = {
       frecency = {
         workspaces = {
@@ -26,10 +28,14 @@ return function()
         override_generic_sorter = true, -- override the generic sorter
         override_file_sorter = true, -- override the file sorter
       },
+      fzy_native = {override_generic_sorter = true, override_file_sorter = true},
+      fzf_writer = {use_highlighter = false, minimum_grep_characters = 6},
     },
   }
 
-  telescope.load_extension('fzf')
+  telescope.load_extension 'file_browser'
+  telescope.load_extension 'fzf'
+  telescope.load_extension 'packer'
 
   local function buffers()
     builtins.buffers {
@@ -50,7 +56,6 @@ return function()
   local function frecency()
     telescope.extensions.frecency.frecency(
         themes.get_dropdown {
-          -- winblend = 10,
           border = true,
           previewer = false,
           shorten_path = false,

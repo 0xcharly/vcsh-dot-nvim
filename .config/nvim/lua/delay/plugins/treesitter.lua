@@ -56,14 +56,4 @@ return function()
       lint_events = {'BufWrite', 'CursorHold'},
     },
   }
-  require('which-key').register({
-    l = {
-      name = '+treesitter',
-      r = {
-        function()
-          vim.api.nvim_command('write | edit | TSBufEnable highlight')
-        end, 'Reload',
-      },
-    },
-  }, {prefix = '<leader>'})
 end

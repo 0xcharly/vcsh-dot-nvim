@@ -14,6 +14,22 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 
+-- Bell.
+vim.opt.belloff = 'all'
+
+-- Clipboard.
+vim.opt.clipboard = 'unnamedplus'
+vim.opt.mouse = 'n'
+
+-- Ignore compiled files
+vim.opt.wildignore = '__pycache__'
+vim.opt.wildignore = vim.opt.wildignore + {'*.o', '*~', '*.pyc', '*pycache*'}
+
+-- Cool floating window popup menu for completion on command line
+vim.opt.pumblend = 17
+vim.opt.wildmode = 'longest:full'
+vim.opt.wildoptions = 'pum'
+
 -- Undo.
 vim.opt.undofile = true
 
@@ -42,23 +58,30 @@ vim.opt.wrap = false
 vim.opt.wrapmargin = 2
 
 -- Search.
-vim.o.inccommand = 'nosplit'
+vim.o.inccommand = 'split'
+vim.opt.incsearch = true
+vim.opt.showmatch = true
+vim.opt.ignorecase = true -- Ignore case when searching...
+vim.opt.smartcase = true -- ... unless there is a capital letter in the query
+vim.opt.splitright = true -- Prefer windows splitting to the right
+vim.opt.splitbelow = true -- Prefer windows splitting to the bottom
+vim.opt.updatetime = 1000 -- Make updates happen faster
+vim.opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
+vim.opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
 
-vim.opt.formatoptions = {
-  ['1'] = true,
-  ['2'] = true, -- Use indent from 2nd line of a paragraph
-  q = true, -- continue comments with gq'
-  c = true, -- Auto-wrap comments using textwidth
-  r = true, -- Continue comments when pressing Enter
-  n = true, -- Recognize numbered lists
-  t = false, -- autowrap lines using text width value
-  j = true, -- remove a comment leader when joining lines.
-  -- Only break if the line was not longer than 'textwidth' when the insert
-  -- started and only at a white character that has been entered during
-  -- the current insert command.
-  l = true,
-  v = true,
-}
+vim.opt.formatoptions = vim.opt.formatoptions -- :h fo
+- 'a' -- Auto formatting is BAD.
+- 't' -- Don't auto format my code. I got linters for that.
++ 'q' -- continue comments with gq'
++ 'c' -- Auto-wrap comments using textwidth
+- 'o' -- O and o, don't continue comments
++ 'r' -- But do continue when pressing enter.
++ 'n' -- Indent past the formatlistpat, not underneath it.
++ 'j' -- Auto-remove comments if possible.
++ 'j' -- Auto-remove comments if possible.
+- '2' -- Use indent from 2nd line of a paragraph
+
+vim.opt.joinspaces = false
 
 -- Message output.
 vim.opt.shortmess = {
