@@ -5,6 +5,13 @@ return function()
   local themes = require 'telescope.themes'
   local action_state = require 'telescope.actions.state'
 
+  local set_prompt_to_entry_value = function(prompt_bufnr)
+    local entry = action_state.get_selected_entry()
+    if not entry or not type(entry) == 'table' then return end
+
+    action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
+  end
+
   telescope.setup {
     defaults = {
       prompt_prefix = '   ',
@@ -78,6 +85,44 @@ return function()
 
   local function workspace_symbols() builtins.lsp_dynamic_workspace_symbols {} end
 
+  local function edit_neovim()
+    local opts_with_preview, opts_without_preview
+
+    opts_with_preview = {
+      prompt_title = '~ dotfiles ~',
+      shorten_path = false,
+      cwd = '~/.config/nvim',
+
+      layout_strategy = 'flex',
+      layout_config = {
+        width = 0.9,
+        height = 0.8,
+
+        horizontal = {width = {padding = 0.15}},
+        vertical = {preview_height = 0.75},
+      },
+
+      mappings = {i = {['<C-y>'] = false}},
+
+      attach_mappings = function(_, map)
+        map('i', '<c-y>', set_prompt_to_entry_value)
+        map('i', '<M-c>', function(prompt_bufnr)
+          actions.close(prompt_bufnr)
+          vim.schedule(function()
+            require('telescope.builtin').find_files(opts_without_preview)
+          end)
+        end)
+
+        return true
+      end,
+    }
+
+    opts_without_preview = vim.deepcopy(opts_with_preview)
+    opts_without_preview.previewer = false
+
+    require('telescope.builtin').find_files(opts_with_preview)
+  end
+
   local whichKey = require 'which-key'
   whichKey.register({
     f = {
@@ -85,6 +130,7 @@ return function()
       a = {function() vim.api.nvim_command('Telescope') end, 'Builtins'},
       b = {buffers, 'Buffers'},
       c = {builtins.git_commits, 'Commits'},
+      d = {edit_neovim, 'Dotfiles'},
       f = {builtins.find_files, 'Files'},
       g = {builtins.live_grep, 'Grep'},
       h = {frecency, 'History'},

@@ -101,6 +101,11 @@ return require('packer').startup({
     }
     --- Smart increments.
     use {'monaqa/dial.nvim', config = conf 'dial'}
+
+    --- Text manipulation
+    use 'godlygeek/tabular' -- Quickly align text by pattern
+    use 'tpope/vim-repeat' -- Repeat actions better
+    use 'tpope/vim-surround' -- Surround text objects easily
   end,
   config = {
     display = {
