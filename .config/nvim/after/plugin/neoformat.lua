@@ -1,4 +1,3 @@
-return function()
   vim.g.neoformat_c_clangformat = {
     exe = 'clang-format',
     args = {'--style=file'},
@@ -19,7 +18,7 @@ return function()
       '--double-quote-to-single-quote',
     },
   }
-  vim.g.neoformat_enabled_lua = {'luaformat'}
+  vim.g.neoformat_enabled_lua = {'stylua'}
 
   vim.g.neoformat_enabled_markdown = {'prettier'}
   vim.g.neoformat_enabled_yaml = {'prettier'}
@@ -35,4 +34,3 @@ return function()
   vim.cmd [[ autocmd BufWritePre *.c,*.h,*.cc,*.hh,*.cpp,*.hpp Neoformat ]]
   vim.cmd [[ autocmd BufWritePre *.md,*.yaml,*.yml Neoformat ]]
   vim.cmd [[ augroup END ]]
-end

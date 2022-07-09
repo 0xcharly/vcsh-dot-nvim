@@ -1,8 +1,113 @@
+local is_bootstrap_run = false
+
 local fn = vim.fn
-local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({
-    'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path,
-  })
+  is_bootstrap_run = true
+  fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+  vim.cmd [[packadd packer.nvim]]
 end
-vim.cmd [[packadd packer.nvim]]
+
+return require("packer").startup {
+  function(use)
+    -- Use local checkout when available.
+    local local_use = function(plugin_name, opts)
+      opts = opts or {}
+
+      local local_plugin_path = vim.fn.expand("~/Developer/" .. plugin_name)
+      if vim.fn.isdirectory(local_plugin_path) == 1 then
+        opts[1] = local_plugin_path
+      else
+        opts[1] = string.format("0xcharly/%s", plugin_name)
+      end
+
+      use(opts)
+    end
+
+    -- Switch to self-managed on the first run after manual checkout.
+    use "wbthomason/packer.nvim"
+    use "lewis6991/impatient.nvim"
+
+    use "folke/which-key.nvim" --- Shortcuts/mappings.
+    --- Language syntaxes.
+    use "nvim-treesitter/nvim-treesitter"
+    use "nvim-treesitter/nvim-treesitter-context"
+    use "nvim-treesitter/nvim-treesitter-textobjects"
+    use "JoosepAlviste/nvim-ts-context-commentstring"
+    use "numToStr/Comment.nvim"
+
+    use "joelspadin/tree-sitter-devicetree"
+
+    use "kyazdani42/nvim-web-devicons"
+    use "yamatsum/nvim-web-nonicons" --- Fancy icons.
+    use "nvim-lualine/lualine.nvim" --- Status bar.
+    use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
+    use "nvim-telescope/telescope-packer.nvim"
+    use "nvim-telescope/telescope-fzf-writer.nvim"
+    use "nvim-telescope/telescope-symbols.nvim"
+    use "nvim-telescope/telescope-file-browser.nvim"
+    use {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      run = "make",
+      cond = fn.executable "make" == 1,
+    } --- Fuzzy finder.
+
+    use "mrjones2014/smart-splits.nvim" -- Navigation.
+    --- Remember cursor position when reopening files.
+    use {
+      "ethanholz/nvim-lastplace",
+      config = function()
+        require("nvim-lastplace").setup()
+      end,
+    }
+    use "lukas-reineke/indent-blankline.nvim" --- Indentation.
+    --- Git Gutter.
+    use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
+
+    -- Colorschemes.
+    use "tjdevries/colorbuddy.nvim"
+    local_use "primebuddy.nvim"
+
+    use "akinsho/nvim-bufferline.lua" --- Buffer as tabs.
+
+    -- Language support.
+    use "sbdchd/neoformat" --- Formatters.
+    use "neovim/nvim-lspconfig" -- Collection of configurations for build-in LSP client.
+    use "williamboman/nvim-lsp-installer" -- Automaticall install language servers to stdpath.
+    use {
+      "hrsh7th/nvim-cmp",
+      requires = {
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lsp-document-symbol",
+        "hrsh7th/cmp-path",
+        "neovim/nvim-lspconfig",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+      },
+      after = { "nvim-lspconfig" },
+    }
+    --- Smart increments.
+    use "monaqa/dial.nvim"
+
+    --- Text manipulation
+    use "godlygeek/tabular" -- Quickly align text by pattern
+    use "tpope/vim-repeat" -- Repeat actions better
+    use "tpope/vim-surround" -- Surround text objects easily
+
+    if is_bootstrap_run then
+      require("packer").sync()
+    end
+  end,
+  config = {
+    max_jobs = 32,
+    luarocks = { python_cmd = "python3" },
+    display = {
+      open_fn = function()
+        return require("packer.util").float { border = "single" }
+      end,
+    },
+  },
+}

@@ -1,4 +1,3 @@
-return function()
   require('gitsigns').setup({
     signs = {
       add = {
@@ -53,4 +52,3 @@ return function()
       ['x ih'] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
     },
   })
-end

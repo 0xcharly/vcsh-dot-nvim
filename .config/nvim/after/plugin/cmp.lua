@@ -1,4 +1,3 @@
-return function()
   local cmp = require 'cmp'
 
   local cmp_kinds = {
@@ -72,4 +71,3 @@ return function()
   cmp.setup.cmdline(':', {
     sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}}),
   })
-end

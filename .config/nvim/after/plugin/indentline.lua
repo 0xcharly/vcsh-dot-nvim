@@ -1,4 +1,3 @@
-return function()
   require('indent_blankline').setup {
     show_end_of_line = true,
     show_trailing_blankline_indent = false,
@@ -15,4 +14,3 @@ return function()
       '^table', 'if_statement', 'while', 'for',
     },
   }
-end

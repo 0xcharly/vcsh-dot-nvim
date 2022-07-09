@@ -1,12 +1,14 @@
-if not pcall(require, 'Comment') then return end
+if not pcall(require, "Comment") then
+  return
+end
 
-require('Comment').setup {
+require("Comment").setup {
   -- LHS of operator-pending mapping in NORMAL + VISUAL mode
   opleader = {
     -- line-comment keymap
-    line = '<Leader>gc',
+    line = "gc",
     -- block-comment keymap
-    block = '<Leader>gb',
+    block = "gb",
   },
 
   -- Create basic (operator-pending) and extended mappings for NORMAL + VISUAL mode
@@ -33,11 +35,11 @@ require('Comment').setup {
   toggler = {
     -- line-comment keymap
     --  Makes sense to be related to your opleader.line
-    line = '<Leader>gcc',
+    line = "gcc",
 
     -- block-comment keymap
     --  Make sense to be related to your opleader.block
-    block = '<Leader>gbc',
+    block = "gbc",
   },
 
   -- Pre-hook, called before commenting the line
@@ -45,27 +47,24 @@ require('Comment').setup {
   ---@param ctx CommentCtx
   pre_hook = function(ctx)
     -- Only calculate commentstring for tsx filetypes
-    if vim.bo.filetype == 'typescriptreact' then
-      local U = require('Comment.utils')
+    if vim.bo.filetype == "typescriptreact" then
+      local U = require "Comment.utils"
 
       -- Determine whether to use linewise or blockwise commentstring
-      local type = ctx.ctype == U.ctype.line and '__default' or '__multiline'
+      local type = ctx.ctype == U.ctype.line and "__default" or "__multiline"
 
       -- Determine the location where to calculate commentstring from
       local location = nil
       if ctx.ctype == U.ctype.block then
-        location =
-            require('ts_context_commentstring.utils').get_cursor_location()
+        location = require("ts_context_commentstring.utils").get_cursor_location()
       elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-        location =
-            require('ts_context_commentstring.utils').get_visual_start_location()
+        location = require("ts_context_commentstring.utils").get_visual_start_location()
       end
 
-      return
-          require('ts_context_commentstring.internal').calculate_commentstring({
-            key = type,
-            location = location,
-          })
+      return require("ts_context_commentstring.internal").calculate_commentstring {
+        key = type,
+        location = location,
+      }
     end
   end,
 

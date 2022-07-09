@@ -1,4 +1,3 @@
-require 'delay.core'
-require 'delay.options'
-require 'delay.packer'
-require 'delay.plugins'
+require "delay.core"
+require "delay.options"
+require "delay.packer"
