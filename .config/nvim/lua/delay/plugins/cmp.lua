@@ -55,7 +55,7 @@ return function()
       end, {'i', 's', 'c'}),
     }),
     sources = cmp.config.sources({
-      {name = 'nvim_lsp'}, {name = 'nvim_lua'}, {name = 'path'},
+      {name = 'nvim_lua'}, {name = 'nvim_lsp'}, {name = 'path'},
     }, {{name = 'buffer'}}),
     formatting = {
       format = function(_, vim_item)

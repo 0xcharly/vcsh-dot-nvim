@@ -71,7 +71,6 @@ return function()
   lspconfig.jedi_language_server.setup {on_attach = on_attach}
   lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
-    settings = {Lua = {diagnostics = {globals = {'vim', 'use'}}}},
+    settings = {Lua = {diagnostics = {globals = {'vim'}}}},
   }
-
 end

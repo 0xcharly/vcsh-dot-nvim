@@ -1,6 +1,9 @@
 return function()
   require'nvim-treesitter.install'.compilers = {'gcc'}
-  require('nvim-treesitter.configs').setup {
+  require'nvim-treesitter.configs'.setup {
+    context_commentstring = {enable = true},
+  }
+  require'nvim-treesitter.configs'.setup {
     ensure_installed = {
       'bash', 'beancount', 'c', 'cmake', 'comment', 'cpp', 'css', 'dart',
       'devicetree', 'fish', 'go', 'haskell', 'html', 'java', 'javascript',

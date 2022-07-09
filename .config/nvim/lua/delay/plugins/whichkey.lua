@@ -50,7 +50,7 @@ return function()
         function() vim.api.nvim_command('qa!') end, 'Quit (without saving)',
       },
     },
-    g = 'Grep word under the cursor',
+    s = 'Grep word under the cursor',
     o = {name = '+only', n = 'Close all other buffers'},
     ['<space>'] = {
       name = 'workspace',

@@ -1,3 +1,6 @@
+_ = vim.cmd [[packadd packer.nvim]]
+_ = vim.cmd [[packadd vimball]]
+
 ---Require a plugin config
 ---@param name string
 ---@return function
@@ -5,7 +8,7 @@ local function conf(name) return
     require(string.format('delay.plugins.%s', name)) end
 
 return require('packer').startup({
-  function()
+  function(use)
     -- Switch to self-managed on the first run after manual checkout.
     use 'wbthomason/packer.nvim'
 
@@ -20,6 +23,7 @@ return require('packer').startup({
       requires = {
         'nvim-treesitter/nvim-treesitter-context', 'folke/which-key.nvim',
         'joelspadin/tree-sitter-devicetree',
+        'JoosepAlviste/nvim-ts-context-commentstring',
       },
     }
     --- Fancy icons.
@@ -106,8 +110,15 @@ return require('packer').startup({
     use 'godlygeek/tabular' -- Quickly align text by pattern
     use 'tpope/vim-repeat' -- Repeat actions better
     use 'tpope/vim-surround' -- Surround text objects easily
+
+    use {
+      'numToStr/Comment.nvim',
+      requires = 'JoosepAlviste/nvim-ts-context-commentstring',
+    }
   end,
   config = {
+    max_jobs = 32,
+    luarocks = {python_cmd = 'python3'},
     display = {
       open_fn = function()
         return require('packer.util').float {border = 'single'}
