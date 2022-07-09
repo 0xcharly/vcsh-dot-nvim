@@ -7,6 +7,10 @@
 !/.config/nvim
 !/.config/nvim/init.lua
 !/.config/nvim/lua/
+!/.config/nvim/after/
+!/.config/nvim/after/plugin
+!/.config/nvim/after/plugin/comment.lua
+!/.config/nvim/after/plugin/completion.lua
 !/.config/nvim/lua/delay
 !/.config/nvim/lua/delay/init.lua
 !/.config/nvim/lua/delay/plugins
