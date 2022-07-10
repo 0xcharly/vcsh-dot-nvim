@@ -1,4 +1,4 @@
-local util = require 'delay.util'
+local util = require "delay.util"
 
 -- Quickly timeout on keycodes and mappings (timeout on mapping is required for
 -- which-key.nvim).
@@ -8,34 +8,34 @@ vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 200
 
 -- Display.
-vim.opt.mouse = 'a'
+vim.opt.mouse = "a"
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 
 -- Bell.
-vim.opt.belloff = 'all'
+vim.opt.belloff = "all"
 
 -- Clipboard.
-vim.opt.clipboard = 'unnamedplus'
-vim.opt.mouse = 'n'
+vim.opt.clipboard = "unnamedplus"
+vim.opt.mouse = "n"
 
 -- Ignore compiled files
-vim.opt.wildignore = '__pycache__'
-vim.opt.wildignore = vim.opt.wildignore + {'*.o', '*~', '*.pyc', '*pycache*'}
+vim.opt.wildignore = "__pycache__"
+vim.opt.wildignore = vim.opt.wildignore + { "*.o", "*~", "*.pyc", "*pycache*" }
 
 -- Cool floating window popup menu for completion on command line
-vim.opt.pumblend = 17
-vim.opt.wildmode = 'longest:full'
-vim.opt.wildoptions = 'pum'
+vim.opt.pumblend = 0
+vim.opt.wildmode = "longest:full"
+vim.opt.wildoptions = "pum"
 
 -- Undo.
 vim.opt.undofile = true
 
 -- Invisible characters.
 vim.opt.list = true
-vim.opt.listchars:append('eol:↴')
+vim.opt.listchars:append "eol:↴"
 -- vim.opt.listchars = {
 --   tab = '▸',
 --   trail = '∙',
@@ -58,7 +58,7 @@ vim.opt.wrap = false
 vim.opt.wrapmargin = 2
 
 -- Search.
-vim.o.inccommand = 'split'
+vim.o.inccommand = "split"
 vim.opt.incsearch = true
 vim.opt.showmatch = true
 vim.opt.ignorecase = true -- Ignore case when searching...
@@ -70,16 +70,16 @@ vim.opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
 vim.opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
 
 vim.opt.formatoptions = vim.opt.formatoptions -- :h fo
-- 'a' -- Auto formatting is BAD.
-- 't' -- Don't auto format my code. I got linters for that.
-+ 'q' -- continue comments with gq'
-+ 'c' -- Auto-wrap comments using textwidth
-- 'o' -- O and o, don't continue comments
-+ 'r' -- But do continue when pressing enter.
-+ 'n' -- Indent past the formatlistpat, not underneath it.
-+ 'j' -- Auto-remove comments if possible.
-+ 'j' -- Auto-remove comments if possible.
-- '2' -- Use indent from 2nd line of a paragraph
+  - "a" -- Auto formatting is BAD.
+  - "t" -- Don't auto format my code. I got linters for that.
+  + "q" -- continue comments with gq'
+  + "c" -- Auto-wrap comments using textwidth
+  - "o" -- O and o, don't continue comments
+  + "r" -- But do continue when pressing enter.
+  + "n" -- Indent past the formatlistpat, not underneath it.
+  + "j" -- Auto-remove comments if possible.
+  + "j" -- Auto-remove comments if possible.
+  - "2" -- Use indent from 2nd line of a paragraph
 
 vim.opt.joinspaces = false
 
@@ -98,11 +98,10 @@ vim.opt.shortmess = {
 }
 
 -- Use faster grep alternatives if possible
-if util.executable 'rg' then
-  vim.o.grepprg =
-      [[rg --hidden --glob '!.git' --no-heading --smart-case --vimgrep --follow $*]]
-  vim.opt.grepformat = vim.opt.grepformat ^ {'%f:%l:%c:%m'}
-elseif util.executable 'ag' then
+if util.executable "rg" then
+  vim.o.grepprg = [[rg --hidden --glob '!.git' --no-heading --smart-case --vimgrep --follow $*]]
+  vim.opt.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
+elseif util.executable "ag" then
   vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
-  vim.opt.grepformat = vim.opt.grepformat ^ {'%f:%l:%c:%m'}
+  vim.opt.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
 end

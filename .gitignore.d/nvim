@@ -1,6 +1,4 @@
 *
-!/.gitignore.d
-!/.gitignore.d/nvim
 !/.README.d
 !/.README.d/nvim.md
 !/.config
@@ -11,9 +9,6 @@
 !/.config/nvim/after/plugin/cmp.lua
 !/.config/nvim/after/plugin/colorbuddy.lua
 !/.config/nvim/after/plugin/comment.lua
-!/.config/nvim/after/plugin/comment.lua
-!/.config/nvim/after/plugin/completion.lua
-!/.config/nvim/after/plugin/completion.lua
 !/.config/nvim/after/plugin/dial.lua
 !/.config/nvim/after/plugin/gitsigns.lua
 !/.config/nvim/after/plugin/indentline.lua
@@ -27,9 +22,12 @@
 !/.config/nvim/init.lua
 !/.config/nvim/lua/
 !/.config/nvim/lua/delay
+!/.config/nvim/lua/delay/autocmd.lua
 !/.config/nvim/lua/delay/core.lua
 !/.config/nvim/lua/delay/highlight.lua
 !/.config/nvim/lua/delay/init.lua
 !/.config/nvim/lua/delay/options.lua
 !/.config/nvim/lua/delay/packer.lua
 !/.config/nvim/lua/delay/util.lua
+!/.gitignore.d
+!/.gitignore.d/nvim

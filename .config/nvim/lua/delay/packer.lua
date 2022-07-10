@@ -73,23 +73,20 @@ return require("packer").startup {
 
     -- Language support.
     use "sbdchd/neoformat" --- Formatters.
+    use "L3MON4D3/LuaSnip"
     use "neovim/nvim-lspconfig" -- Collection of configurations for build-in LSP client.
     use "williamboman/nvim-lsp-installer" -- Automaticall install language servers to stdpath.
-    use {
-      "hrsh7th/nvim-cmp",
-      requires = {
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lsp-document-symbol",
-        "hrsh7th/cmp-path",
-        "neovim/nvim-lspconfig",
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-      },
-      after = { "nvim-lspconfig" },
-    }
+    use "hrsh7th/nvim-cmp"
+    use "hrsh7th/cmp-buffer"
+    use "hrsh7th/cmp-cmdline"
+    use "hrsh7th/cmp-nvim-lua"
+    use "hrsh7th/cmp-nvim-lsp"
+    use "hrsh7th/cmp-nvim-lsp-document-symbol"
+    use "hrsh7th/cmp-path"
+    use "mtoohey31/cmp-fish"
+    use "tamago324/cmp-zsh"
+    use "saadparwaiz1/cmp_luasnip"
+    use "onsails/lspkind-nvim"
     --- Smart increments.
     use "monaqa/dial.nvim"
 

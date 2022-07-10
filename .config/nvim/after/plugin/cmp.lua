@@ -1,73 +1,117 @@
-  local cmp = require 'cmp'
+local cmp = require "cmp"
+local lspkind = require "lspkind"
 
-  local cmp_kinds = {
-    Text = '  ',
-    Method = '  ',
-    Function = '  ',
-    Constructor = '  ',
-    Field = '  ',
-    Variable = '  ',
-    Class = '  ',
-    Interface = '  ',
-    Module = '  ',
-    Property = '  ',
-    Unit = '  ',
-    Value = '  ',
-    Enum = '  ',
-    Keyword = '  ',
-    Snippet = '  ',
-    Color = '  ',
-    File = '  ',
-    Reference = '  ',
-    Folder = '  ',
-    EnumMember = '  ',
-    Constant = '  ',
-    Struct = '  ',
-    Event = '  ',
-    Operator = '  ',
-    TypeParameter = '  ',
-  }
+-- Don't show the dumb matching stuff.
+vim.opt.shortmess:append "c"
 
-  cmp.setup({
-    snippet = {
-      expand = function(args) require('luasnip').lsp_expand(args.body) end,
-    },
-    mapping = cmp.mapping.preset.insert({
-      -- ['<C-Up>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), {'i', 'c'}),
-      -- ['<C-Down>'] = cmp.mapping(cmp.mapping.scroll_docs(4), {'i', 'c'}),
-      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), {'i', 'c'}),
-      ['<C-y>'] = cmp.config.disable, -- If you want to remove the default `<C-y>` mapping, You can specify `cmp.config.disable` value.
-      ['<C-e>'] = cmp.mapping {i = cmp.mapping.abort(), c = cmp.mapping.close()},
-      ['<CR>'] = cmp.mapping.confirm {select = true},
-      ['<Tab>'] = cmp.mapping(function(fallback)
-        -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+lspkind.init()
+
+cmp.setup {
+  mapping = cmp.mapping.preset.insert {
+    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-e>"] = cmp.mapping.abort(),
+    ["<C-y>"] = cmp.mapping(
+      cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      },
+      { "i", "c" }
+    ),
+    ["<c-space>"] = cmp.mapping {
+      i = cmp.mapping.complete(),
+      c = function(
+        _ --[[fallback]]
+      )
         if cmp.visible() then
-          local entry = cmp.get_selected_entry()
-          if not entry then
-            cmp.select_next_item({behavior = cmp.SelectBehavior.Select})
-          else
-            cmp.confirm()
+          if not cmp.confirm { select = true } then
+            return
           end
         else
-          fallback()
+          cmp.complete()
         end
-      end, {'i', 's', 'c'}),
-    }),
-    sources = cmp.config.sources({
-      {name = 'nvim_lua'}, {name = 'nvim_lsp'}, {name = 'path'},
-    }, {{name = 'buffer'}}),
-    formatting = {
-      format = function(_, vim_item)
-        vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
-        return vim_item
       end,
     },
-  })
+    ["<C-q>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
+    ["<Tab>"] = cmp.config.disable,
+  },
+  sources = {
+    { name = "nvim_lua" },
+    { name = "nvim_lsp" },
+    { name = "path" },
+    { name = "luasnip" },
+    { name = "buffer", keyword_length = 5 },
+  },
+  sorting = {
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
 
-  -- Use buffer source for `/`.
-  cmp.setup.cmdline('/', {sources = {{name = 'buffer'}}})
+      -- Copied from cmp-under; don't need a plugin for this.
+      function(entry1, entry2)
+        local _, entry1_under = entry1.completion_item.label:find "^_+"
+        local _, entry2_under = entry2.completion_item.label:find "^_+"
+        entry1_under = entry1_under or 0
+        entry2_under = entry2_under or 0
+        if entry1_under > entry2_under then
+          return false
+        elseif entry1_under < entry2_under then
+          return true
+        end
+      end,
 
-  -- Use cmdline & path source for ':'.
-  cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({{name = 'path'}}, {{name = 'cmdline'}}),
-  })
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+  },
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end,
+  },
+  formatting = {
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
+        buffer = "[buf]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[api]",
+        path = "[path]",
+        luasnip = "[snip]",
+        tn = "[TabNine]",
+      },
+    },
+  },
+
+  experimental = {
+    native_menu = false,
+    ghost_text = true,
+  },
+}
+
+-- Use buffer source for `/`.
+cmp.setup.cmdline("/", { sources = { { name = "buffer" } } })
+
+-- Use cmdline & path source for ':'.
+cmp.setup.cmdline(":", {
+  sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+})
+
+_ = vim.cmd [[
+  augroup CmpFish
+    au!
+    autocmd Filetype fish lua require'cmp'.setup.buffer { sources = { { name = "fish" }, } }
+  augroup END
+]]
+
+_ = vim.cmd [[
+  augroup CmpZsh
+    au!
+    autocmd Filetype zsh lua require'cmp'.setup.buffer { sources = { { name = "zsh" }, } }
+  augroup END
+]]
