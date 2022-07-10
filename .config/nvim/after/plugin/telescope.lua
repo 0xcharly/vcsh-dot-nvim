@@ -28,6 +28,8 @@ telescope.setup {
       workspaces = {
         conf = vim.env.DOTFILES,
         project = vim.env.PROJECTS_DIR,
+        qmk = vim.fn.expand "~/Developer/qmk_firmware",
+        zmk = vim.fn.expand "~/Developer/zmk-config",
         wiki = vim.g.wiki_path,
       },
     },
