@@ -26,9 +26,9 @@ telescope.setup {
   extensions = {
     frecency = {
       workspaces = {
-        ["conf"] = vim.env.DOTFILES,
-        ["project"] = vim.env.PROJECTS_DIR,
-        ["wiki"] = vim.g.wiki_path,
+        conf = vim.env.DOTFILES,
+        project = vim.env.PROJECTS_DIR,
+        wiki = vim.g.wiki_path,
       },
     },
     fzf = {
@@ -41,6 +41,7 @@ telescope.setup {
 }
 
 telescope.load_extension "file_browser"
+telescope.load_extension "frecency"
 telescope.load_extension "fzf"
 telescope.load_extension "packer"
 
