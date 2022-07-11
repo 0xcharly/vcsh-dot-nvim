@@ -50,7 +50,6 @@ local leader = {
     s = { "<cmd>PackerSync<cr>", "Sync" },
   },
   s = "Grep word under the cursor",
-  o = { name = "+only", n = "Close all other buffers" },
   ["<space>"] = {
     name = "workspace",
     c = { "<cmd>tabnew<cr>", "New" },

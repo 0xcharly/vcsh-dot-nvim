@@ -1,34 +1,18 @@
 require("nvim-treesitter.install").compilers = { "gcc" }
 require("nvim-treesitter.configs").setup {
   context_commentstring = { enable = true },
-}
-require("nvim-treesitter.configs").setup {
   ensure_installed = {
-    "bash",
     "beancount",
     "c",
-    "cmake",
-    "comment",
     "cpp",
-    "css",
     "dart",
     "devicetree",
     "fish",
-    "go",
-    "haskell",
-    "html",
     "java",
-    "javascript",
-    "json",
-    "json5",
     "kotlin",
     "lua",
     "rst",
     "rust",
-    "scss",
-    "typescript",
-    "vim",
-    "yaml",
   },
   highlight = { enable = true },
   incremental_selection = {
@@ -63,19 +47,17 @@ require("nvim-treesitter.configs").setup {
         ["[["] = "@class.outer",
       },
     },
-  },
-  textsubjects = { enable = true, keymaps = { ["<CR>"] = "textsubjects-smart" } },
-  rainbow = {
-    enable = true,
-    disable = { "lua", "json" },
-    colors = {
-      "royalblue3",
-      "darkorange3",
-      "seagreen3",
-      "firebrick",
-      "darkorchid3",
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>a"] = "@parameter.inner",
+      },
+      swap_previous = {
+        ["<leader>A"] = "@parameter.inner",
+      },
     },
   },
+  textsubjects = { enable = true, keymaps = { ["<CR>"] = "textsubjects-smart" } },
   autopairs = { enable = true },
   query_linter = {
     enable = true,

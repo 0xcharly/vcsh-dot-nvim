@@ -47,22 +47,6 @@ telescope.load_extension "frecency"
 telescope.load_extension "fzf"
 telescope.load_extension "packer"
 
-local function buffers()
-  builtins.buffers {
-    sort_lastused = true,
-    show_all_buffers = true,
-    attach_mappings = function(prompt_bufnr, map)
-      local delete_buf = function()
-        local selection = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
-        vim.api.nvim_buf_delete(selection.bufnr, { force = true })
-      end
-      map("i", "<c-x>", delete_buf)
-      return true
-    end,
-  }
-end
-
 local function frecency()
   telescope.extensions.frecency.frecency(themes.get_dropdown {
     border = true,
@@ -129,24 +113,16 @@ local function edit_neovim()
   require("telescope.builtin").find_files(opts_with_preview)
 end
 
-local whichKey = require "which-key"
-whichKey.register({
+require("which-key").register({
   f = {
-    name = "+telescope",
-    a = {
-      function()
-        vim.api.nvim_command "Telescope"
-      end,
-      "Builtins",
-    },
-    b = { buffers, "Buffers" },
-    c = { builtins.git_commits, "Commits" },
-    d = { edit_neovim, "Dotfiles" },
-    f = { builtins.find_files, "Files" },
-    g = { builtins.live_grep, "Grep" },
-    h = { frecency, "History" },
-    m = { builtins.man_pages, "Man pages" },
-    r = { reloader, "Module reloader" },
+    name = "+find",
+    ["."] = { edit_neovim, "[F]ind [.]files" },
+    f = { builtins.find_files, "[F]ind [F]iles" },
+    r = { builtins.oldfiles, "[F]ind [R]ecent" },
+    ["<space>"] = { files, "Smart files" },
+    ["?"] = { builtins.help_tags, "Help" },
+  },
+  o = {
     t = {
       function()
         vim.api.nvim_command "tabnew"
@@ -154,8 +130,17 @@ whichKey.register({
       end,
       "Open Telescope in a new tab",
     },
-    w = { workspace_symbols, "Workspace symbols", silent = false },
-    ["<space>"] = { files, "Smart files" },
-    ["?"] = { builtins.help_tags, "Help" },
+  },
+  s = {
+    name = "+search",
+    b = { builtins.buffers, "[S]earch [B]uffers" },
+    c = { builtins.git_commits, "[S]earch [C]ommits" },
+    d = { builtins.diagnostics, "[S]earch [D]iagnostics" },
+    f = { frecency, "[S]earch [F]requent" },
+    g = { builtins.live_grep, "[S]earch by [G]rep" },
+    m = { builtins.man_pages, "[S]earch [M]an pages" },
+    h = { builtins.help_tags, "[S]earch [H]elp" },
+    w = { builtins.grep_string, "[S]earch current [W]ord" },
+    s = { workspace_symbols, "[S]earch [S]ymbols" },
   },
 }, { prefix = "<leader>" })
