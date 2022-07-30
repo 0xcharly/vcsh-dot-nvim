@@ -54,6 +54,8 @@ return require("packer").startup {
     } --- Fuzzy finder.
 
     use "mrjones2014/smart-splits.nvim" -- Navigation.
+    use "Pocco81/true-zen.nvim"
+    use "kyazdani42/nvim-tree.lua"
     --- Remember cursor position when reopening files.
     use {
       "ethanholz/nvim-lastplace",

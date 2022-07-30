@@ -117,6 +117,7 @@ require("which-key").register({
   f = {
     name = "+find",
     ["."] = { edit_neovim, "[F]ind [.]files" },
+    b = { telescope.extensions.file_browser.file_browser, "[B]rowse [F]iles" },
     f = { builtins.find_files, "[F]ind [F]iles" },
     r = { builtins.oldfiles, "[F]ind [R]ecent" },
     ["<space>"] = { files, "Smart files" },
