@@ -11,6 +11,7 @@
 !/.config/nvim/after/plugin/colorbuddy.lua
 !/.config/nvim/after/plugin/comment.lua
 !/.config/nvim/after/plugin/dial.lua
+!/.config/nvim/after/plugin/explorer.lua
 !/.config/nvim/after/plugin/gitsigns.lua
 !/.config/nvim/after/plugin/indentline.lua
 !/.config/nvim/after/plugin/lspconfig.lua
@@ -20,6 +21,7 @@
 !/.config/nvim/after/plugin/telescope.lua
 !/.config/nvim/after/plugin/treesitter.lua
 !/.config/nvim/after/plugin/whichkey.lua
+!/.config/nvim/after/plugin/zen.lua
 !/.config/nvim/init.lua
 !/.config/nvim/lua/
 !/.config/nvim/lua/delay
