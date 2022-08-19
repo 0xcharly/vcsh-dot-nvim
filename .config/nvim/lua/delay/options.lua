@@ -8,6 +8,7 @@ vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 200
 
 -- Display.
+vim.o.laststatus = 3
 vim.opt.mouse = "a"
 vim.opt.termguicolors = true
 vim.opt.number = true
