@@ -5,6 +5,7 @@ require("toggleterm").setup()
 
 vim.keymap.set("n", "<C-M-t>", ":ToggleTerm direction=float<CR>")
 vim.keymap.set("t", "<C-M-t>", "<C-\\><C-N>:ToggleTerm direction=float<CR>")
+vim.keymap.set("t", "<C-Esc>", "<C-\\><C-N><Esc>")
 
 require("which-key").register({
   t = {
