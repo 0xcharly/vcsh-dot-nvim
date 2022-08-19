@@ -72,6 +72,7 @@ return require("packer").startup {
     local_use "primebuddy.nvim"
 
     use "akinsho/nvim-bufferline.lua" --- Buffer as tabs.
+    use { "akinsho/toggleterm.nvim", tag = "v2.*" }
 
     -- Language support.
     use "sbdchd/neoformat" --- Formatters.
