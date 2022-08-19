@@ -73,6 +73,7 @@ return require("packer").startup {
 
     use "akinsho/nvim-bufferline.lua" --- Buffer as tabs.
     use { "akinsho/toggleterm.nvim", tag = "v2.*" }
+    use "ldelossa/buffertag"
 
     -- Language support.
     use "sbdchd/neoformat" --- Formatters.

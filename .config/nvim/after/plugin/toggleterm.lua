@@ -1,7 +1,7 @@
 -- Terminal config.
 vim.o.shell = "/opt/homebrew/bin/fish"
 
-require("toggleterm").setup()
+require("toggleterm").setup { float_opts = { border = "rounded" } }
 
 vim.keymap.set("n", "<C-M-t>", ":ToggleTerm direction=float<CR>")
 vim.keymap.set("t", "<C-M-t>", "<C-\\><C-N>:ToggleTerm direction=float<CR>")
