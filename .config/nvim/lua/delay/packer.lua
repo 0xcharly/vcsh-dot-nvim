@@ -79,7 +79,8 @@ return require("packer").startup {
     use "sbdchd/neoformat" --- Formatters.
     use "L3MON4D3/LuaSnip"
     use "neovim/nvim-lspconfig" -- Collection of configurations for build-in LSP client.
-    use "williamboman/nvim-lsp-installer" -- Automaticall install language servers to stdpath.
+    use "williamboman/mason.nvim" -- Automaticall install language servers and tools to stdpath.
+    use "williamboman/mason-lspconfig.nvim" -- Mason language servers.
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-cmdline"
@@ -91,6 +92,7 @@ return require("packer").startup {
     use "tamago324/cmp-zsh"
     use "saadparwaiz1/cmp_luasnip"
     use "onsails/lspkind-nvim"
+    use "crispgm/cmp-beancount"
     --- Smart increments.
     use "monaqa/dial.nvim"
 

@@ -7,12 +7,13 @@ vim.opt.shortmess:append "c"
 lspkind.init()
 
 cmp.setup {
+  -- view = { entries = "native" },
   mapping = cmp.mapping.preset.insert {
-    ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-    ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-e>"] = cmp.mapping.abort(),
+    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert }, { "i", "c" }),
+    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert }, { "i", "c" }),
+    ["<C-w>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-m>"] = cmp.mapping.scroll_docs(4),
+    ["<C-a>"] = cmp.mapping.abort(),
     ["<C-y>"] = cmp.mapping(
       cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Insert,
@@ -20,20 +21,7 @@ cmp.setup {
       },
       { "i", "c" }
     ),
-    ["<c-space>"] = cmp.mapping {
-      i = cmp.mapping.complete(),
-      c = function(
-        _ --[[fallback]]
-      )
-        if cmp.visible() then
-          if not cmp.confirm { select = true } then
-            return
-          end
-        else
-          cmp.complete()
-        end
-      end,
-    },
+    ["<c-space>"] = cmp.mapping.complete {},
     ["<C-q>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
     ["<Tab>"] = cmp.config.disable,
   },
@@ -89,7 +77,6 @@ cmp.setup {
   },
 
   experimental = {
-    native_menu = false,
     ghost_text = true,
   },
 }
@@ -99,7 +86,27 @@ cmp.setup.cmdline("/", { sources = { { name = "buffer" } } })
 
 -- Use cmdline & path source for ':'.
 cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline {
+    ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+    ["<C-w>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-m>"] = cmp.mapping.scroll_docs(4),
+    ["<C-a>"] = cmp.mapping.abort(),
+    ["<C-y>"] = cmp.mapping(
+      cmp.mapping.confirm {
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      },
+      { "i", "c" }
+    ),
+    ["<C-q>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
+    ["<Tab>"] = cmp.config.disable,
+  },
   sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+})
+
+cmp.setup.filetype("beancount", {
+  sources = cmp.config.sources { { name = "beancount" } },
 })
 
 _ = vim.cmd [[
