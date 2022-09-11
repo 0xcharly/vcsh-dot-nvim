@@ -70,6 +70,7 @@ return require("packer").startup {
     -- Colorschemes.
     use "tjdevries/colorbuddy.nvim"
     local_use "primebuddy.nvim"
+    use { "catppuccin/nvim", as = "catppuccin" }
 
     use "akinsho/nvim-bufferline.lua" --- Buffer as tabs.
     use { "akinsho/toggleterm.nvim", tag = "v2.*" }
