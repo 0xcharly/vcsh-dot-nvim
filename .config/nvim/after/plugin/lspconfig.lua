@@ -83,7 +83,12 @@ end
 -- Custom configuration for CiderLSP.
 require("lspconfig.configs").ciderlsp = {
   default_config = {
-    cmd = { vim.fn.expand "~/.local/bin/ciderlsp", "--tooltag=nvim-lsp", "--noforward_sync_responses" },
+    cmd = {
+      vim.fn.expand "~/.local/bin/ciderlsp",
+      "--tooltag=nvim-lsp",
+      "--noforward_sync_responses",
+      "--hub_addr=blade:languageservices-staging",
+    },
     filetypes = {
       "c",
       "cpp",
@@ -98,7 +103,9 @@ require("lspconfig.configs").ciderlsp = {
       "typescript",
       "javascript",
     },
-    root_dir = require("lspconfig").util.root_pattern "BUILD",
+    root_dir = function(fname)
+      return string.match(fname, "(/google/src/cloud/[%w_-]+/[%w_-]+/google3/).+$")
+    end,
     settings = {},
   },
 }
