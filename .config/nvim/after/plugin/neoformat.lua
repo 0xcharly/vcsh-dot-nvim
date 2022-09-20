@@ -25,13 +25,13 @@ vim.g.neoformat_enabled_markdown = { "prettier" }
 vim.g.neoformat_enabled_yaml = { "prettier" }
 
 vim.g.neoformat_enabled_beancount = { "beanformat" }
--- vim.g.neoformat_enabled_python = {'black'}
+vim.g.neoformat_enabled_python = { "black" }
 
-vim.cmd [[ augroup fmt ]]
-vim.cmd [[ autocmd! ]]
-vim.cmd [[ autocmd BufWritePre *.lua Neoformat ]]
-vim.cmd [[ autocmd BufWritePre *.beancount Neoformat ]]
+-- vim.cmd [[ augroup fmt ]]
+-- vim.cmd [[ autocmd! ]]
+-- vim.cmd [[ autocmd BufWritePre *.lua Neoformat ]]
+-- vim.cmd [[ autocmd BufWritePre *.beancount Neoformat ]]
 -- vim.cmd [[ autocmd BufWritePre *.py Neoformat ]]
-vim.cmd [[ autocmd BufWritePre *.c,*.h,*.cc,*.hh,*.cpp,*.hpp Neoformat ]]
-vim.cmd [[ autocmd BufWritePre *.md,*.yaml,*.yml Neoformat ]]
-vim.cmd [[ augroup END ]]
+-- vim.cmd [[ autocmd BufWritePre *.c,*.h,*.cc,*.hh,*.cpp,*.hpp Neoformat ]]
+-- vim.cmd [[ autocmd BufWritePre *.md,*.yaml,*.yml Neoformat ]]
+-- vim.cmd [[ augroup END ]]

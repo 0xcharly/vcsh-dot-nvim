@@ -1,8 +1,34 @@
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
+-- Flash on yank.
+local yank_group = augroup("HighlightYank", {})
+
+autocmd("TextYankPost", {
+  group = yank_group,
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank {
+      higroup = "IncSearch",
+      timeout = 40,
+    }
+  end,
+})
+
 -- Set the proper file type on ZMK files.
 local zmk_home = vim.fn.expand "~/Developer/zmk-config/"
-local adjust_filetype_group = vim.api.nvim_create_augroup("AdjustFiletype", { clear = true })
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = { zmk_home .. "*.keymap", zmk_home .. "*.conf", zmk_home .. "*.dtsi", zmk_home .. "*.overlay" },
+local adjust_filetype_group = augroup("AdjustFiletype", { clear = true })
+
+autocmd({ "BufNewFile", "BufRead" }, {
   group = adjust_filetype_group,
+  pattern = { zmk_home .. "*.keymap", zmk_home .. "*.conf", zmk_home .. "*.dtsi", zmk_home .. "*.overlay" },
   command = "set ft=devicetree",
+})
+
+-- Remove trailing whitespaces.
+local DelayGroup = augroup('DelayGroup', {})
+autocmd({"BufWritePre"}, {
+    group = DelayGroup,
+    pattern = "*",
+    command = "%s/\\s\\+$//e",
 })

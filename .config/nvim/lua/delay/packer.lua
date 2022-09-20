@@ -26,7 +26,6 @@ return require("packer").startup {
 
     -- Switch to self-managed on the first run after manual checkout.
     use "wbthomason/packer.nvim"
-    use "lewis6991/impatient.nvim"
 
     use "folke/which-key.nvim" --- Shortcuts/mappings.
     --- Language syntaxes.
@@ -42,15 +41,12 @@ return require("packer").startup {
     use "yamatsum/nvim-web-nonicons" --- Fancy icons.
     use "nvim-lualine/lualine.nvim" --- Status bar.
     use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
-    use "nvim-telescope/telescope-packer.nvim"
-    use "nvim-telescope/telescope-fzf-writer.nvim"
     use "nvim-telescope/telescope-symbols.nvim"
     use "nvim-telescope/telescope-file-browser.nvim"
     use { "nvim-telescope/telescope-frecency.nvim", requires = "tami5/sqlite.lua" }
     use {
       "nvim-telescope/telescope-fzf-native.nvim",
-      run = "make",
-      cond = fn.executable "make" == 1,
+      run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
     } --- Fuzzy finder.
 
     use "mrjones2014/smart-splits.nvim" -- Navigation.

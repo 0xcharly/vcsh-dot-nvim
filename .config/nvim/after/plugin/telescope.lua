@@ -18,11 +18,14 @@ telescope.setup {
     prompt_prefix = "   ",
     entry_prefix = "   ",
     selection_caret = " ❯ ",
-    file_ignore_patterns = { "%.jpg", "%.jpeg", "%.png", "%.otf", "%.ttf" },
     layout_strategy = "flex",
+    color_devicons = true,
+
+    file_sorter = require("telescope.sorters").get_fzy_sorter,
+    file_previewer = require("telescope.previewers").vim_buffer_cat.new,
+    grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
+    qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
   },
-  file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-  grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
   extensions = {
     frecency = {
       workspaces = {
@@ -37,15 +40,12 @@ telescope.setup {
       override_generic_sorter = true, -- override the generic sorter
       override_file_sorter = true, -- override the file sorter
     },
-    fzy_native = { override_generic_sorter = true, override_file_sorter = true },
-    fzf_writer = { use_highlighter = false, minimum_grep_characters = 6 },
   },
 }
 
 telescope.load_extension "file_browser"
 telescope.load_extension "frecency"
 telescope.load_extension "fzf"
-telescope.load_extension "packer"
 
 local function frecency()
   telescope.extensions.frecency.frecency(themes.get_dropdown {
@@ -65,10 +65,6 @@ local function files()
     -- Otherwise, use :Telescope find_files
     builtins.find_files()
   end
-end
-
-local function reloader()
-  builtins.reloader(themes.get_dropdown())
 end
 
 local function workspace_symbols()

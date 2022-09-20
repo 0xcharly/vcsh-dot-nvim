@@ -42,14 +42,13 @@ local leader = {
     ["s"] = { "<C-W>s", "split-window-below" },
     ["v"] = { "<C-W>v", "split-window-right" },
   },
-  p = {
+  x = {
     name = "+packer",
     c = { "<cmd>PackerClean<cr>", "Clean" },
     i = { "<cmd>PackerInstall<cr>", "Install" },
     r = { "<cmd>PackerCompile<cr>", "Compile" },
     s = { "<cmd>PackerSync<cr>", "Sync" },
   },
-  s = "Grep word under the cursor",
   ["<space>"] = {
     name = "workspace",
     c = { "<cmd>tabnew<cr>", "New" },

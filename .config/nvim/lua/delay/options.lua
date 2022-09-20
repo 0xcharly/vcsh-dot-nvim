@@ -19,7 +19,7 @@ vim.opt.cursorline = true
 vim.opt.belloff = "all"
 
 -- Clipboard.
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = "n"
 
 -- Ignore compiled files
@@ -68,7 +68,8 @@ vim.opt.splitright = true -- Prefer windows splitting to the right
 vim.opt.splitbelow = true -- Prefer windows splitting to the bottom
 vim.opt.updatetime = 50 -- Make updates happen faster
 vim.opt.hlsearch = true -- I wouldn't use this without my DoNoHL function
-vim.opt.scrolloff = 10 -- Make it so there are always ten lines below my cursor
+vim.opt.scrolloff = 8 -- Make it so there are always 8 lines below my cursor
+vim.opt.signcolumn = "yes"
 
 vim.opt.formatoptions = vim.opt.formatoptions -- :h fo
   - "a" -- Auto formatting is BAD.
@@ -87,6 +88,7 @@ vim.opt.joinspaces = false
 -- Message output.
 vim.opt.shortmess = {
   t = true, -- truncate file messages at start
+  a = true, -- ignore annoying save file messages
   A = true, -- ignore annoying swap file messages
   o = true, -- file-read message overwrites previous
   O = true, -- file-read message overwrites previous
