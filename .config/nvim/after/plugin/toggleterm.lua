@@ -1,5 +1,9 @@
 -- Terminal config.
-vim.o.shell = "/opt/homebrew/bin/fish"
+if vim.loop.os_uname().sysname == 'Darwin' then
+  vim.o.shell = "/opt/homebrew/bin/fish"
+else
+  vim.o.shell = "/usr/bin/fish"
+end
 
 require("toggleterm").setup { float_opts = { border = "rounded" } }
 
