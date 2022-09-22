@@ -59,9 +59,9 @@ return require("packer").startup {
         require("nvim-lastplace").setup()
       end,
     }
-    use "lukas-reineke/indent-blankline.nvim" --- Indentation.
-    --- Git Gutter.
+    --- Git integration.
     use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
     -- Colorschemes.
     use "tjdevries/colorbuddy.nvim"

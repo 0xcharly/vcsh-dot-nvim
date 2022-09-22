@@ -1,20 +1,17 @@
 local function bind(op, outer_opts)
   outer_opts = outer_opts or { noremap = true }
   return function(lhs, rhs, opts)
-    opts = vim.tbl_extend("force",
-      outer_opts,
-      opts or {}
-    )
+    opts = vim.tbl_extend("force", outer_opts, opts or {})
     vim.keymap.set(op, lhs, rhs, opts)
   end
 end
 
 local nmap = bind("n", { noremap = false })
-local nnoremap = bind("n")
-local vnoremap = bind("v")
-local xnoremap = bind("x")
-local inoremap = bind("i")
-local tnoremap = bind("t")
+local nnoremap = bind "n"
+local vnoremap = bind "v"
+local xnoremap = bind "x"
+local inoremap = bind "i"
+local tnoremap = bind "t"
 
 -- To use `ALT+{h,j,k,l}` to navigate windows from any mode:
 tnoremap("<M-Left>", "<C-\\><C-N><C-w>h")
@@ -35,9 +32,12 @@ tnoremap("<M-S-Left>", "<C-\\><C-N>:tabprev<CR>")
 tnoremap("<M-S-Right>", "<C-\\><C-N>:tabnext<CR>")
 
 -- Better virtual paste.
-xnoremap("<leader>p", "\"_dP")
+xnoremap("<leader>p", '"_dP')
 
 -- Better yank.
-nnoremap("<leader>y", "\"+y")
-vnoremap("<leader>y", "\"+y")
-nmap("<leader>Y", "\"+Y")
+nnoremap("<leader>y", '"+y')
+vnoremap("<leader>y", '"+y')
+nmap("<leader>Y", '"+Y')
+
+-- Format.
+nnoremap("<leader>F", ":Neoformat<CR>")
