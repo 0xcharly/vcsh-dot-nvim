@@ -40,6 +40,7 @@ return require("packer").startup {
     use "kyazdani42/nvim-web-devicons"
     use "yamatsum/nvim-web-nonicons" --- Fancy icons.
     use "nvim-lualine/lualine.nvim" --- Status bar.
+    use "stevearc/dressing.nvim"
     use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
     use "nvim-telescope/telescope-symbols.nvim"
     use "nvim-telescope/telescope-file-browser.nvim"
@@ -61,7 +62,7 @@ return require("packer").startup {
     }
     --- Git integration.
     use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
-    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
 
     -- Colorschemes.
     use "tjdevries/colorbuddy.nvim"
