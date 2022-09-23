@@ -1,11 +1,10 @@
 local util = require "delay.util"
 
--- Quickly timeout on keycodes and mappings (timeout on mapping is required for
--- which-key.nvim).
+-- Quickly timeout on keycodes and mappings.
 vim.o.timeout = true
-vim.o.timeoutlen = 200
+vim.o.timeoutlen = 500
 vim.opt.ttimeout = true
-vim.opt.ttimeoutlen = 200
+vim.opt.ttimeoutlen = 500
 
 -- Display.
 vim.o.laststatus = 3
@@ -108,3 +107,8 @@ elseif util.executable "ag" then
   vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
   vim.opt.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
 end
+
+-- Neovide-specific configuration.
+vim.cmd [[ let g:neovide_input_macos_alt_is_meta=v:true ]]
+vim.cmd [[ let g:neovide_cursor_animation_length=0.05 ]]
+vim.cmd [[ let g:neovide_cursor_trail_size=0.2 ]]

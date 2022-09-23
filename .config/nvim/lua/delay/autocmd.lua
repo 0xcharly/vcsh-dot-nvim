@@ -26,9 +26,9 @@ autocmd({ "BufNewFile", "BufRead" }, {
 })
 
 -- Remove trailing whitespaces.
-local DelayGroup = augroup('DelayGroup', {})
+local delay_group = augroup('DelayGroup', {})
 autocmd({"BufWritePre"}, {
-    group = DelayGroup,
+    group = delay_group,
     pattern = "*",
     command = "%s/\\s\\+$//e",
 })

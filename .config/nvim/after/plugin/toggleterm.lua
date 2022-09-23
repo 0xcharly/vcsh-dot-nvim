@@ -7,17 +7,13 @@ end
 
 require("toggleterm").setup { float_opts = { border = "rounded" } }
 
-vim.keymap.set("n", "<C-M-t>", ":ToggleTerm direction=float<CR>")
-vim.keymap.set("t", "<C-M-t>", "<C-\\><C-N>:ToggleTerm direction=float<CR>")
-vim.keymap.set("t", "<C-Esc>", "<C-\\><C-N><Esc>")
+local mappings = require("delay.mappings")
 
-require("which-key").register({
-  t = {
-    name = "+terminal",
-    h = { ":ToggleTerm direction=horizontal<CR>", "[H]orizontal" },
-    v = { ":ToggleTerm direction=vertical<CR>", "[V]ertical" },
-    t = { ":ToggleTerm direction=tab<CR>", "[T]ab" },
-    f = { ":ToggleTerm direction=float<CR>", "[F]loat" },
-    ["<space>"] = { ":ToggleTerm<CR>", "[T]oggle" },
-  },
-}, { prefix = "<leader>" })
+mappings.nnoremap("<C-M-t>", ":ToggleTerm direction=float<CR>")
+mappings.tnoremap("<C-M-t>", "<C-\\><C-N>:ToggleTerm direction=float<CR>")
+mappings.tnoremap("<C-Esc>", "<C-\\><C-N><Esc>")
+
+mappings.nnoremap('<leader>th', ":ToggleTerm direction=horizontal<CR>")
+mappings.nnoremap('<leader>tv', ":ToggleTerm direction=vertical<CR>")
+mappings.nnoremap('<leader>tt', ":ToggleTerm direction=tab<CR>")
+mappings.nnoremap('<leader>t<space>', ":ToggleTerm direction=float<CR>")

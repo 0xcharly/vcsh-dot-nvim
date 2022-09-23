@@ -1,30 +1,27 @@
-local telescope = require "telescope"
-local actions = require "telescope.actions"
-local builtins = require "telescope.builtin"
-local themes = require "telescope.themes"
-local action_state = require "telescope.actions.state"
-
 local set_prompt_to_entry_value = function(prompt_bufnr)
-  local entry = action_state.get_selected_entry()
+  local entry = require("telescope.actions.state").get_selected_entry()
   if not entry or not type(entry) == "table" then
     return
   end
 
-  action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
+  require("telescope.actions.state").get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
 end
 
-telescope.setup {
+require("telescope").setup {
   defaults = {
-    prompt_prefix = "   ",
+    prompt_prefix = "   ",
     entry_prefix = "   ",
-    selection_caret = " ❯ ",
+    selection_caret = "  ",
     layout_strategy = "flex",
     color_devicons = true,
 
-    file_sorter = require("telescope.sorters").get_fzy_sorter,
     file_previewer = require("telescope.previewers").vim_buffer_cat.new,
     grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
     qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+
+    mappings = {
+      i = { ["<esc>"] = require("telescope.actions").close },
+    },
   },
   extensions = {
     frecency = {
@@ -36,19 +33,16 @@ telescope.setup {
         wiki = vim.g.wiki_path,
       },
     },
-    fzf = {
-      override_generic_sorter = true, -- override the generic sorter
-      override_file_sorter = true, -- override the file sorter
-    },
   },
 }
 
-telescope.load_extension "file_browser"
-telescope.load_extension "frecency"
-telescope.load_extension "fzf"
+require("telescope").load_extension "file_browser"
+require("telescope").load_extension "frecency"
+require("telescope").load_extension "fzf"
+require("telescope").load_extension "harpoon"
 
 local function frecency()
-  telescope.extensions.frecency.frecency(themes.get_dropdown {
+  require("telescope").extensions.frecency.frecency(require("telescope.themes").get_dropdown {
     border = true,
     previewer = false,
     shorten_path = false,
@@ -58,24 +52,25 @@ end
 -- General finds files function which changes the picker depending on the
 -- current buffers path.
 local function files()
-  if vim.fn.isdirectory ".git" > 0 then
-    -- If in a git project, use :Telescope git_files
-    builtins.git_files()
-  else
-    -- Otherwise, use :Telescope find_files
-    builtins.find_files()
+  local opts = {
+    prompt_title = "git ls-files",
+  } -- define here if you want to define something
+  local ok = pcall(require("telescope.builtin").git_files, opts)
+  if not ok then
+    opts.prompt_title = "files"
+    require("telescope.builtin").find_files(opts)
   end
 end
 
 local function workspace_symbols()
-  builtins.lsp_dynamic_workspace_symbols {}
+  require("telescope.builtin").lsp_dynamic_workspace_symbols {}
 end
 
 local function edit_neovim()
   local opts_with_preview, opts_without_preview
 
   opts_with_preview = {
-    prompt_title = "~ dotfiles ~",
+    prompt_title = "dotfiles",
     shorten_path = false,
     cwd = "~/.config/nvim",
 
@@ -93,7 +88,7 @@ local function edit_neovim()
     attach_mappings = function(_, map)
       map("i", "<c-y>", set_prompt_to_entry_value)
       map("i", "<M-c>", function(prompt_bufnr)
-        actions.close(prompt_bufnr)
+        require("telescope.actions").close(prompt_bufnr)
         vim.schedule(function()
           require("telescope.builtin").find_files(opts_without_preview)
         end)
@@ -109,35 +104,17 @@ local function edit_neovim()
   require("telescope.builtin").find_files(opts_with_preview)
 end
 
-require("which-key").register({
-  f = {
-    name = "+find",
-    ["."] = { edit_neovim, "[F]ind [.]files" },
-    b = { telescope.extensions.file_browser.file_browser, "[B]rowse [F]iles" },
-    f = { builtins.find_files, "[F]ind [F]iles" },
-    r = { builtins.oldfiles, "[F]ind [R]ecent" },
-    ["<space>"] = { files, "Smart files" },
-    ["?"] = { builtins.help_tags, "Help" },
-  },
-  o = {
-    t = {
-      function()
-        vim.api.nvim_command "tabnew"
-        files()
-      end,
-      "Open Telescope in a new tab",
-    },
-  },
-  s = {
-    name = "+search",
-    b = { builtins.buffers, "[S]earch [B]uffers" },
-    c = { builtins.git_commits, "[S]earch [C]ommits" },
-    d = { builtins.diagnostics, "[S]earch [D]iagnostics" },
-    f = { frecency, "[S]earch [F]requent" },
-    g = { builtins.live_grep, "[S]earch by [G]rep" },
-    m = { builtins.man_pages, "[S]earch [M]an pages" },
-    h = { builtins.help_tags, "[S]earch [H]elp" },
-    w = { builtins.grep_string, "[S]earch current [W]ord" },
-    s = { workspace_symbols, "[S]earch [S]ymbols" },
-  },
-}, { prefix = "<leader>" })
+local mappings = require "delay.mappings"
+
+mappings.nnoremap("<leader><space><space>", files)
+mappings.nnoremap("<leader><space>.", edit_neovim)
+mappings.nnoremap("<leader><space>b", require("telescope.builtin").buffers)
+mappings.nnoremap("<leader><space>d", require("telescope.builtin").diagnostics)
+mappings.nnoremap("<leader><space>e", require("telescope").extensions.file_browser.file_browser)
+mappings.nnoremap("<leader><space>f", frecency)
+mappings.nnoremap("<leader><space>g", require("telescope.builtin").live_grep)
+mappings.nnoremap("<leader><space>m", require("telescope.builtin").man_pages)
+mappings.nnoremap("<leader><space>s", workspace_symbols)
+mappings.nnoremap("<leader><space>*", require("telescope.builtin").grep_string)
+mappings.nnoremap("<leader><space>/", require("telescope.builtin").find_files)
+mappings.nnoremap("<leader><space>?", require("telescope.builtin").help_tags)

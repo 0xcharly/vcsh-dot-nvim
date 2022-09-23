@@ -1,5 +1,7 @@
 require("bufferline").setup {
-  highlights = require("catppuccin.groups.integrations.bufferline").get(),
+  highlights = require("catppuccin.groups.integrations.bufferline").get {
+    styles = { "italic", "bold" },
+  },
   options = {
     number = "none",
     show_buffer_icons = false,
@@ -24,55 +26,3 @@ require("bufferline").setup {
     },
   },
 }
-
-require("which-key").register({
-  name = "+buffers",
-  ["<space>"] = {
-    function()
-      vim.api.nvim_command "BufferLinePick"
-    end,
-    "Select",
-  },
-  n = {
-    function()
-      vim.api.nvim_command "BufferLineCycleNext"
-    end,
-    "Next",
-  },
-  p = {
-    function()
-      vim.api.nvim_command "BufferLineCyclePrev"
-    end,
-    "Previous",
-  },
-  m = {
-    name = "+move",
-    n = {
-      function()
-        vim.api.nvim_command "BufferLineMoveNext"
-      end,
-      "Move right",
-    },
-    p = {
-      function()
-        vim.api.nvim_command "BufferLineMovePrev"
-      end,
-      "Move left",
-    },
-  },
-  s = {
-    name = "+sort",
-    d = {
-      function()
-        vim.api.nvim_command "BufferLineSortByDirectory"
-      end,
-      "Sort by directories",
-    },
-    e = {
-      function()
-        vim.api.nvim_command "BufferLineSortByExtension"
-      end,
-      "Sort by extensions",
-    },
-  },
-}, { prefix = "<leader>b" })

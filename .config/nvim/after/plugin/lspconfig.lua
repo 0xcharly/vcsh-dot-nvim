@@ -1,8 +1,8 @@
 local signs = {
-  Error = " ",
-  Warning = " ",
-  Hint = " ",
-  Information = " ",
+  Error = " ",
+  Warning = " ",
+  Hint = " ",
+  Information = " ",
 }
 
 for type, icon in pairs(signs) do
@@ -12,73 +12,72 @@ end
 
 -- Mappings.
 -- Diagnostic keymaps
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+local mappings = require "delay.mappings"
+mappings.nnoremap("[d", vim.diagnostic.goto_prev)
+mappings.nnoremap("]d", vim.diagnostic.goto_next)
+mappings.nnoremap("<leader>vd", vim.diagnostic.open_float)
 
--- LSP settings.
---  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
-  local nmap = function(keys, func, desc)
-    if desc then
-      desc = "LSP: " .. desc
-    end
-
-    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-  end
-
-  nmap("<leader>lr", vim.lsp.buf.rename, "[R]ename")
-  nmap("<leader>la", vim.lsp.buf.code_action, "Code [A]tion")
-
-  nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-  nmap("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-  nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-  nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-  nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-
-  -- See `:help K` for why this keymap
-  nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-  nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-
-  -- Lesser used LSP functionality
-  nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-  nmap("<leader>ltd", vim.lsp.buf.type_definition, "Type Definition")
-  nmap("<leader>lwa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-  nmap("<leader>lwr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-  nmap("<leader>lwl", function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, "[W]orkspace [L]ist Folders")
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(
-    bufnr,
-    "Format",
-    vim.lsp.buf.format or vim.lsp.buf.formatting,
-    { desc = "LSP: Format buffer" }
-  )
-  nmap("<leader>lf", vim.lsp.buf.format or vim.lsp.buf.formatting, "Format buffer")
-end
-
--- nvim-cmp supports additional completion capabilities
-local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
--- Enable the following language servers
-local servers = { "clangd", "rust_analyzer", "pylsp", "tsserver", "sumneko_lua" }
-
--- Ensure the servers above are installed
+-- Ensure the commonly used servers are installed.
 require("mason").setup()
 require("mason-lspconfig").setup {
-  ensure_installed = servers,
+  ensure_installed = { "clangd", "rust_analyzer", "pylsp", "tsserver" },
 }
 
-for _, lsp in ipairs(servers) do
-  require("lspconfig")[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
+local function config(_config)
+  return vim.tbl_deep_extend("force", {
+    -- nvim-cmp supports additional completion capabilities
+    capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+    --  This function gets run when an LSP connects to a particular buffer.
+    on_attach = function(_, bufnr)
+      local buf_opts = { buffer = bufnr }
+
+      mappings.nnoremap("<leader>lr", vim.lsp.buf.rename, buf_opts)
+      mappings.nnoremap("<leader>la", vim.lsp.buf.code_action, buf_opts)
+
+      mappings.nnoremap("gd", vim.lsp.buf.definition, buf_opts)
+      mappings.nnoremap("gD", vim.lsp.buf.declaration, buf_opts)
+      mappings.nnoremap("gi", vim.lsp.buf.implementation, buf_opts)
+      mappings.nnoremap("gr", require("telescope.builtin").lsp_references, buf_opts)
+      mappings.nnoremap("<leader>ds", require("telescope.builtin").lsp_document_symbols, buf_opts)
+      mappings.nnoremap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, buf_opts)
+
+      -- See `:help K` for why this keymap
+      mappings.nnoremap("K", vim.lsp.buf.hover, buf_opts)
+      mappings.nnoremap("<C-k>", vim.lsp.buf.signature_help, buf_opts)
+      mappings.nnoremap("<leader>lf", vim.lsp.buf.format or vim.lsp.buf.formatting, buf_opts)
+    end,
+  }, _config or {})
 end
+
+require("lspconfig").clangd.setup(config())
+require("lspconfig").pylsp.setup(config())
+require("lspconfig").rust_analyzer.setup(config())
+require("lspconfig").tsserver.setup(config())
+
+-- Custom configuration for lua
+--
+-- Make runtime files discoverable to the server
+local runtime_path = vim.split(package.path, ";")
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require("lspconfig").sumneko_lua.setup(config {
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT)
+        version = "LuaJIT",
+        -- Setup your lua path
+        path = runtime_path,
+      },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      -- Make the server aware of Neovim runtime files.
+      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+    },
+  },
+})
 
 -- Custom configuration for CiderLSP.
 require("lspconfig.configs").ciderlsp = {
@@ -110,33 +109,4 @@ require("lspconfig.configs").ciderlsp = {
   },
 }
 
-require("lspconfig").ciderlsp.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
--- Custom configuration for lua
---
--- Make runtime files discoverable to the server
-local runtime_path = vim.split(package.path, ";")
-table.insert(runtime_path, "lua/?.lua")
-table.insert(runtime_path, "lua/?/init.lua")
-
-require("lspconfig").sumneko_lua.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT)
-        version = "LuaJIT",
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        globals = { "vim" },
-      },
-      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-    },
-  },
-}
+require("lspconfig").ciderlsp.setup(config())

@@ -1,10 +1,9 @@
 local cmp = require "cmp"
-local lspkind = require "lspkind"
 
 -- Don't show the dumb matching stuff.
 vim.opt.shortmess:append "c"
 
-lspkind.init()
+require("lspkind").init { preset = "codicons" }
 
 cmp.setup {
   -- view = { entries = "native" },
@@ -63,7 +62,8 @@ cmp.setup {
     end,
   },
   formatting = {
-    format = lspkind.cmp_format {
+    format = require("lspkind").cmp_format {
+      mode = "symbol",
       with_text = true,
       menu = {
         buffer = "[buf]",

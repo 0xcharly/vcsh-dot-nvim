@@ -27,7 +27,6 @@ return require("packer").startup {
     -- Switch to self-managed on the first run after manual checkout.
     use "wbthomason/packer.nvim"
 
-    use "folke/which-key.nvim" --- Shortcuts/mappings.
     --- Language syntaxes.
     use "nvim-treesitter/nvim-treesitter"
     use "nvim-treesitter/nvim-treesitter-context"
@@ -48,21 +47,16 @@ return require("packer").startup {
     use {
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-    } --- Fuzzy finder.
+    }
 
     use "mrjones2014/smart-splits.nvim" -- Navigation.
-    use "Pocco81/true-zen.nvim"
     use "kyazdani42/nvim-tree.lua"
-    --- Remember cursor position when reopening files.
-    use {
-      "ethanholz/nvim-lastplace",
-      config = function()
-        require("nvim-lastplace").setup()
-      end,
-    }
+    use { "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" }
+
     --- Git integration.
     use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
     use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
+    use { "ThePrimeagen/git-worktree.nvim" }
 
     -- Colorschemes.
     use "tjdevries/colorbuddy.nvim"
