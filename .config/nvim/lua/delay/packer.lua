@@ -85,6 +85,7 @@ return require("packer").startup {
     use "saadparwaiz1/cmp_luasnip"
     use "onsails/lspkind-nvim"
     use "crispgm/cmp-beancount"
+    use "fladson/vim-kitty"
     --- Smart increments.
     use "monaqa/dial.nvim"
 
