@@ -33,11 +33,11 @@ return require("packer").startup {
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "JoosepAlviste/nvim-ts-context-commentstring"
     use "numToStr/Comment.nvim"
+    use 'ethanholz/nvim-lastplace'
 
     use "joelspadin/tree-sitter-devicetree"
 
-    use "kyazdani42/nvim-web-devicons"
-    use "yamatsum/nvim-web-nonicons" --- Fancy icons.
+    use { "yamatsum/nvim-web-nonicons", requires = { "kyazdani42/nvim-web-devicons" } } --- Fancy icons.
     use "nvim-lualine/lualine.nvim" --- Status bar.
     use "stevearc/dressing.nvim"
     use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
@@ -50,7 +50,7 @@ return require("packer").startup {
     }
 
     use "mrjones2014/smart-splits.nvim" -- Navigation.
-    use "kyazdani42/nvim-tree.lua"
+    use {"kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } } --- Fancy icons.
     use { "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" }
 
     --- Git integration.

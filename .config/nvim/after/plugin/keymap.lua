@@ -18,7 +18,7 @@ mappings.nnoremap("<M-S-Right>", ":tabnext<CR>")
 mappings.tnoremap("<M-S-Left>", "<C-\\><C-N>:tabprev<CR>")
 mappings.tnoremap("<M-S-Right>", "<C-\\><C-N>:tabnext<CR>")
 
-mappings.nnoremap("<leader>ws", ":split<CR>")
+mappings.nnoremap("<leader>wh", ":split<CR>")
 mappings.nnoremap("<leader>wv", ":vsplit<CR>")
 mappings.nnoremap("<leader>w=", "<C-W>=")
 
