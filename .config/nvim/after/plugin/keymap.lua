@@ -21,6 +21,9 @@ mappings.tnoremap("<M-S-Right>", "<C-\\><C-N>:tabnext<CR>")
 mappings.nnoremap("<leader>wh", ":split<CR>")
 mappings.nnoremap("<leader>wv", ":vsplit<CR>")
 mappings.nnoremap("<leader>w=", "<C-W>=")
+mappings.nnoremap("<leader>pv", function() require('nvim-tree').toggle(false, false, vim.fn.getcwd()) end)
+mappings.nnoremap("<leader>e", ":NvimTreeFindFileToggle<CR>")
+
 
 -- Packer.
 mappings.nnoremap("<leader>xC", ":PackerClean<CR>")

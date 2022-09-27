@@ -50,9 +50,9 @@ vim.opt.listchars:append "eol:↴"
 vim.opt.autoindent = true
 vim.opt.expandtab = true
 vim.opt.shiftround = true
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.tabstop = 2
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.tabstop = 4
 vim.opt.textwidth = 80
 vim.opt.wrap = false
 vim.opt.wrapmargin = 2

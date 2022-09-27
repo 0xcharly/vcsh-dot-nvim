@@ -2,6 +2,14 @@ require("buffertag").setup { border = "rounded" }
 require("nvim-lastplace").setup {}
 
 require("nvim-tree").setup {
+  view = {
+    adaptive_size = true,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
   renderer = {
     icons = {
       show = {
@@ -20,8 +28,6 @@ require("nvim-tree").setup {
     },
   },
 }
-
-require("delay.mappings").nnoremap("<leader>e", require("nvim-tree").toggle)
 
 require("nvim-web-devicons").setup {
   override = {
