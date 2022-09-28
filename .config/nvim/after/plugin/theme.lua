@@ -1,4 +1,3 @@
-require("buffertag").setup { border = "rounded" }
 require("nvim-lastplace").setup {}
 
 require("nvim-tree").setup {
