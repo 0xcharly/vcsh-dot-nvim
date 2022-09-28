@@ -39,6 +39,7 @@ require("telescope").setup {
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension "frecency"
 require("telescope").load_extension "fzf"
+require("telescope").load_extension "git_worktree"
 require("telescope").load_extension "harpoon"
 
 local function frecency()
@@ -114,6 +115,7 @@ mappings.nnoremap("<leader><space>e", require("telescope").extensions.file_brows
 mappings.nnoremap("<leader><space>f", frecency)
 mappings.nnoremap("<leader><space>g", require("telescope.builtin").live_grep)
 mappings.nnoremap("<leader><space>m", require("telescope.builtin").man_pages)
+mappings.nnoremap("<leader><space>w", require('telescope').extensions.git_worktree.git_worktrees)
 mappings.nnoremap("<leader><space>s", workspace_symbols)
 mappings.nnoremap("<leader><space>*", require("telescope.builtin").grep_string)
 mappings.nnoremap("<leader><space>/", require("telescope.builtin").find_files)
