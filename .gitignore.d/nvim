@@ -9,6 +9,8 @@
 !/.config/nvim/after/ftplugin/*.vim
 !/.config/nvim/after/plugin
 !/.config/nvim/after/plugin/*.lua
+!/.config/nvim/ftdetect
+!/.config/nvim/ftdetect/*.vim
 !/.config/nvim/init.lua
 !/.config/nvim/lua/
 !/.config/nvim/lua/delay
