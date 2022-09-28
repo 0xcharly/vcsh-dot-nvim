@@ -31,9 +31,11 @@ return require("packer").startup {
         use "nvim-treesitter/nvim-treesitter"
         use "nvim-treesitter/nvim-treesitter-context"
         use "nvim-treesitter/nvim-treesitter-textobjects"
+        use "nvim-treesitter/playground"
         use "JoosepAlviste/nvim-ts-context-commentstring"
         use "numToStr/Comment.nvim"
         use "ethanholz/nvim-lastplace"
+        use "rcarriga/nvim-notify"
 
         use "joelspadin/tree-sitter-devicetree"
 
@@ -58,6 +60,10 @@ return require("packer").startup {
         use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
         use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
         use { "ThePrimeagen/git-worktree.nvim" }
+        -- Github integration
+        if vim.fn.executable "gh" == 1 then
+            use "pwntester/octo.nvim"
+        end
 
         -- Colorschemes.
         use { "catppuccin/nvim", as = "catppuccin" }

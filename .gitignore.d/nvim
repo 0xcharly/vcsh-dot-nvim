@@ -5,6 +5,8 @@
 !/.config/nvim
 !/.config/nvim/stylua.toml
 !/.config/nvim/after/
+!/.config/nvim/after/ftplugin
+!/.config/nvim/after/ftplugin/*.vim
 !/.config/nvim/after/plugin
 !/.config/nvim/after/plugin/*.lua
 !/.config/nvim/init.lua
