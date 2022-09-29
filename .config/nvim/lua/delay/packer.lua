@@ -14,7 +14,7 @@ return require("packer").startup {
         local local_use = function(plugin_name, opts)
             opts = opts or {}
 
-            local local_plugin_path = vim.fn.expand("~/Developer/" .. plugin_name)
+            local local_plugin_path = vim.fn.expand("~/dev/" .. plugin_name)
             if vim.fn.isdirectory(local_plugin_path) == 1 then
                 opts[1] = local_plugin_path
             else
@@ -22,6 +22,17 @@ return require("packer").startup {
             end
 
             use(opts)
+        end
+
+        -- Local checkout of optional company plugins.
+        local company_use = function(plugin_name, opts)
+            opts = opts or {}
+
+            local local_plugin_path = vim.fn.expand("~/dev/" .. plugin_name)
+            if vim.fn.isdirectory(local_plugin_path) == 1 then
+                opts[1] = local_plugin_path
+                use(local_plugin_path)
+            end
         end
 
         -- Switch to self-managed on the first run after manual checkout.
@@ -33,46 +44,14 @@ return require("packer").startup {
         use "nvim-treesitter/nvim-treesitter-textobjects"
         use "nvim-treesitter/playground"
         use "JoosepAlviste/nvim-ts-context-commentstring"
-        use "numToStr/Comment.nvim"
-        use "ethanholz/nvim-lastplace"
-        use "rcarriga/nvim-notify"
 
         use "joelspadin/tree-sitter-devicetree"
 
-        use { "yamatsum/nvim-web-nonicons", requires = { "kyazdani42/nvim-web-devicons" } } --- Fancy icons.
-        use "nvim-lualine/lualine.nvim" --- Status bar.
-        use "stevearc/dressing.nvim"
-        use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
-        use "nvim-telescope/telescope-symbols.nvim"
-        use "nvim-telescope/telescope-file-browser.nvim"
-        use { "nvim-telescope/telescope-frecency.nvim", requires = "tami5/sqlite.lua" }
-        use {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-        }
-        local_use "telescope-codesearch.nvim"
-
-        use "mrjones2014/smart-splits.nvim" -- Navigation.
-        use { "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } }
-        use { "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" }
-
-        --- Git integration.
-        use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
-        use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
-        use { "ThePrimeagen/git-worktree.nvim" }
-        -- Github integration
-        if vim.fn.executable "gh" == 1 then
-            use "pwntester/octo.nvim"
-        end
-
-        -- Colorschemes.
-        use { "catppuccin/nvim", as = "catppuccin" }
-
-        use "akinsho/nvim-bufferline.lua" --- Buffer as tabs.
-        use { "akinsho/toggleterm.nvim", tag = "v2.*" }
-
         -- Language support.
-        use "sbdchd/neoformat" --- Formatters.
+        use "crispgm/cmp-beancount"
+        use "fladson/vim-kitty"
+
+        -- LSP.
         use "L3MON4D3/LuaSnip"
         use "neovim/nvim-lspconfig" -- Collection of configurations for build-in LSP client.
         use "williamboman/mason.nvim" -- Automaticall install language servers and tools to stdpath.
@@ -88,16 +67,60 @@ return require("packer").startup {
         use "tamago324/cmp-zsh"
         use "saadparwaiz1/cmp_luasnip"
         use "onsails/lspkind-nvim"
-        use "crispgm/cmp-beancount"
-        use "fladson/vim-kitty"
-        --- Smart increments.
-        use "monaqa/dial.nvim"
+        use "j-hui/fidget.nvim"
 
-        --- Text manipulation
+        -- Formatters.
+        use "sbdchd/neoformat"
+
+        -- Dressing.
+        use { "yamatsum/nvim-web-nonicons", requires = "kyazdani42/nvim-web-devicons" }
+        use "akinsho/nvim-bufferline.lua" -- Tabs. (yes, tabs.)
+        use "nvim-lualine/lualine.nvim" --- Status bar.
+        use "stevearc/dressing.nvim"
+        use "rcarriga/nvim-notify"
+        use "numToStr/Comment.nvim"
+        use "ethanholz/nvim-lastplace"
+
+        -- Colorschemes.
+        use { "catppuccin/nvim", as = "catppuccin" }
+
+        -- Term.
+        use { "akinsho/toggleterm.nvim", tag = "v2.*" }
+
+        -- Telescope.
+        use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
+        use "nvim-telescope/telescope-symbols.nvim"
+        use "nvim-telescope/telescope-file-browser.nvim"
+        use { "nvim-telescope/telescope-frecency.nvim", requires = "tami5/sqlite.lua" }
+        use {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+        }
+        company_use "telescope-codesearch.nvim"
+
+        -- FZF.
+        use { "junegunn/fzf", dir = "~/.fzf", run = "./install --all" }
+        use { "junegunn/fzf.vim" }
+
+        --- Git integration.
+        use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
+        use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
+        use { "ThePrimeagen/git-worktree.nvim" }
+
+        -- Github integration.
+        if vim.fn.executable "gh" == 1 then
+            use "pwntester/octo.nvim"
+        end
+
+        --- Motions and convenience plugins.
         use "godlygeek/tabular" -- Quickly align text by pattern
         use "tpope/vim-repeat" -- Repeat actions better
         use "tpope/vim-surround" -- Surround text objects easily
         use "tpope/vim-scriptease" -- Convenience functions.
+        use "monaqa/dial.nvim"
+        use "mrjones2014/smart-splits.nvim" -- Navigation.
+        use { "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } }
+        use { "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" }
 
         if is_bootstrap_run then
             require("packer").sync()
