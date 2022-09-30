@@ -83,7 +83,7 @@ require("lspconfig").sumneko_lua.setup(config {
 require("lspconfig.configs").ciderlsp = {
     default_config = {
         cmd = {
-            vim.fn.expand "~/.local/bin/ciderlsp",
+            "/google/bin/releases/cider/ciderlsp/ciderlsp",
             "--tooltag=nvim-lsp",
             "--noforward_sync_responses",
             "--hub_addr=blade:languageservices-staging",
