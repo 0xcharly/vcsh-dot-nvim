@@ -22,8 +22,20 @@ mappings.nnoremap("<leader>wh", ":split<CR>")
 mappings.nnoremap("<leader>wv", ":vsplit<CR>")
 mappings.nnoremap("<leader>w=", "<C-W>=")
 mappings.nnoremap("<leader>pv", function() require('nvim-tree').toggle(false, false, vim.fn.getcwd()) end)
-mappings.nnoremap("<leader>e", ":NvimTreeFindFileToggle<CR>")
+mappings.nnoremap("<leader>pf", ":NvimTreeFindFileToggle<CR>")
 
+mappings.nnoremap("<leader>e", ":Ex<CR>")
+mappings.nnoremap("<leader>u", ":UndotreeShow<CR>")
+
+mappings.vnoremap("J", ":m '>+1<CR>gv=gv")
+mappings.vnoremap("K", ":m '<-2<CR>gv=gv")
+
+mappings.nnoremap("Y", "yg$")
+mappings.nnoremap("n", "nzzzv")
+mappings.nnoremap("N", "Nzzzv")
+mappings.nnoremap("J", "mzJ`z")
+mappings.nnoremap("<C-d>", "<C-d>zz")
+mappings.nnoremap("<C-u>", "<C-u>zz")
 
 -- Packer.
 mappings.nnoremap("<leader>xC", ":PackerClean<CR>")
@@ -38,6 +50,14 @@ mappings.xnoremap("<leader>p", '"_dP')
 mappings.nnoremap("<leader>y", '"+y')
 mappings.vnoremap("<leader>y", '"+y')
 mappings.nmap("<leader>Y", '"+Y')
+
+mappings.nnoremap("<leader>d", "\"_d")
+mappings.vnoremap("<leader>d", "\"_d")
+
+mappings.nnoremap("<C-k>", "<cmd>cnext<CR>zz")
+mappings.nnoremap("<C-j>", "<cmd>cprev<CR>zz")
+mappings.nnoremap("<leader>k", "<cmd>lnext<CR>zz")
+mappings.nnoremap("<leader>j", "<cmd>lprev<CR>zz")
 
 -- Format.
 mappings.nnoremap("<leader>f", ":Neoformat<CR>")

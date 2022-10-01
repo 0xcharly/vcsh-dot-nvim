@@ -121,6 +121,7 @@ return require("packer").startup {
         use "mrjones2014/smart-splits.nvim" -- Navigation.
         use { "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } }
         use { "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" }
+        use "mbbill/undotree"
 
         if is_bootstrap_run then
             require("packer").sync()
