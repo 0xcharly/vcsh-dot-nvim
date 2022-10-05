@@ -36,6 +36,7 @@ require("telescope").setup {
     },
 }
 
+require("telescope").load_extension "codesearch"
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension "frecency"
 require("telescope").load_extension "fzf"
@@ -160,6 +161,8 @@ mappings.nnoremap("<leader>g", ":RipGrep<CR>")
 -- mappings.nnoremap("<leader>g", require("telescope.builtin").live_grep)
 mappings.nnoremap("<leader>.", edit_neovim)
 mappings.nnoremap("<leader>b", require("telescope.builtin").buffers)
+mappings.nnoremap("<leader>cs", function() require("telescope").extensions.codesearch.find_query {} end)
+mappings.nnoremap("<leader>cf", function() require("telescope").extensions.codesearch.find_files {} end)
 mappings.nnoremap("<leader>td", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
 mappings.nnoremap("<leader>tf", frecency)
