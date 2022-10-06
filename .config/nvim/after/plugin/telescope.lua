@@ -9,7 +9,7 @@ end
 
 require("telescope").setup {
     defaults = {
-        prompt_prefix = "   ",
+        prompt_prefix = "   ",
         entry_prefix = "   ",
         selection_caret = " ❯ ",
         layout_strategy = "vertical",
@@ -47,17 +47,16 @@ require("telescope").setup {
     },
     pickers = {
         find_files = {
-           disable_devicons = true,
+            disable_devicons = true,
         },
     },
     extensions = {
         codesearch = {
-           disable_devicons = true,
+            disable_devicons = true,
         },
     },
 }
 
-require("telescope").load_extension "codesearch"
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension "fzf"
 require("telescope").load_extension "git_worktree"
@@ -86,7 +85,7 @@ local function edit_neovim()
     opts_with_preview = {
         prompt_title = "dotfiles",
         shorten_path = false,
-        cwd = "~/.config/nvim",
+        cwd = "~/.config",
 
         layout_strategy = "flex",
         layout_config = {
@@ -173,12 +172,6 @@ mappings.nnoremap("<leader>g", ":RipGrep<CR>")
 -- mappings.nnoremap("<leader>g", require("telescope.builtin").live_grep)
 mappings.nnoremap("<leader>.", edit_neovim)
 mappings.nnoremap("<leader>b", require("telescope.builtin").buffers)
-mappings.nnoremap("<leader>cs", function()
-    require("telescope").extensions.codesearch.find_query {}
-end)
-mappings.nnoremap("<leader>cf", function()
-    require("telescope").extensions.codesearch.find_files {}
-end)
 mappings.nnoremap("<leader>td", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
 mappings.nnoremap("<leader>tm", require("telescope.builtin").man_pages)
@@ -187,3 +180,14 @@ mappings.nnoremap("<leader>ts", workspace_symbols)
 mappings.nnoremap("<leader>*", require("telescope.builtin").grep_string)
 mappings.nnoremap("<leader>/", require("telescope.builtin").find_files)
 mappings.nnoremap("<leader>?", require("telescope.builtin").help_tags)
+
+if pcall(function()
+    require("telescope").load_extension "codesearch"
+end) then
+    mappings.nnoremap("<leader>cs", function()
+        require("telescope").extensions.codesearch.find_query {}
+    end)
+    mappings.nnoremap("<leader>cf", function()
+        require("telescope").extensions.codesearch.find_files {}
+    end)
+end
