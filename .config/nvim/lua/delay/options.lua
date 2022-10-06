@@ -13,12 +13,12 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
+vim.opt.cmdheight = 1
 
 -- Bell.
 vim.opt.belloff = "all"
 
--- Clipboard.
--- vim.opt.clipboard = "unnamedplus"
+-- Mouse.
 vim.opt.mouse = "n"
 
 -- Ignore compiled files
@@ -34,10 +34,10 @@ vim.opt.wildoptions = "pum"
 vim.opt.undofile = true
 
 -- Invisible characters.
-vim.opt.list = true
-vim.opt.listchars:append "eol:↴"
+vim.opt.list = false
 -- vim.opt.listchars = {
 --   tab = '▸',
+--   eol = '↴',
 --   trail = '∙',
 --   space = '∙',
 --   eol = '¬',
@@ -78,7 +78,6 @@ vim.opt.formatoptions = vim.opt.formatoptions -- :h fo
   - "o" -- O and o, don't continue comments
   + "r" -- But do continue when pressing enter.
   + "n" -- Indent past the formatlistpat, not underneath it.
-  + "j" -- Auto-remove comments if possible.
   + "j" -- Auto-remove comments if possible.
   - "2" -- Use indent from 2nd line of a paragraph
 

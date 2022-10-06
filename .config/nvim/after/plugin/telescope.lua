@@ -12,8 +12,7 @@ require("telescope").setup {
         prompt_prefix = "   ",
         entry_prefix = "   ",
         selection_caret = " ❯ ",
-        layout_strategy = "flex",
-        color_devicons = true,
+        layout_strategy = "vertical",
 
         file_previewer = require("telescope.previewers").vim_buffer_cat.new,
         grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
@@ -22,34 +21,47 @@ require("telescope").setup {
         mappings = {
             i = { ["<esc>"] = require("telescope.actions").close },
         },
+        path_display = function(opts, path)
+            -- Do common substitutions
+            path = path:gsub("^/google/src/cloud/[^/]+/[^/]+/google3/", "google3/", 1)
+            path = path:gsub("^google3/java/com/google/", "g3/j/c/g/", 1)
+            path = path:gsub("^google3/javatests/com/google/", "g3/jt/c/g/", 1)
+            path = path:gsub("^google3/third_party/", "g3/3rdp/", 1)
+            path = path:gsub("^google3/", "g3/", 1)
+
+            -- Do truncation. This allows us to combine our custom display formatter
+            -- with the built-in truncation.
+            -- `truncate` handler in transform_path memoizes computed truncation length in opts.__length.
+            -- Here we are manually propagating this value between new_opts and opts.
+            -- We can make this cleaner and more complicated using metatables :)
+            local new_opts = {
+                path_display = {
+                    truncate = true,
+                },
+                __length = opts.__length,
+            }
+            path = require("telescope.utils").transform_path(new_opts, path)
+            opts.__length = new_opts.__length
+            return path
+        end,
+    },
+    pickers = {
+        find_files = {
+           disable_devicons = true,
+        },
     },
     extensions = {
-        frecency = {
-            workspaces = {
-                conf = vim.env.DOTFILES,
-                project = vim.env.PROJECTS_DIR,
-                qmk = vim.fn.expand "~/dev/qmk",
-                zmk = vim.fn.expand "~/dev/zmk-config",
-                wiki = vim.g.wiki_path,
-            },
+        codesearch = {
+           disable_devicons = true,
         },
     },
 }
 
 require("telescope").load_extension "codesearch"
 require("telescope").load_extension "file_browser"
-require("telescope").load_extension "frecency"
 require("telescope").load_extension "fzf"
 require("telescope").load_extension "git_worktree"
 require("telescope").load_extension "harpoon"
-
-local function frecency()
-    require("telescope").extensions.frecency.frecency(require("telescope.themes").get_dropdown {
-        border = true,
-        previewer = false,
-        shorten_path = false,
-    })
-end
 
 -- General finds files function which changes the picker depending on the
 -- current buffers path.
@@ -161,11 +173,14 @@ mappings.nnoremap("<leader>g", ":RipGrep<CR>")
 -- mappings.nnoremap("<leader>g", require("telescope.builtin").live_grep)
 mappings.nnoremap("<leader>.", edit_neovim)
 mappings.nnoremap("<leader>b", require("telescope.builtin").buffers)
-mappings.nnoremap("<leader>cs", function() require("telescope").extensions.codesearch.find_query {} end)
-mappings.nnoremap("<leader>cf", function() require("telescope").extensions.codesearch.find_files {} end)
+mappings.nnoremap("<leader>cs", function()
+    require("telescope").extensions.codesearch.find_query {}
+end)
+mappings.nnoremap("<leader>cf", function()
+    require("telescope").extensions.codesearch.find_files {}
+end)
 mappings.nnoremap("<leader>td", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
-mappings.nnoremap("<leader>tf", frecency)
 mappings.nnoremap("<leader>tm", require("telescope.builtin").man_pages)
 mappings.nnoremap("<leader>tw", require("telescope").extensions.git_worktree.git_worktrees)
 mappings.nnoremap("<leader>ts", workspace_symbols)

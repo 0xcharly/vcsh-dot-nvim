@@ -25,7 +25,7 @@ return require("packer").startup {
         end
 
         -- Local checkout of optional company plugins.
-        local company_use = function(plugin_name, opts)
+        local use_if_exists = function(plugin_name, opts)
             opts = opts or {}
 
             local local_plugin_path = vim.fn.expand("~/dev/" .. plugin_name)
@@ -69,66 +69,52 @@ return require("packer").startup {
         use "onsails/lspkind-nvim"
         use "j-hui/fidget.nvim"
 
-        -- Formatters.
-        use "sbdchd/neoformat"
-
-        -- Dressing.
+        -- UI.
         use { "yamatsum/nvim-web-nonicons", requires = "kyazdani42/nvim-web-devicons" }
-        use "akinsho/nvim-bufferline.lua" -- Tabs. (yes, tabs.)
-        use "nvim-lualine/lualine.nvim" --- Status bar.
-        use "stevearc/dressing.nvim"
-        use "rcarriga/nvim-notify"
-        use "numToStr/Comment.nvim"
-        use "ethanholz/nvim-lastplace"
 
         -- Colorschemes.
         use { "catppuccin/nvim", as = "catppuccin" }
-
-        -- Term.
-        use { "akinsho/toggleterm.nvim", tag = "v2.*" }
 
         -- Telescope.
         use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
         use "nvim-telescope/telescope-symbols.nvim"
         use "nvim-telescope/telescope-file-browser.nvim"
-        use { "nvim-telescope/telescope-frecency.nvim", requires = "tami5/sqlite.lua" }
         use {
             "nvim-telescope/telescope-fzf-native.nvim",
             run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
         }
-        company_use "telescope-codesearch.nvim"
+        use_if_exists "telescope-codesearch.nvim"
 
-        -- FZF.
-        use { "junegunn/fzf", dir = "~/.fzf", run = "./install --all" }
+        -- External tools integration.
+        use { "junegunn/fzf" }
         use { "junegunn/fzf.vim" }
-
-        --- Git integration.
-        use { "lewis6991/gitsigns.nvim", requires = "nvim-lua/plenary.nvim" }
-        use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
-        use { "ThePrimeagen/git-worktree.nvim" }
+        use "ThePrimeagen/git-worktree.nvim"
 
         -- Github integration.
         if vim.fn.executable "gh" == 1 then
             use "pwntester/octo.nvim"
         end
 
+        -- Formatters.
+        use "sbdchd/neoformat"
+
         --- Motions and convenience plugins.
-        use "godlygeek/tabular" -- Quickly align text by pattern
         use "tpope/vim-repeat" -- Repeat actions better
         use "tpope/vim-surround" -- Surround text objects easily
         use "tpope/vim-scriptease" -- Convenience functions.
         use "monaqa/dial.nvim"
         use "mrjones2014/smart-splits.nvim" -- Navigation.
-        use { "kyazdani42/nvim-tree.lua", requires = { "kyazdani42/nvim-web-devicons" } }
         use { "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" }
         use "mbbill/undotree"
+        use "numToStr/Comment.nvim"
+        use "ethanholz/nvim-lastplace"
+        use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
 
         if is_bootstrap_run then
             require("packer").sync()
         end
     end,
     config = {
-        max_jobs = 32,
         luarocks = { python_cmd = "python3" },
         display = {
             open_fn = function()
