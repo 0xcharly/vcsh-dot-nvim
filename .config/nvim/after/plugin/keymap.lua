@@ -59,8 +59,9 @@ mappings.nnoremap("<leader>j", "<cmd>lprev<CR>zz")
 mappings.nnoremap("<leader>f", ":Neoformat<CR>")
 
 -- Harpoon.
-mappings.nnoremap("<leader>m", function() require('harpoon.ui').toggle_quick_menu() end)
-mappings.nnoremap("<leader>a", function() require('harpoon.mark').add_file() end)
+mappings.nnoremap("<leader>h", function() require("harpoon.mark").add_file() end)
+mappings.nnoremap("<C-e>", function() require("harpoon.ui").toggle_quick_menu() end)
+
 mappings.nnoremap("<c-h>", function() require('harpoon.ui').nav_file(1) end)
 mappings.nnoremap("<c-t>", function() require('harpoon.ui').nav_file(2) end)
 mappings.nnoremap("<c-n>", function() require('harpoon.ui').nav_file(3) end)

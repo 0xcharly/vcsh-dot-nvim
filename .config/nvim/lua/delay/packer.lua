@@ -74,6 +74,7 @@ return require("packer").startup {
 
         -- Colorschemes.
         use { "catppuccin/nvim", as = "catppuccin" }
+        use { "folke/tokyonight.nvim", as = "tokyonight" }
 
         -- Telescope.
         use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
