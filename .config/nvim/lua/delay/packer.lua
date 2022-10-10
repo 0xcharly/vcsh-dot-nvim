@@ -104,7 +104,6 @@ return require("packer").startup {
         use "tpope/vim-surround" -- Surround text objects easily
         use "tpope/vim-scriptease" -- Convenience functions.
         use "monaqa/dial.nvim"
-        use "mrjones2014/smart-splits.nvim" -- Navigation.
         use { "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" }
         use "mbbill/undotree"
         use "numToStr/Comment.nvim"
