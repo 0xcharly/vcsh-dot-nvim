@@ -20,6 +20,8 @@ mappings.nnoremap("<leader>w=", "<C-W>=")
 mappings.nnoremap("<leader>pv", function() require('nvim-tree').toggle(false, false, vim.fn.getcwd()) end)
 mappings.nnoremap("<leader>pf", ":NvimTreeFindFileToggle<CR>")
 
+mappings.nnoremap("<C-c>", "<Esc>")
+
 mappings.nnoremap("<leader>e", ":Ex<CR>")
 mappings.nnoremap("<leader>u", ":UndotreeShow<CR>")
 
