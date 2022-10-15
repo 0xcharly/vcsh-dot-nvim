@@ -84,8 +84,8 @@ require("lualine").setup {
 }
 
 vim.g.doom_one_terminal_colors = true
-vim.cmd [[ hi Normal guibg=#1e222b ]]
 vim.cmd [[colorscheme onedark]]
+vim.cmd [[ hi Normal guibg=#1e222b ]]
 
 -- vim.cmd [[colorscheme catppuccin]]
 -- vim.cmd [[colorscheme tokyonight-night]]
