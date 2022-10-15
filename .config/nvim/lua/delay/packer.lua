@@ -71,10 +71,19 @@ return require("packer").startup {
 
         -- UI.
         use { "yamatsum/nvim-web-nonicons", requires = "kyazdani42/nvim-web-devicons" }
+        use {
+            "nvim-lualine/lualine.nvim",
+            requires = { "kyazdani42/nvim-web-devicons", opt = true },
+        }
 
         -- Colorschemes.
         use { "catppuccin/nvim", as = "catppuccin" }
         use { "folke/tokyonight.nvim", as = "tokyonight" }
+        -- use "navarasu/onedark.nvim"
+        use "joshdick/onedark.vim"
+        use "NTBBloodbath/doom-one.nvim"
+        use "Shatur/neovim-ayu"
+        use "pacokwon/onedarkhc.vim"
 
         -- Telescope.
         use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
@@ -108,7 +117,7 @@ return require("packer").startup {
         use "mbbill/undotree"
         use "numToStr/Comment.nvim"
         use "ethanholz/nvim-lastplace"
-        use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+        use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
 
         if is_bootstrap_run then
             require("packer").sync()

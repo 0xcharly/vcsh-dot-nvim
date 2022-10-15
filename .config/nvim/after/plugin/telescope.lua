@@ -170,6 +170,7 @@ mappings.nnoremap("<leader>g", ":RipGrep<CR>")
 
 -- mappings.nnoremap("<leader>c", files)
 -- mappings.nnoremap("<leader>g", require("telescope.builtin").live_grep)
+mappings.nnoremap("<leader>,", require("telescope.builtin").colorscheme)
 mappings.nnoremap("<leader>.", edit_neovim)
 mappings.nnoremap("<leader>b", require("telescope.builtin").buffers)
 mappings.nnoremap("<leader>td", require("telescope.builtin").diagnostics)
