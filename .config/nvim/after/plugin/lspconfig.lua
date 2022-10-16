@@ -26,7 +26,7 @@ require("mason-lspconfig").setup {
 local function config(_config)
     return vim.tbl_deep_extend("force", {
         -- nvim-cmp supports additional completion capabilities
-        capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities()),
         --  This function gets run when an LSP connects to a particular buffer.
         on_attach = function(_, bufnr)
             local buf_opts = { buffer = bufnr }
