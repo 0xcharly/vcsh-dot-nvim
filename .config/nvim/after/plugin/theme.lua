@@ -11,6 +11,8 @@ require("nvim-web-devicons").setup {
     },
 }
 
+require('onedark').setup()
+
 vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 
 require("catppuccin").setup {
@@ -45,7 +47,7 @@ require("catppuccin").setup {
 require("lualine").setup {
     options = {
         icons_enabled = false,
-        theme = "auto",
+        theme = "onedark",
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
@@ -83,10 +85,10 @@ require("lualine").setup {
     extensions = {},
 }
 
-vim.g.doom_one_terminal_colors = true
-vim.cmd [[colorscheme onedark]]
-vim.cmd [[ hi Normal guibg=#1e222b ]]
+-- vim.cmd [[colorscheme onedark]]
+-- vim.cmd [[ hi Normal guibg=#1e222b ]]
 
+-- vim.g.doom_one_terminal_colors = true
 -- vim.cmd [[colorscheme catppuccin]]
 -- vim.cmd [[colorscheme tokyonight-night]]
 -- vim.cmd [[colorscheme onedark]]

@@ -80,7 +80,8 @@ return require("packer").startup {
         use { "catppuccin/nvim", as = "catppuccin" }
         use { "folke/tokyonight.nvim", as = "tokyonight" }
         -- use "navarasu/onedark.nvim"
-        use "joshdick/onedark.vim"
+        use 'monsonjeremy/onedark.nvim'
+        -- use "joshdick/onedark.vim"
         use "NTBBloodbath/doom-one.nvim"
         use "Shatur/neovim-ayu"
         use "pacokwon/onedarkhc.vim"
