@@ -11,20 +11,24 @@ require("nvim-web-devicons").setup {
     },
 }
 
-require('onedark').setup()
+require("onedark").setup()
+
+local hl = function(highlightGroup, opts)
+    vim.api.nvim_set_hl(0, highlightGroup, opts)
+end
 
 -- Darker background for better contrast.
-vim.cmd [[ hi Normal guibg=#21252b ]]
-vim.cmd [[ hi NormalNC guibg=#21252b ]]
-vim.cmd [[ hi NonText guibg=#21252b ]]
-vim.cmd [[ hi FoldColumn guibg=#21252b ]]
-vim.cmd [[ hi SignColumn guibg=#21252b ]]
+hl("Normal", { bg = "#21252b" })
+hl("NormalNC", { bg = "#21252b" })
+hl("NonText", { bg = "#21252b" })
+hl("FoldColumn", { bg = "#21252b" })
+hl("SignColumn", { bg = "#21252b" })
 
-vim.cmd [[ hi WildMenu guibg=#282c34 ]]
-vim.cmd [[ hi Pmenu guibg=#282c34 ]]
+hl("WildMenu", { bg = "#282c34" })
+hl("Pmenu", { bg = "#282c34" })
 
-vim.cmd [[ hi Visual guibg=#31363f ]]
-vim.cmd [[ hi PmenuSel guibg=#31363f ]]
+hl("Visual", { bg = "#31363f" })
+hl("PmenuSel", { bg = "#31363f" })
 
 vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 
