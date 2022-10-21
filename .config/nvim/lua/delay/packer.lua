@@ -79,9 +79,10 @@ return require("packer").startup {
         -- Colorschemes.
         use { "catppuccin/nvim", as = "catppuccin" }
         use { "folke/tokyonight.nvim", as = "tokyonight" }
-        -- use "navarasu/onedark.nvim"
-        use 'monsonjeremy/onedark.nvim'
         -- use "joshdick/onedark.vim"
+        -- use "navarasu/onedark.nvim"
+        use "monsonjeremy/onedark.nvim"
+        use "olimorris/onedarkpro.nvim"
         use "NTBBloodbath/doom-one.nvim"
         use "Shatur/neovim-ayu"
         use "pacokwon/onedarkhc.vim"

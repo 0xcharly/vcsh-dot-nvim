@@ -11,24 +11,33 @@ require("nvim-web-devicons").setup {
     },
 }
 
-require("onedark").setup()
+require("onedarkpro").setup {
+    dark_theme = "onedark",
+    colors = {
+        onedark = {
+            bg = "#21252b", -- Darker.
+        },
+    },
+}
+vim.cmd [[ colorscheme onedarkpro ]]
 
-local hl = function(highlightGroup, opts)
-    vim.api.nvim_set_hl(0, highlightGroup, opts)
-end
+-- require("onedark").setup()
+-- local hl = function(highlightGroup, opts)
+--     vim.api.nvim_set_hl(0, highlightGroup, opts)
+-- end
 
 -- Darker background for better contrast.
-hl("Normal", { bg = "#21252b" })
-hl("NormalNC", { bg = "#21252b" })
-hl("NonText", { bg = "#21252b" })
-hl("FoldColumn", { bg = "#21252b" })
-hl("SignColumn", { bg = "#21252b" })
-
-hl("WildMenu", { bg = "#282c34" })
-hl("Pmenu", { bg = "#282c34" })
-
-hl("Visual", { bg = "#31363f" })
-hl("PmenuSel", { bg = "#31363f" })
+-- hl("Normal", { bg = "#21252b" })
+-- hl("NormalNC", { bg = "#21252b" })
+-- hl("NonText", { bg = "#21252b" })
+-- hl("FoldColumn", { bg = "#21252b" })
+-- hl("SignColumn", { bg = "#21252b" })
+--
+-- hl("WildMenu", { bg = "#282c34" })
+-- hl("Pmenu", { bg = "#282c34" })
+--
+-- hl("Visual", { bg = "#31363f" })
+-- hl("PmenuSel", { bg = "#31363f" })
 
 vim.g.catppuccin_flavour = "mocha" -- latte, frappe, macchiato, mocha
 
