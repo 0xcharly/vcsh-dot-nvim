@@ -1,10 +1,10 @@
 local util = require "delay.util"
 
 -- Quickly timeout on keycodes and mappings.
-vim.o.timeout = true
-vim.o.timeoutlen = 500
-vim.opt.ttimeout = true
-vim.opt.ttimeoutlen = 500
+-- vim.o.timeout = true
+-- vim.o.timeoutlen = 500
+-- vim.opt.ttimeout = true
+-- vim.opt.ttimeoutlen = 500
 
 -- Display.
 vim.o.laststatus = 3

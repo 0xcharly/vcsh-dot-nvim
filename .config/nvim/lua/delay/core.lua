@@ -23,7 +23,7 @@ local tune_distribution_plugins = function()
 end
 
 -- Set global leader key.
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 
 -- Disable unused builtin modules.
 tune_distribution_plugins()

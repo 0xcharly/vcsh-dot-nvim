@@ -1,4 +1,4 @@
-local mappings = require('delay.mappings')
+local mappings = require "delay.mappings"
 
 -- To use `ALT+{h,j,k,l}` to navigate windows from any mode:
 mappings.tnoremap("<M-Left>", "<C-\\><C-N><C-w>h")
@@ -17,7 +17,9 @@ mappings.nnoremap("<M-Right>", "<C-w>l")
 mappings.nnoremap("<leader>wh", ":split<CR>")
 mappings.nnoremap("<leader>wv", ":vsplit<CR>")
 mappings.nnoremap("<leader>w=", "<C-W>=")
-mappings.nnoremap("<leader>pv", function() require('nvim-tree').toggle(false, false, vim.fn.getcwd()) end)
+mappings.nnoremap("<leader>pv", function()
+    require("nvim-tree").toggle(false, false, vim.fn.getcwd())
+end)
 mappings.nnoremap("<leader>pf", ":NvimTreeFindFileToggle<CR>")
 
 mappings.nnoremap("<C-c>", "<Esc>")
@@ -49,8 +51,8 @@ mappings.nnoremap("<leader>y", '"+y')
 mappings.vnoremap("<leader>y", '"+y')
 mappings.nmap("<leader>Y", '"+Y')
 
-mappings.nnoremap("<leader>d", "\"_d")
-mappings.vnoremap("<leader>d", "\"_d")
+mappings.nnoremap("<leader>d", '"_d')
+mappings.vnoremap("<leader>d", '"_d')
 
 mappings.nnoremap("<C-k>", "<cmd>cnext<CR>zz")
 mappings.nnoremap("<C-j>", "<cmd>cprev<CR>zz")
@@ -61,10 +63,24 @@ mappings.nnoremap("<leader>j", "<cmd>lprev<CR>zz")
 mappings.nnoremap("<leader>f", ":Neoformat<CR>")
 
 -- Harpoon.
-mappings.nnoremap("<leader>h", function() require("harpoon.mark").add_file() end)
-mappings.nnoremap("<C-e>", function() require("harpoon.ui").toggle_quick_menu() end)
+mappings.nnoremap("<leader>h", function()
+    require("harpoon.mark").add_file()
+end)
+mappings.nnoremap("<C-e>", function()
+    require("harpoon.ui").toggle_quick_menu()
+end)
 
-mappings.nnoremap("<c-h>", function() require('harpoon.ui').nav_file(1) end)
-mappings.nnoremap("<c-t>", function() require('harpoon.ui').nav_file(2) end)
-mappings.nnoremap("<c-n>", function() require('harpoon.ui').nav_file(3) end)
-mappings.nnoremap("<c-s>", function() require('harpoon.ui').nav_file(4) end)
+mappings.nnoremap("<c-h>", function()
+    require("harpoon.ui").nav_file(1)
+end)
+mappings.nnoremap("<c-t>", function()
+    require("harpoon.ui").nav_file(2)
+end)
+mappings.nnoremap("<c-n>", function()
+    require("harpoon.ui").nav_file(3)
+end)
+mappings.nnoremap("<c-s>", function()
+    require("harpoon.ui").nav_file(4)
+end)
+
+mappings.nnoremap("<c-f>", "<cmd>!tmux new-window ~/.local/bin/open-tmux-workspace<CR>", { silent = true })
