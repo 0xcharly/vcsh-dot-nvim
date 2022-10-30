@@ -5,6 +5,15 @@ mappings.tnoremap("<M-Left>", "<C-\\><C-N><C-w>h")
 mappings.tnoremap("<M-Down>", "<C-\\><C-N><C-w>j")
 mappings.tnoremap("<M-Up>", "<C-\\><C-N><C-w>k")
 mappings.tnoremap("<M-Right>", "<C-\\><C-N><C-w>l")
+
+-- Make esc leave terminal mode
+mappings.tnoremap('<leader><Esc>', '<C-\\><C-n>')
+mappings.tnoremap('<Esc><Esc>', '<C-\\><C-n>')
+
+-- Try and make sure to not mangle space items
+mappings.tnoremap('<S-Space>', '<Space>')
+mappings.tnoremap('<C-Space>', '<Space>')
+
 mappings.inoremap("<M-Left>", "<C-\\><C-N><C-w>h")
 mappings.inoremap("<M-Down>", "<C-\\><C-N><C-w>j")
 mappings.inoremap("<M-Up>", "<C-\\><C-N><C-w>k")
