@@ -44,7 +44,9 @@ local function config(_config)
             -- See `:help K` for why this keymap
             mappings.nnoremap("K", vim.lsp.buf.hover, buf_opts)
             mappings.nnoremap("<C-k>", vim.lsp.buf.signature_help, buf_opts)
-            mappings.nnoremap("<leader>lf", vim.lsp.buf.format or vim.lsp.buf.formatting, buf_opts)
+            mappings.nnoremap("<leader>lf", function()
+                vim.lsp.buf.format { async = true }
+            end, buf_opts)
         end,
     }, _config or {})
 end
