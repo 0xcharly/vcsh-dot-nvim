@@ -101,6 +101,7 @@ return require("packer").startup {
         use { "junegunn/fzf" }
         use { "junegunn/fzf.vim" }
         use "ThePrimeagen/git-worktree.nvim"
+        use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
 
         -- Github integration.
         if vim.fn.executable "gh" == 1 then
