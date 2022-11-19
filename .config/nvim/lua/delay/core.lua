@@ -24,6 +24,7 @@ end
 
 -- Set global leader key.
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 -- Disable unused builtin modules.
 tune_distribution_plugins()

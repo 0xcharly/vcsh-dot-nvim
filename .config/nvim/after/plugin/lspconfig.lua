@@ -15,7 +15,7 @@ end
 local mappings = require "delay.mappings"
 mappings.nnoremap("[d", vim.diagnostic.goto_prev)
 mappings.nnoremap("]d", vim.diagnostic.goto_next)
-mappings.nnoremap("<leader>vd", vim.diagnostic.open_float)
+mappings.nnoremap("<LocalLeader>vd", vim.diagnostic.open_float)
 
 -- Ensure the commonly used servers are installed.
 require("mason").setup()
@@ -31,20 +31,20 @@ local function config(_config)
         on_attach = function(_, bufnr)
             local buf_opts = { buffer = bufnr }
 
-            mappings.nnoremap("<leader>lr", vim.lsp.buf.rename, buf_opts)
-            mappings.nnoremap("<leader>la", vim.lsp.buf.code_action, buf_opts)
+            mappings.nnoremap("<LocalLeader>lr", vim.lsp.buf.rename, buf_opts)
+            mappings.nnoremap("<LocalLeader>la", vim.lsp.buf.code_action, buf_opts)
 
             mappings.nnoremap("gd", vim.lsp.buf.definition, buf_opts)
             mappings.nnoremap("gD", vim.lsp.buf.declaration, buf_opts)
             mappings.nnoremap("gi", vim.lsp.buf.implementation, buf_opts)
             mappings.nnoremap("gr", require("telescope.builtin").lsp_references, buf_opts)
-            mappings.nnoremap("<leader>ds", require("telescope.builtin").lsp_document_symbols, buf_opts)
-            mappings.nnoremap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, buf_opts)
+            mappings.nnoremap("<LocalLeader>ds", require("telescope.builtin").lsp_document_symbols, buf_opts)
+            mappings.nnoremap("<LocalLeader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, buf_opts)
 
             -- See `:help K` for why this keymap
             mappings.nnoremap("K", vim.lsp.buf.hover, buf_opts)
             mappings.nnoremap("<C-k>", vim.lsp.buf.signature_help, buf_opts)
-            mappings.nnoremap("<leader>lf", function()
+            mappings.nnoremap("<LocalLeader>f", function()
                 vim.lsp.buf.format { async = true }
             end, buf_opts)
         end,
