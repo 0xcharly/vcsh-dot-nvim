@@ -50,6 +50,7 @@ return require("packer").startup {
         -- Language support.
         use "crispgm/cmp-beancount"
         use "fladson/vim-kitty"
+        use "nvim-neorg/neorg"
 
         -- LSP.
         use "L3MON4D3/LuaSnip"
@@ -75,13 +76,14 @@ return require("packer").startup {
             "nvim-lualine/lualine.nvim",
             requires = { "kyazdani42/nvim-web-devicons", opt = true },
         }
+        use "feline-nvim/feline.nvim"
 
         -- Colorschemes.
         use { "catppuccin/nvim", as = "catppuccin" }
         use { "folke/tokyonight.nvim", as = "tokyonight" }
         -- use "joshdick/onedark.vim"
-        -- use "navarasu/onedark.nvim"
-        use "monsonjeremy/onedark.nvim"
+        use "navarasu/onedark.nvim"
+        -- use "monsonjeremy/onedark.nvim"
         use "olimorris/onedarkpro.nvim"
         use "NTBBloodbath/doom-one.nvim"
         use "Shatur/neovim-ayu"
