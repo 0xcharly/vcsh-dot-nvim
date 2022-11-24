@@ -88,7 +88,7 @@ require("lspconfig.configs").ciderlsp = {
             "/google/bin/releases/cider/ciderlsp/ciderlsp",
             "--tooltag=nvim-lsp",
             "--noforward_sync_responses",
-            "--hub_addr=blade:languageservices-staging",
+            "--websocket_host=ciderlsp-staging.corp.google.com",
         },
         filetypes = {
             "c",
