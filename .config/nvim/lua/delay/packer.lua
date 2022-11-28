@@ -50,7 +50,20 @@ return require("packer").startup {
         -- Language support.
         use "crispgm/cmp-beancount"
         use "fladson/vim-kitty"
-        use "nvim-neorg/neorg"
+        use {
+            "nvim-neorg/neorg",
+            ft = "norg",
+            after = "nvim-treesitter",
+            config = function()
+                require("neorg").setup {
+                    load = {
+                        ["core.defaults"] = {},
+                        ["core.norg.completion"] = {},
+                        ["core.norg.concealer"] = {},
+                    },
+                }
+            end,
+        }
 
         -- LSP.
         use "L3MON4D3/LuaSnip"

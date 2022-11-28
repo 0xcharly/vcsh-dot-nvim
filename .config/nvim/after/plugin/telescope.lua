@@ -19,7 +19,12 @@ require("telescope").setup {
         qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
 
         mappings = {
-            i = { ["<esc>"] = require("telescope.actions").close },
+            i = {
+                ["<esc>"] = require("telescope.actions").close,
+                ["<M-c>"] = function(prompt_bufnr)
+                    require("telescope.actions").close(prompt_bufnr)
+                end,
+            },
         },
         path_display = function(opts, path)
             -- Do common substitutions
@@ -79,7 +84,7 @@ local function workspace_symbols()
     require("telescope.builtin").lsp_dynamic_workspace_symbols {}
 end
 
-local function edit_neovim()
+local function edit_dotfiles()
     local opts_with_preview, opts_without_preview
 
     opts_with_preview = {
@@ -95,20 +100,6 @@ local function edit_neovim()
             horizontal = { width = { padding = 0.15 } },
             vertical = { preview_height = 0.75 },
         },
-
-        mappings = { i = { ["<C-y>"] = false } },
-
-        attach_mappings = function(_, map)
-            map("i", "<c-y>", set_prompt_to_entry_value)
-            map("i", "<M-c>", function(prompt_bufnr)
-                require("telescope.actions").close(prompt_bufnr)
-                vim.schedule(function()
-                    require("telescope.builtin").find_files(opts_without_preview)
-                end)
-            end)
-
-            return true
-        end,
     }
 
     opts_without_preview = vim.deepcopy(opts_with_preview)
@@ -164,15 +155,31 @@ command! -bang -nargs=? -complete=dir GitFiles call GitFiles(<q-args>, <bang>0)
 
 local mappings = require "delay.mappings"
 
-mappings.nnoremap("<leader>c", ":SmartFiles<CR>")
-mappings.nnoremap("<leader>r", ":GitFiles<CR>")
-mappings.nnoremap("<leader>g", ":RipGrep<CR>")
+-- mappings.nnoremap("<leader>c", ":SmartFiles<CR>")
+-- mappings.nnoremap("<leader>r", ":GitFiles<CR>")
+-- mappings.nnoremap("<leader>g", ":RipGrep<CR>")
 
--- mappings.nnoremap("<leader>c", files)
--- mappings.nnoremap("<leader>g", require("telescope.builtin").live_grep)
-mappings.nnoremap("<leader>,", require("telescope.builtin").colorscheme)
-mappings.nnoremap("<leader>.", edit_neovim)
-mappings.nnoremap("<leader>b", require("telescope.builtin").buffers)
+mappings.nnoremap("<leader>c", files)
+mappings.nnoremap("<leader>g", require("telescope.builtin").live_grep)
+mappings.nnoremap("<leader>.", edit_dotfiles)
+mappings.nnoremap("<leader>b", function(opts)
+    opts = opts or {}
+    opts.attach_mappings = function(prompt_bufnr, map)
+        local delete_buf = function()
+            local selection = require("telescope.actions.state").get_selected_entry()
+            require("telescope.actions").close(prompt_bufnr)
+            vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+        end
+        map("i", "<c-u>", delete_buf)
+        return true
+    end
+    opts.previewer = false
+    -- define more opts here
+    -- opts.show_all_buffers = true
+    -- opts.sort_lastused = true
+    -- opts.shorten_path = false
+    require("telescope.builtin").buffers(require("telescope.themes").get_dropdown(opts))
+end)
 mappings.nnoremap("<leader>td", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
 mappings.nnoremap("<leader>tm", require("telescope.builtin").man_pages)
