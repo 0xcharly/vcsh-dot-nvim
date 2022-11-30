@@ -30,7 +30,6 @@ cmp.setup {
         { name = "path" },
         { name = "luasnip" },
         { name = "buffer", keyword_length = 5 },
-        { name = "neorg" },
     },
     sorting = {
         comparators = {
@@ -108,6 +107,16 @@ cmp.setup.cmdline(":", {
 
 cmp.setup.filetype("beancount", {
     sources = cmp.config.sources { { name = "beancount" } },
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype("norg", {
+    sources = cmp.config.sources {
+        -- { name = "neorg" },
+        { name = "path" },
+        { name = "luasnip" },
+        { name = "buffer" },
+    },
 })
 
 _ = vim.cmd [[
