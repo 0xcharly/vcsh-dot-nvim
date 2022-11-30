@@ -21,21 +21,22 @@ require("telescope").setup {
         mappings = {
             i = {
                 ["<esc>"] = require("telescope.actions").close,
-                ["<M-c>"] = function(prompt_bufnr)
-                    require("telescope.actions").close(prompt_bufnr)
-                end,
             },
         },
         path_display = function(opts, path)
-            -- Do common substitutions
+            -- Do common substitutions.
+            -- Google3 generic.
             path = path:gsub("^/google/src/cloud/[^/]+/[^/]+/google3/", "google3/", 1)
-            path = path:gsub("^google3/java/com/google/", "g3/j/c/g/", 1)
-            path = path:gsub("^google3/javatests/com/google/", "g3/jt/c/g/", 1)
+            path = path:gsub("^google3/java/com/google/", "g3/jcg/", 1)
+            path = path:gsub("^google3/javatests/com/google/", "g3/jtcg/", 1)
             path = path:gsub("^google3/third_party/", "g3/3rdp/", 1)
             path = path:gsub("^google3/", "g3/", 1)
 
-            -- Do truncation. This allows us to combine our custom display formatter
-            -- with the built-in truncation.
+            -- GMM specific.
+            path = path:gsub("^g3/jcg/apps/android/gmm", "agmm/", 1)
+            path = path:gsub("^g3/jtcg/apps/android/gmm", "agmm/tests/", 1)
+
+            -- Do truncation. This allows us to combine our custom display formatter with the built-in truncation.
             -- `truncate` handler in transform_path memoizes computed truncation length in opts.__length.
             -- Here we are manually propagating this value between new_opts and opts.
             -- We can make this cleaner and more complicated using metatables :)
@@ -108,56 +109,7 @@ local function edit_dotfiles()
     require("telescope.builtin").find_files(opts_with_preview)
 end
 
--- FZF
-vim.g.fzf_colors = {
-    fg = { "fg", "Normal" },
-    bg = { "bg", "Normal" },
-    hl = { "fg", "Function" },
-    ["fg+"] = { "fg", "CursorLine", "CursorColumn", "Normal" },
-    ["bg+"] = { "bg", "CursorLine", "Normal" },
-    ["hl+"] = { "fg", "Function" },
-    info = { "fg", "Comment" },
-    gutter = { "bg", "normal" },
-    border = { "fg", "Ignore" },
-    prompt = { "fg", "Comment" },
-    pointer = { "fg", "Label" },
-    marker = { "fg", "Keyword" },
-    spinner = { "fg", "Label" },
-    header = { "fg", "Comment" },
-}
-
-vim.api.nvim_exec(
-    [[
-function! RipgrepFzf(query, fullscreen)
-    let command_fmt = 'rg --hidden --column --no-line-number --no-heading --color=never --smart-case --glob "!{.git,node_modules,flow-typed}" -- %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command, '--pointer', '❯']}
-    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-function! SmartFiles(query, fullscreen)
-    let spec = {'options': ['--query', a:query, '--pointer', '❯']}
-    call fzf#vim#files(a:query, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-function! GitFiles(query, fullscreen)
-    let spec = {'options': ['--query', a:query, '--pointer', '❯']}
-    call fzf#vim#gitfiles(getcwd(), fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RipGrep call RipgrepFzf(<q-args>, <bang>0)
-command! -bang -nargs=? -complete=dir SmartFiles call SmartFiles(<q-args>, <bang>0)
-command! -bang -nargs=? -complete=dir GitFiles call GitFiles(<q-args>, <bang>0)
-]],
-    ""
-)
-
 local mappings = require "delay.mappings"
-
--- mappings.nnoremap("<leader>c", ":SmartFiles<CR>")
--- mappings.nnoremap("<leader>r", ":GitFiles<CR>")
--- mappings.nnoremap("<leader>g", ":RipGrep<CR>")
 
 mappings.nnoremap("<leader>c", files)
 mappings.nnoremap("<leader>g", require("telescope.builtin").live_grep)
@@ -174,11 +126,7 @@ mappings.nnoremap("<leader>b", function(opts)
         return true
     end
     opts.previewer = false
-    -- define more opts here
-    -- opts.show_all_buffers = true
-    -- opts.sort_lastused = true
-    -- opts.shorten_path = false
-    require("telescope.builtin").buffers(require("telescope.themes").get_dropdown(opts))
+    require("telescope.builtin").buffers(require("telescope.themes").get_ivy(opts))
 end)
 mappings.nnoremap("<leader>td", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
