@@ -7,6 +7,7 @@ local set_prompt_to_entry_value = function(prompt_bufnr)
     require("telescope.actions.state").get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
 end
 
+local actions = require "telescope.actions"
 require("telescope").setup {
     defaults = {
         prompt_prefix = "   ",
@@ -21,6 +22,9 @@ require("telescope").setup {
         mappings = {
             i = {
                 ["<esc>"] = require("telescope.actions").close,
+                ["<C-x>"] = false,
+                ["<C-q>"] = actions.send_to_qflist,
+                ["<CR>"] = actions.select_default,
             },
         },
         path_display = function(opts, path)

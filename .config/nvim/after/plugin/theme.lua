@@ -34,6 +34,14 @@ require("onedark").setup {
             bg = require("onedark.util").darken(c.grey, 0.1, c.bg0),
             fg = "$grey",
         },
+        Search = {
+            bg = require("onedark.util").darken(c.blue, 0.7, c.bg0),
+            fg = c.black,
+        },
+        IncSearch = {
+            bg = require("onedark.util").darken(c.blue, 0.7, c.bg0),
+            fg = c.black,
+        },
     },
 }
 require("onedark").load()
