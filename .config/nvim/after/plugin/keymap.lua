@@ -55,7 +55,7 @@ mappings.nnoremap("<leader>xx", ":PackerSync<CR>")
 -- Better virtual paste.
 mappings.xnoremap("<leader>p", '"_dP')
 mappings.inoremap("<C-v>", '<C-o>"+p')
-mappings.cnoremap("<C-v>", '<C-r>+')
+mappings.cnoremap("<C-v>", "<C-r>+")
 
 -- Better yank.
 mappings.nnoremap("<leader>y", '"+y')
@@ -94,4 +94,20 @@ mappings.nnoremap("<c-s>", function()
     require("harpoon.ui").nav_file(4)
 end)
 
+-- UI.
+mappings.nnoremap("<leader>z", function()
+    require("zen-mode").toggle {}
+end)
+mappings.nnoremap("<leader>Z", function()
+    require("zen-mode").toggle {
+        window = {
+            options = {
+                number = false, -- disable number column
+                relativenumber = false, -- disable relative numbers
+            },
+        },
+    }
+end)
+
+-- Tools integration.
 mappings.nnoremap("<c-f>", "<cmd>!tmux new-window ~/.local/bin/open-tmux-workspace<CR>", { silent = true })

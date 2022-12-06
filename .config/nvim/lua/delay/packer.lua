@@ -136,6 +136,7 @@ return require("packer").startup {
         use "numToStr/Comment.nvim"
         use "ethanholz/nvim-lastplace"
         use { "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" }
+        use "folke/zen-mode.nvim"
 
         if is_bootstrap_run then
             require("packer").sync()
