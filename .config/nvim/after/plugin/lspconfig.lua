@@ -59,8 +59,21 @@ lsp.set_preferences {
 
 lsp.nvim_workspace()
 
+-- Customize CMP mappings.
 local cmp = require "cmp"
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local cmp_mapping = lsp.defaults.cmp_mappings {
+    ["<C-k>"] = cmp.mapping.select_prev_item(cmp_select),
+    ["<C-j>"] = cmp.mapping.select_next_item(cmp_select),
+    ["<C-y>"] = cmp.mapping.confirm { select = false },
+    ["<C-w>"] = cmp.mapping.confirm { select = false },
+}
+cmp_mapping["<CR>"] = nil
+cmp_mapping["<Tab>"] = nil
+cmp_mapping["<S-Tab>"] = nil
+
 lsp.setup_nvim_cmp {
+    mapping = cmp_mapping,
     sorting = {
         comparators = {
             cmp.config.compare.offset,
