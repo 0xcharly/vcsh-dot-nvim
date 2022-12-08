@@ -87,6 +87,9 @@ return require("packer").startup {
             },
         }
 
+        use "mfussenegger/nvim-dap"
+        use "simrat39/rust-tools.nvim"
+
         -- LSP.
         -- use "L3MON4D3/LuaSnip"
         -- use "neovim/nvim-lspconfig" -- Collection of configurations for build-in LSP client.
