@@ -1,7 +1,31 @@
 local lsp = require "lsp-zero"
 local mappings = require "delay.mappings"
 
-lsp.preset "recommended"
+lsp.set_preferences {
+    suggest_lsp_servers = true,
+    setup_servers_on_start = true,
+    set_lsp_keymaps = true,
+    configure_diagnostics = true,
+    cmp_capabilities = true,
+    manage_nvim_cmp = true,
+    call_servers = "local",
+    sign_icons = {
+        error = "",
+        warn = "▲",
+        hint = "",
+        info = "",
+    },
+}
+
+lsp.ensure_installed { "clangd", "pylsp", "rust_analyzer", "sumneko_lua", "tsserver" }
+lsp.nvim_workspace()
+
+lsp.on_attach(function(_, bufnr)
+    local buf_opts = { buffer = bufnr }
+    mappings.nnoremap("<F3>", function()
+        vim.lsp.buf.format { async = true }
+    end, buf_opts)
+end)
 
 -- Custom configuration for CiderLSP.
 require("lspconfig.configs").ciderlsp = {
@@ -33,31 +57,6 @@ require("lspconfig.configs").ciderlsp = {
     },
 }
 lsp.configure("ciderlsp", { force_setup = true })
-lsp.on_attach(function(_, bufnr)
-    local buf_opts = { buffer = bufnr }
-    mappings.nnoremap("<F3>", function()
-        vim.lsp.buf.format { async = true }
-    end, buf_opts)
-end)
-
-lsp.ensure_installed { "clangd", "pylsp", "rust_analyzer", "sumneko_lua", "tsserver" }
-lsp.set_preferences {
-    suggest_lsp_servers = true,
-    setup_servers_on_start = true,
-    set_lsp_keymaps = true,
-    configure_diagnostics = true,
-    cmp_capabilities = true,
-    manage_nvim_cmp = true,
-    call_servers = "local",
-    sign_icons = {
-        error = " ",
-        warn = " ",
-        hint = " ",
-        info = " ",
-    },
-}
-
-lsp.nvim_workspace()
 
 -- Customize CMP mappings.
 local cmp = require "cmp"
