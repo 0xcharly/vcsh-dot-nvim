@@ -1,4 +1,5 @@
 local util = require "delay.util"
+local mappings = require 'delay.mappings'
 
 -- Quickly timeout on keycodes and mappings.
 -- vim.o.timeout = true
@@ -20,6 +21,8 @@ vim.opt.belloff = "all"
 
 -- Mouse.
 vim.opt.mouse = "n"
+mappings.nnoremap('<ScrollWheelLeft>', '<nop>')
+mappings.nnoremap('<ScrollWheelRight>', '<nop>')
 
 -- Ignore compiled files
 vim.opt.wildignore = "__pycache__"
