@@ -65,46 +65,31 @@ return require("packer").startup {
             end,
         }
 
-        use {
-            "VonHeikemen/lsp-zero.nvim",
-            requires = {
-                -- LSP Support
-                { "neovim/nvim-lspconfig" },
-                { "williamboman/mason.nvim" },
-                { "williamboman/mason-lspconfig.nvim" },
+        -- LSP Support.
+        use "neovim/nvim-lspconfig"
+        use "williamboman/mason.nvim"
+        use "williamboman/mason-lspconfig.nvim"
 
-                -- Autocompletion
-                { "hrsh7th/nvim-cmp" },
-                { "hrsh7th/cmp-buffer" },
-                { "hrsh7th/cmp-path" },
-                { "saadparwaiz1/cmp_luasnip" },
-                { "hrsh7th/cmp-nvim-lsp" },
-                { "hrsh7th/cmp-nvim-lua" },
-
-                -- Snippets
-                { "L3MON4D3/LuaSnip" },
-                { "rafamadriz/friendly-snippets" },
-            },
-        }
-
-        use "mfussenegger/nvim-dap"
-        use "simrat39/rust-tools.nvim"
-
-        -- LSP.
-        -- use "L3MON4D3/LuaSnip"
-        -- use "neovim/nvim-lspconfig" -- Collection of configurations for build-in LSP client.
-        -- use "williamboman/mason.nvim" -- Automaticall install language servers and tools to stdpath.
-        -- use "williamboman/mason-lspconfig.nvim" -- Mason language servers.
-        -- use "hrsh7th/nvim-cmp"
-        -- use "hrsh7th/cmp-buffer"
-        use "hrsh7th/cmp-cmdline"
-        -- use "hrsh7th/cmp-nvim-lua"
-        -- use "hrsh7th/cmp-nvim-lsp"
-        use "hrsh7th/cmp-nvim-lsp-document-symbol"
+        -- Autocompletion.
+        use "hrsh7th/nvim-cmp"
+        use "hrsh7th/cmp-buffer"
         use "hrsh7th/cmp-path"
+        use "hrsh7th/cmp-cmdline"
+        use "hrsh7th/cmp-nvim-lsp-document-symbol"
+        use "hrsh7th/cmp-nvim-lsp"
+        use "hrsh7th/cmp-nvim-lua"
+
+        use "saadparwaiz1/cmp_luasnip"
         use "mtoohey31/cmp-fish"
         use "tamago324/cmp-zsh"
-        use "saadparwaiz1/cmp_luasnip"
+
+        -- Snippets.
+        use "L3MON4D3/LuaSnip"
+        use "rafamadriz/friendly-snippets"
+
+        -- Tools.
+        use "mfussenegger/nvim-dap"
+        use "simrat39/rust-tools.nvim"
         use "onsails/lspkind-nvim"
         use "j-hui/fidget.nvim"
 
@@ -122,7 +107,7 @@ return require("packer").startup {
         -- use "joshdick/onedark.vim"
         use "navarasu/onedark.nvim"
         -- use "monsonjeremy/onedark.nvim"
-        use "olimorris/onedarkpro.nvim"
+        -- use "olimorris/onedarkpro.nvim"
         use "NTBBloodbath/doom-one.nvim"
         use "Shatur/neovim-ayu"
         use "pacokwon/onedarkhc.vim"

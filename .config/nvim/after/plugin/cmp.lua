@@ -1,4 +1,3 @@
---[[
 local cmp = require "cmp"
 
 -- Don't show the dumb matching stuff.
@@ -72,7 +71,6 @@ cmp.setup {
                 nvim_lua = "[api]",
                 path = "[path]",
                 luasnip = "[snip]",
-                tn = "[TabNine]",
             },
         },
     },
@@ -119,22 +117,17 @@ cmp.setup.filetype("norg", {
         { name = "buffer" },
     },
 })
---]]
 
---[[
 _ = vim.cmd [[
   augroup CmpFish
     au!
     autocmd Filetype fish lua require'cmp'.setup.buffer { sources = { { name = "fish" }, } }
   augroup END
 ]]
---]]
 
---[[
 _ = vim.cmd [[
   augroup CmpZsh
     au!
     autocmd Filetype zsh lua require'cmp'.setup.buffer { sources = { { name = "zsh" }, } }
   augroup END
 ]]
---]]

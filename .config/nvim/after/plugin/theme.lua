@@ -43,6 +43,9 @@ require("onedark").setup {
             fg = c.black,
         },
     },
+    diagnostics = {
+        undercurl = false,
+    }
 }
 require("onedark").load()
 
