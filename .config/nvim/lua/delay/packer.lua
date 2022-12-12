@@ -94,23 +94,10 @@ return require("packer").startup {
         use "j-hui/fidget.nvim"
 
         -- UI.
-        use { "yamatsum/nvim-web-nonicons", requires = "kyazdani42/nvim-web-devicons" }
-        use {
-            "nvim-lualine/lualine.nvim",
-            requires = { "kyazdani42/nvim-web-devicons", opt = true },
-        }
-        use "feline-nvim/feline.nvim"
+        use { "yamatsum/nvim-web-nonicons", requires = "nvim-tree/nvim-web-devicons" }
 
         -- Colorschemes.
         use { "catppuccin/nvim", as = "catppuccin" }
-        use { "folke/tokyonight.nvim", as = "tokyonight" }
-        -- use "joshdick/onedark.vim"
-        use "navarasu/onedark.nvim"
-        -- use "monsonjeremy/onedark.nvim"
-        -- use "olimorris/onedarkpro.nvim"
-        use "NTBBloodbath/doom-one.nvim"
-        use "Shatur/neovim-ayu"
-        use "pacokwon/onedarkhc.vim"
 
         -- Telescope.
         use { "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" }
@@ -128,19 +115,12 @@ return require("packer").startup {
         use "ThePrimeagen/git-worktree.nvim"
         use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
 
-        -- Github integration.
-        if vim.fn.executable "gh" == 1 then
-            use "pwntester/octo.nvim"
-        end
-
         -- Formatters.
         use "sbdchd/neoformat"
 
         --- Motions and convenience plugins.
         use "tpope/vim-repeat" -- Repeat actions better
         use "tpope/vim-surround" -- Surround text objects easily
-        use "tpope/vim-scriptease" -- Convenience functions.
-        use "monaqa/dial.nvim"
         use { "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" }
         use "mbbill/undotree"
         use "numToStr/Comment.nvim"
