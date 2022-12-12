@@ -14,7 +14,7 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
-vim.opt.cmdheight = 1
+vim.opt.cmdheight = 0
 
 -- Bell.
 vim.opt.belloff = "all"
