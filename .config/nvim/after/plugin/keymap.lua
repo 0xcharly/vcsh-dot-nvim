@@ -23,21 +23,23 @@ mappings.nnoremap("<M-Down>", "<C-w>j")
 mappings.nnoremap("<M-Up>", "<C-w>k")
 mappings.nnoremap("<M-Right>", "<C-w>l")
 
-mappings.nnoremap("<leader>wh", ":split<CR>")
-mappings.nnoremap("<leader>wv", ":vsplit<CR>")
+mappings.nnoremap("<leader>wh", ":split<cr>")
+mappings.nnoremap("<leader>wv", ":vsplit<cr>")
 mappings.nnoremap("<leader>w=", "<C-W>=")
 
 mappings.nnoremap("<C-c>", "<Esc>")
 
-mappings.nnoremap("<leader>e", ":Ex<CR>")
-mappings.nnoremap("<LocalLeader>u", ":UndotreeShow<CR>")
+mappings.nnoremap("<leader>e", function()
+    vim.cmd [[ Ex ]]
+end)
+mappings.nnoremap("<LocalLeader>u", ":UndotreeShow<cr>")
 mappings.nnoremap("<LocalLeader>e", function()
     require("nvim-tree").toggle(false, false, vim.fn.getcwd())
 end)
-mappings.nnoremap("<LocalLeader>pf", ":NvimTreeFindFileToggle<CR>")
+mappings.nnoremap("<LocalLeader>pf", ":NvimTreeFindFileToggle<cr>")
 
-mappings.vnoremap("J", ":m '>+1<CR>gv=gv")
-mappings.vnoremap("K", ":m '<-2<CR>gv=gv")
+mappings.vnoremap("J", ":m '>+1<cr>gv=gv")
+mappings.vnoremap("K", ":m '<-2<cr>gv=gv")
 
 mappings.nnoremap("Y", "yg$")
 mappings.nnoremap("n", "nzzzv")
@@ -47,10 +49,10 @@ mappings.nnoremap("<C-d>", "<C-d>zz")
 mappings.nnoremap("<C-u>", "<C-u>zz")
 
 -- Packer.
-mappings.nnoremap("<leader>xC", ":PackerClean<CR>")
-mappings.nnoremap("<leader>xc", ":PackerCompile<CR>")
-mappings.nnoremap("<leader>xi", ":PackerInstall<CR>")
-mappings.nnoremap("<leader>xx", ":PackerSync<CR>")
+mappings.nnoremap("<leader>xC", ":PackerClean<cr>")
+mappings.nnoremap("<leader>xc", ":PackerCompile<cr>")
+mappings.nnoremap("<leader>xi", ":PackerInstall<cr>")
+mappings.nnoremap("<leader>xx", ":PackerSync<cr>")
 
 -- Better virtual paste.
 mappings.xnoremap("<leader>p", '"_dP')
@@ -65,13 +67,13 @@ mappings.nmap("<leader>Y", '"+Y')
 mappings.nnoremap("<leader>d", '"_d')
 mappings.vnoremap("<leader>d", '"_d')
 
-mappings.nnoremap("<C-k>", "<cmd>cnext<CR>zz")
-mappings.nnoremap("<C-j>", "<cmd>cprev<CR>zz")
-mappings.nnoremap("<leader>k", "<cmd>lnext<CR>zz")
-mappings.nnoremap("<leader>j", "<cmd>lprev<CR>zz")
+mappings.nnoremap("<C-k>", "<cmd>cnext<cr>zz")
+mappings.nnoremap("<C-j>", "<cmd>cprev<cr>zz")
+mappings.nnoremap("<leader>k", "<cmd>lnext<cr>zz")
+mappings.nnoremap("<leader>j", "<cmd>lprev<cr>zz")
 
 -- Format.
-mappings.nnoremap("<leader>f", ":Neoformat<CR>")
+mappings.nnoremap("<leader>f", ":Neoformat<cr>")
 
 -- Harpoon.
 mappings.nnoremap("<leader>h", function()
@@ -110,4 +112,4 @@ mappings.nnoremap("<leader>Z", function()
 end)
 
 -- Tools integration.
-mappings.nnoremap("<c-f>", "<cmd>!tmux new-window ~/.local/bin/open-tmux-workspace<CR>", { silent = true })
+mappings.nnoremap("<c-f>", "<cmd>!tmux new-window ~/.local/bin/open-tmux-workspace<cr>", { silent = true })
