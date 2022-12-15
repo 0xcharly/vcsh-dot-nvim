@@ -16,4 +16,10 @@ rt.setup {
     server = {
         on_attach = require("delay.lsp").on_attach,
     },
+    tools = {
+        inlay_hints = {
+            -- The color of the hints
+            highlight = "@hint.inlay",
+        },
+    },
 }
