@@ -18,8 +18,7 @@ rt.setup {
     },
     tools = {
         inlay_hints = {
-            -- The color of the hints
-            highlight = "@hint.inlay",
+            highlight = "@hint.inlay", -- The color of the hints
         },
     },
 }

@@ -1,13 +1,5 @@
-local set_prompt_to_entry_value = function(prompt_bufnr)
-    local entry = require("telescope.actions.state").get_selected_entry()
-    if not entry or not type(entry) == "table" then
-        return
-    end
-
-    require("telescope.actions.state").get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
-end
-
 local actions = require "telescope.actions"
+
 require("telescope").setup {
     defaults = {
         prompt_prefix = "   ",
@@ -72,67 +64,17 @@ require("telescope").load_extension "fzf"
 require("telescope").load_extension "git_worktree"
 require("telescope").load_extension "harpoon"
 
--- General finds files function which changes the picker depending on the
--- current buffers path.
-local function files()
-    local opts = {
-        prompt_title = "git ls-files",
-    } -- define here if you want to define something
-    local ok = pcall(require("telescope.builtin").git_files, opts)
-    if not ok then
-        opts.prompt_title = "files"
-        require("telescope.builtin").find_files(opts)
-    end
-end
-
 local function workspace_symbols()
     require("telescope.builtin").lsp_dynamic_workspace_symbols {}
 end
 
-local function edit_dotfiles()
-    local opts_with_preview, opts_without_preview
-
-    opts_with_preview = {
-        prompt_title = "dotfiles",
-        shorten_path = false,
-        cwd = "~/.config",
-
-        layout_strategy = "flex",
-        layout_config = {
-            width = 0.9,
-            height = 0.8,
-
-            horizontal = { width = { padding = 0.15 } },
-            vertical = { preview_height = 0.75 },
-        },
-    }
-
-    opts_without_preview = vim.deepcopy(opts_with_preview)
-    opts_without_preview.previewer = false
-
-    require("telescope.builtin").find_files(opts_with_preview)
-end
-
 local mappings = require "delay.mappings"
 
-mappings.nnoremap("<leader>c", files)
-mappings.nnoremap("<leader>g", require("telescope.builtin").live_grep)
-mappings.nnoremap("<leader>.", edit_dotfiles)
-mappings.nnoremap("<leader>b", function(opts)
-    opts = opts or {}
-    opts.attach_mappings = function(prompt_bufnr, map)
-        local delete_buf = function()
-            local selection = require("telescope.actions.state").get_selected_entry()
-            require("telescope.actions").close(prompt_bufnr)
-            vim.api.nvim_buf_delete(selection.bufnr, { force = true })
-        end
-        map("i", "<c-u>", delete_buf)
-        return true
-    end
-    opts.previewer = false
-    require("telescope.builtin").buffers(require("telescope.themes").get_ivy(opts))
-end)
-mappings.nnoremap("<leader>td", require("telescope.builtin").diagnostics)
+mappings.nnoremap("<leader>c", require('fzf-lua').files)
+mappings.nnoremap("<leader>g", require("fzf-lua").live_grep)
+mappings.nnoremap("<leader>.", function() require('fzf-lua').files({ cwd = "~/.config" }) end)
+mappings.nnoremap("<leader>b", require('fzf-lua').buffers)
+mappings.nnoremap("<leader>d", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
 mappings.nnoremap("<leader>tm", require("telescope.builtin").man_pages)
 mappings.nnoremap("<leader>tw", require("telescope").extensions.git_worktree.git_worktrees)
@@ -144,10 +86,10 @@ mappings.nnoremap("<leader>?", require("telescope.builtin").help_tags)
 if pcall(function()
     require("telescope").load_extension "codesearch"
 end) then
-    mappings.nnoremap("<leader>cs", function()
+    mappings.nnoremap("<LocalLeader>cs", function()
         require("telescope").extensions.codesearch.find_query {}
     end)
-    mappings.nnoremap("<leader>cf", function()
+    mappings.nnoremap("<LocalLeader>cf", function()
         require("telescope").extensions.codesearch.find_files {}
     end)
 end

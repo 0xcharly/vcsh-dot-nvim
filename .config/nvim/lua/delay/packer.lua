@@ -110,8 +110,7 @@ return require("packer").startup {
         use_if_exists "telescope-codesearch.nvim"
 
         -- External tools integration.
-        use { "junegunn/fzf" }
-        use { "junegunn/fzf.vim" }
+        use { "ibhagwan/fzf-lua", requires = "nvim-tree/nvim-web-devicons" }
         use "ThePrimeagen/git-worktree.nvim"
         use { "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" }
 
