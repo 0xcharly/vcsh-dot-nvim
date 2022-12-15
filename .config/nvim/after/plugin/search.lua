@@ -70,10 +70,13 @@ end
 
 local mappings = require "delay.mappings"
 
-mappings.nnoremap("<leader>c", require('fzf-lua').files)
+mappings.nnoremap("<leader>c", require("fzf-lua").files)
 mappings.nnoremap("<leader>g", require("fzf-lua").live_grep)
-mappings.nnoremap("<leader>.", function() require('fzf-lua').files({ cwd = "~/.config" }) end)
-mappings.nnoremap("<leader>b", require('fzf-lua').buffers)
+mappings.nnoremap("<leader>.", function()
+    -- require("fzf-lua").files { cwd = "~/.config" }
+    require("fzf-lua").files { cmd = "fd . ~/.config --type f --exclude '*.git' --exclude raycast" }
+end)
+mappings.nnoremap("<leader>b", require("fzf-lua").buffers)
 mappings.nnoremap("<leader>d", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
 mappings.nnoremap("<leader>tm", require("telescope.builtin").man_pages)
