@@ -70,7 +70,8 @@ end
 
 local mappings = require "delay.mappings"
 
-mappings.nnoremap("<leader>c", require("fzf-lua").files)
+mappings.nnoremap("<leader>ff", require("fzf-lua").files)
+mappings.nnoremap("<C-p>", require("fzf-lua").git_files)
 mappings.nnoremap("<leader>g", require("fzf-lua").live_grep)
 mappings.nnoremap("<leader>.", function()
     -- require("fzf-lua").files { cwd = "~/.config" }
@@ -89,10 +90,10 @@ mappings.nnoremap("<leader>?", require("telescope.builtin").help_tags)
 if pcall(function()
     require("telescope").load_extension "codesearch"
 end) then
-    mappings.nnoremap("<LocalLeader>cs", function()
+    mappings.nnoremap("<LocalLeader>gs", function()
         require("telescope").extensions.codesearch.find_query {}
     end)
-    mappings.nnoremap("<LocalLeader>cf", function()
+    mappings.nnoremap("<LocalLeader>gf", function()
         require("telescope").extensions.codesearch.find_files {}
     end)
 end

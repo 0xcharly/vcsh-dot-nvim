@@ -15,12 +15,12 @@ M.on_attach = function(_, bufnr)
     mappings.nnoremap("gi", vim.lsp.buf.implementation, buf_opts)
     mappings.nnoremap("go", vim.lsp.buf.type_definition, buf_opts)
     mappings.nnoremap("gr", vim.lsp.buf.references, buf_opts)
-    mappings.nnoremap("<F2>", vim.lsp.buf.rename, buf_opts)
-    mappings.nnoremap("<F3>", function()
+    mappings.nnoremap("<LocalLeader>cr", vim.lsp.buf.rename, buf_opts)
+    mappings.nnoremap("<LocalLeader>cf", function()
         vim.lsp.buf.format { async = true }
     end, buf_opts)
-    mappings.nnoremap("<F4>", vim.lsp.buf.code_action, buf_opts)
-    mappings.xnoremap("<F4>", vim.lsp.buf.range_code_action, buf_opts)
+    mappings.nnoremap("<LocalLeader>ca", vim.lsp.buf.code_action, buf_opts)
+    mappings.xnoremap("<LocalLeader>ca", vim.lsp.buf.range_code_action, buf_opts)
 
     mappings.nnoremap("<C-k>", vim.lsp.buf.signature_help, buf_opts)
 
