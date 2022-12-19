@@ -1,5 +1,5 @@
-local util = require("delay.util")
-local mappings = require("delay.mappings")
+local util = require("user.util")
+local mappings = require("user.mappings")
 
 -- Quickly timeout on keycodes and mappings.
 -- vim.o.timeout = true

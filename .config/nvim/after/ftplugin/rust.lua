@@ -14,7 +14,7 @@ local opts = {
 local rt = require("rust-tools")
 rt.setup({
     server = {
-        on_attach = require("delay.lsp").on_attach,
+        on_attach = require("user.lsp").on_attach,
     },
     tools = {
         inlay_hints = {

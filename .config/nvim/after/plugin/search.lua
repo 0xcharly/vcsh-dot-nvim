@@ -66,7 +66,7 @@ require("telescope").load_extension("harpoon")
 
 local function workspace_symbols() require("telescope.builtin").lsp_dynamic_workspace_symbols({}) end
 
-local mappings = require("delay.mappings")
+local mappings = require("user.mappings")
 
 mappings.nnoremap("<leader>ff", require("fzf-lua").files)
 mappings.nnoremap("<C-p>", require("fzf-lua").git_files)

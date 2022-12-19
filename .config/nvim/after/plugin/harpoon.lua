@@ -1,4 +1,4 @@
-local mappings = require("delay.mappings")
+local mappings = require("user.mappings")
 
 mappings.nnoremap("<leader>a", function() require("harpoon.mark").add_file() end)
 mappings.nnoremap("<C-e>", function() require("harpoon.ui").toggle_quick_menu() end)

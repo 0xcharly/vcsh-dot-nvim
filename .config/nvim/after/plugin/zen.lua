@@ -1,4 +1,4 @@
-local mappings = require("delay.mappings")
+local mappings = require("user.mappings")
 
 -- UI.
 mappings.nnoremap("<leader>z", function() require("zen-mode").toggle({}) end)

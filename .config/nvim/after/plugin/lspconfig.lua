@@ -1,4 +1,4 @@
-local lsp = require("delay.lsp")
+local lsp = require("user.lsp")
 local lsp_config = require("lspconfig")
 
 -- UI setup.

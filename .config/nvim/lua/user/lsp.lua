@@ -1,4 +1,4 @@
-local mappings = require("delay.mappings")
+local mappings = require("user.mappings")
 
 local M = {}
 

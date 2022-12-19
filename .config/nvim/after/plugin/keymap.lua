@@ -1,4 +1,4 @@
-local mappings = require("delay.mappings")
+local mappings = require("user.mappings")
 
 -- To use `ALT+{h,j,k,l}` to navigate windows from any mode:
 mappings.tnoremap("<M-Left>", "<C-\\><C-N><C-w>h")
