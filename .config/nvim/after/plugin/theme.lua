@@ -1,8 +1,8 @@
-require("nvim-lastplace").setup {}
-require("nvim-web-devicons").setup {}
+require("nvim-lastplace").setup({})
+require("nvim-web-devicons").setup({})
 
 -- Catppuccin.
-require("catppuccin").setup {
+require("catppuccin").setup({
     flavour = "mocha", -- latte, frappe, macchiato, mocha
     custom_highlights = function(colors)
         return {
@@ -30,6 +30,6 @@ require("catppuccin").setup {
             },
         },
     },
-}
+})
 
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme("catppuccin")

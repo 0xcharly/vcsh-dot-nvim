@@ -1,5 +1,5 @@
-local util = require "delay.util"
-local mappings = require 'delay.mappings'
+local util = require("delay.util")
+local mappings = require("delay.mappings")
 
 -- Quickly timeout on keycodes and mappings.
 -- vim.o.timeout = true
@@ -14,15 +14,14 @@ vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
-vim.opt.cmdheight = 0
 
 -- Bell.
 vim.opt.belloff = "all"
 
 -- Mouse.
 vim.opt.mouse = "n"
-mappings.nnoremap('<ScrollWheelLeft>', '<nop>')
-mappings.nnoremap('<ScrollWheelRight>', '<nop>')
+mappings.nnoremap("<ScrollWheelLeft>", "<nop>")
+mappings.nnoremap("<ScrollWheelRight>", "<nop>")
 
 -- Ignore compiled files
 vim.opt.wildignore = "__pycache__"
@@ -37,17 +36,17 @@ vim.opt.wildoptions = "pum"
 vim.opt.undofile = true
 
 -- Invisible characters.
-vim.opt.list = false
--- vim.opt.listchars = {
---   tab = '▸',
+vim.opt.listchars = {
+    tab = "»·",
+    trail = "∙",
+}
+vim.opt.list = true
 --   eol = '↴',
---   trail = '∙',
 --   space = '∙',
 --   eol = '¬',
 --   nbsp = '▪',
 --   precedes = '⟨',
 --   extends = '⟩',
--- }
 
 -- Indentation.
 vim.opt.autoindent = true
@@ -74,43 +73,43 @@ vim.opt.scrolloff = 8 -- Make it so there are always 8 lines below my cursor
 vim.opt.signcolumn = "yes"
 
 vim.opt.formatoptions = vim.opt.formatoptions -- :h fo
-  - "a" -- Auto formatting is BAD.
-  - "t" -- Don't auto format my code. I got linters for that.
-  + "q" -- continue comments with gq'
-  + "c" -- Auto-wrap comments using textwidth
-  - "o" -- O and o, don't continue comments
-  + "r" -- But do continue when pressing enter.
-  + "n" -- Indent past the formatlistpat, not underneath it.
-  + "j" -- Auto-remove comments if possible.
-  - "2" -- Use indent from 2nd line of a paragraph
+    - "a" -- Auto formatting is BAD.
+    - "t" -- Don't auto format my code. I got linters for that.
+    + "q" -- continue comments with gq'
+    + "c" -- Auto-wrap comments using textwidth
+    - "o" -- O and o, don't continue comments
+    + "r" -- But do continue when pressing enter.
+    + "n" -- Indent past the formatlistpat, not underneath it.
+    + "j" -- Auto-remove comments if possible.
+    - "2" -- Use indent from 2nd line of a paragraph
 
 vim.opt.joinspaces = false
 
 -- Message output.
 vim.opt.shortmess = {
-  t = true, -- truncate file messages at start
-  a = true, -- ignore annoying save file messages
-  A = true, -- ignore annoying swap file messages
-  o = true, -- file-read message overwrites previous
-  O = true, -- file-read message overwrites previous
-  T = true, -- truncate non-file messages in middle
-  f = true, -- (file x of x) instead of just (x of x
-  F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
-  s = true,
-  c = true,
-  W = true, -- Dont show [w] or written when writing
+    t = true, -- truncate file messages at start
+    a = true, -- ignore annoying save file messages
+    A = true, -- ignore annoying swap file messages
+    o = true, -- file-read message overwrites previous
+    O = true, -- file-read message overwrites previous
+    T = true, -- truncate non-file messages in middle
+    f = true, -- (file x of x) instead of just (x of x
+    F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
+    s = true,
+    c = true,
+    W = true, -- Dont show [w] or written when writing
 }
 
 -- Use faster grep alternatives if possible
-if util.executable "rg" then
-  vim.o.grepprg = [[rg --hidden --glob '!.git' --no-heading --smart-case --vimgrep --follow $*]]
-  vim.opt.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
-elseif util.executable "ag" then
-  vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
-  vim.opt.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
+if util.executable("rg") then
+    vim.o.grepprg = [[rg --hidden --glob '!.git' --no-heading --smart-case --vimgrep --follow $*]]
+    vim.opt.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
+elseif util.executable("ag") then
+    vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
+    vim.opt.grepformat = vim.opt.grepformat ^ { "%f:%l:%c:%m" }
 end
 
 -- Neovide-specific configuration.
-vim.cmd [[ let g:neovide_input_macos_alt_is_meta=v:true ]]
-vim.cmd [[ let g:neovide_cursor_animation_length=0.05 ]]
-vim.cmd [[ let g:neovide_cursor_trail_size=0.2 ]]
+vim.cmd([[ let g:neovide_input_macos_alt_is_meta=v:true ]])
+vim.cmd([[ let g:neovide_cursor_animation_length=0.05 ]])
+vim.cmd([[ let g:neovide_cursor_trail_size=0.2 ]])

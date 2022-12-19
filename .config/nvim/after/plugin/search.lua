@@ -1,6 +1,6 @@
-local actions = require "telescope.actions"
+local actions = require("telescope.actions")
 
-require("telescope").setup {
+require("telescope").setup({
     defaults = {
         prompt_prefix = "   ",
         entry_prefix = "   ",
@@ -57,25 +57,23 @@ require("telescope").setup {
             disable_devicons = true,
         },
     },
-}
+})
 
-require("telescope").load_extension "file_browser"
-require("telescope").load_extension "fzf"
-require("telescope").load_extension "git_worktree"
-require("telescope").load_extension "harpoon"
+require("telescope").load_extension("file_browser")
+require("telescope").load_extension("fzf")
+require("telescope").load_extension("git_worktree")
+require("telescope").load_extension("harpoon")
 
-local function workspace_symbols()
-    require("telescope.builtin").lsp_dynamic_workspace_symbols {}
-end
+local function workspace_symbols() require("telescope.builtin").lsp_dynamic_workspace_symbols({}) end
 
-local mappings = require "delay.mappings"
+local mappings = require("delay.mappings")
 
 mappings.nnoremap("<leader>ff", require("fzf-lua").files)
 mappings.nnoremap("<C-p>", require("fzf-lua").git_files)
 mappings.nnoremap("<leader>g", require("fzf-lua").live_grep)
 mappings.nnoremap("<leader>.", function()
     -- require("fzf-lua").files { cwd = "~/.config" }
-    require("fzf-lua").files { cmd = "fd . ~/.config --type f --exclude '*.git' --exclude raycast" }
+    require("fzf-lua").files({ cmd = "fd . ~/.config --type f --exclude '*.git' --exclude raycast" })
 end)
 mappings.nnoremap("<leader>b", require("fzf-lua").buffers)
 mappings.nnoremap("<leader>d", require("telescope.builtin").diagnostics)
@@ -87,13 +85,7 @@ mappings.nnoremap("<leader>*", require("telescope.builtin").grep_string)
 mappings.nnoremap("<leader>/", require("telescope.builtin").find_files)
 mappings.nnoremap("<leader>?", require("telescope.builtin").help_tags)
 
-if pcall(function()
-    require("telescope").load_extension "codesearch"
-end) then
-    mappings.nnoremap("<LocalLeader>gs", function()
-        require("telescope").extensions.codesearch.find_query {}
-    end)
-    mappings.nnoremap("<LocalLeader>gf", function()
-        require("telescope").extensions.codesearch.find_files {}
-    end)
+if pcall(function() require("telescope").load_extension("codesearch") end) then
+    mappings.nnoremap("<LocalLeader>gs", function() require("telescope").extensions.codesearch.find_query({}) end)
+    mappings.nnoremap("<LocalLeader>gf", function() require("telescope").extensions.codesearch.find_files({}) end)
 end

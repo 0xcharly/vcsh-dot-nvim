@@ -11,8 +11,8 @@ local opts = {
 }
 
 -- Normal setup
-local rt = require "rust-tools"
-rt.setup {
+local rt = require("rust-tools")
+rt.setup({
     server = {
         on_attach = require("delay.lsp").on_attach,
     },
@@ -21,4 +21,4 @@ rt.setup {
             highlight = "@hint.inlay", -- The color of the hints
         },
     },
-}
+})

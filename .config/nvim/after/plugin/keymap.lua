@@ -1,4 +1,4 @@
-local mappings = require "delay.mappings"
+local mappings = require("delay.mappings")
 
 -- To use `ALT+{h,j,k,l}` to navigate windows from any mode:
 mappings.tnoremap("<M-Left>", "<C-\\><C-N><C-w>h")
@@ -58,42 +58,6 @@ mappings.nnoremap("<leader>j", "<cmd>lprev<cr>zz")
 
 -- Format.
 mappings.nnoremap("<LocalLeader>bf", ":Neoformat<cr>")
-
--- Harpoon.
-mappings.nnoremap("<leader>a", function()
-    require("harpoon.mark").add_file()
-end)
-mappings.nnoremap("<C-e>", function()
-    require("harpoon.ui").toggle_quick_menu()
-end)
-
-mappings.nnoremap("<c-h>", function()
-    require("harpoon.ui").nav_file(1)
-end)
-mappings.nnoremap("<c-t>", function()
-    require("harpoon.ui").nav_file(2)
-end)
-mappings.nnoremap("<c-n>", function()
-    require("harpoon.ui").nav_file(3)
-end)
-mappings.nnoremap("<c-s>", function()
-    require("harpoon.ui").nav_file(4)
-end)
-
--- UI.
-mappings.nnoremap("<leader>z", function()
-    require("zen-mode").toggle {}
-end)
-mappings.nnoremap("<leader>Z", function()
-    require("zen-mode").toggle {
-        window = {
-            options = {
-                number = false, -- disable number column
-                relativenumber = false, -- disable relative numbers
-            },
-        },
-    }
-end)
 
 -- Tools integration.
 mappings.nnoremap("<c-f>", "<cmd>!tmux new-window ~/.local/bin/open-tmux-workspace<cr>", { silent = true })

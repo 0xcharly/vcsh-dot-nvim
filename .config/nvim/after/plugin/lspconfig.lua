@@ -1,5 +1,5 @@
-local lsp = require "delay.lsp"
-local lsp_config = require "lspconfig"
+local lsp = require("delay.lsp")
+local lsp_config = require("lspconfig")
 
 -- UI setup.
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -22,7 +22,7 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-vim.diagnostic.config {
+vim.diagnostic.config({
     virtual_text = false,
     signs = true,
     update_in_insert = false,
@@ -36,13 +36,13 @@ vim.diagnostic.config {
         header = "",
         prefix = "",
     },
-}
+})
 
 -- Ensure the commonly used servers are installed.
 require("mason").setup()
-require("mason-lspconfig").setup {
+require("mason-lspconfig").setup({
     ensure_installed = { "clangd", "pylsp", "rust_analyzer", "sumneko_lua", "tsserver" },
-}
+})
 
 -- Custom configuration for CiderLSP.
 require("lspconfig.configs").ciderlsp = {
@@ -67,9 +67,7 @@ require("lspconfig.configs").ciderlsp = {
             "typescript",
             "javascript",
         },
-        root_dir = function(fname)
-            return string.match(fname, "(/google/src/cloud/[%w_-]+/[%w_-]+/google3/).+$")
-        end,
+        root_dir = function(fname) return string.match(fname, "(/google/src/cloud/[%w_-]+/[%w_-]+/google3/).+$") end,
         settings = {},
     },
 }
@@ -84,7 +82,7 @@ lsp_config.ciderlsp.setup(lsp.common_config())
 -- Add-ons for Lua in Neovim.
 lsp.setup_nvim_workspace()
 
-require("fidget").setup {
+require("fidget").setup({
     text = {
         spinner = "dots",
     },
@@ -94,4 +92,4 @@ require("fidget").setup {
     window = {
         relative = "editor",
     },
-}
+})

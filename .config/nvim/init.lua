@@ -1,1 +1,1 @@
-require 'delay'
+require("delay")

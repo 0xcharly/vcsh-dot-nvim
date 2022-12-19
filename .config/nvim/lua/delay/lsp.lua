@@ -1,4 +1,4 @@
-local mappings = require "delay.mappings"
+local mappings = require("delay.mappings")
 
 local M = {}
 
@@ -16,9 +16,7 @@ M.on_attach = function(_, bufnr)
     mappings.nnoremap("go", vim.lsp.buf.type_definition, buf_opts)
     mappings.nnoremap("gr", vim.lsp.buf.references, buf_opts)
     mappings.nnoremap("<LocalLeader>cr", vim.lsp.buf.rename, buf_opts)
-    mappings.nnoremap("<LocalLeader>cf", function()
-        vim.lsp.buf.format { async = true }
-    end, buf_opts)
+    mappings.nnoremap("<LocalLeader>cf", function() vim.lsp.buf.format({ async = true }) end, buf_opts)
     mappings.nnoremap("<LocalLeader>ca", vim.lsp.buf.code_action, buf_opts)
     mappings.xnoremap("<LocalLeader>ca", vim.lsp.buf.range_code_action, buf_opts)
 
@@ -44,7 +42,7 @@ M.setup_nvim_workspace = function()
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
 
-    require("lspconfig").sumneko_lua.setup(M.common_config {
+    require("lspconfig").sumneko_lua.setup(M.common_config({
         settings = {
             Lua = {
                 runtime = {
@@ -60,7 +58,7 @@ M.setup_nvim_workspace = function()
                 workspace = { library = vim.api.nvim_get_runtime_file("", true) },
             },
         },
-    })
+    }))
 end
 
 return M

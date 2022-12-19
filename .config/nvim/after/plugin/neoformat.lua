@@ -1,23 +1,23 @@
 vim.g.neoformat_c_clangformat = {
-  exe = "clang-format",
-  args = { "--style=file" },
-  stdin = 1,
+    exe = "clang-format",
+    args = { "--style=file" },
+    stdin = 1,
 }
 vim.g.neoformat_enabled_c = { "clangformat" }
 vim.g.neoformat_cpp_clangformat = {
-  exe = "clang-format",
-  args = { "--style=file" },
-  stdin = 1,
+    exe = "clang-format",
+    args = { "--style=file" },
+    stdin = 1,
 }
 vim.g.neoformat_enabled_cpp = { "clangformat" }
 
 vim.g.neoformat_lua_luaformat = {
-  exe = "lua-format",
-  args = {
-    "--indent-width=2",
-    "--extra-sep-at-table-end",
-    "--double-quote-to-single-quote",
-  },
+    exe = "lua-format",
+    args = {
+        "--indent-width=2",
+        "--extra-sep-at-table-end",
+        "--double-quote-to-single-quote",
+    },
 }
 vim.g.neoformat_enabled_lua = { "stylua" }
 
