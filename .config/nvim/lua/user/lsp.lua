@@ -18,7 +18,7 @@ M.on_attach = function(_, bufnr)
     mappings.nnoremap("<LocalLeader>cr", vim.lsp.buf.rename, buf_opts)
     mappings.nnoremap("<LocalLeader>cf", function() vim.lsp.buf.format({ async = true }) end, buf_opts)
     mappings.nnoremap("<LocalLeader>ca", vim.lsp.buf.code_action, buf_opts)
-    mappings.xnoremap("<LocalLeader>ca", vim.lsp.buf.range_code_action, buf_opts)
+    mappings.xnoremap("<LocalLeader>ca", vim.lsp.buf.code_action, buf_opts)
 
     mappings.nnoremap("<C-k>", vim.lsp.buf.signature_help, buf_opts)
 

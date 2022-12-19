@@ -96,6 +96,7 @@ return require("packer").startup({
 
         -- Colorschemes.
         use({ "catppuccin/nvim", as = "catppuccin" })
+        use({ "https://github.com/folke/noice.nvim", requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } })
 
         -- Telescope.
         use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
