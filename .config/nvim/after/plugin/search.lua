@@ -73,7 +73,7 @@ mappings.nnoremap("<C-p>", require("fzf-lua").git_files)
 mappings.nnoremap("<leader>g", require("fzf-lua").live_grep)
 mappings.nnoremap("<leader>.", function()
     -- require("fzf-lua").files { cwd = "~/.config" }
-    require("fzf-lua").files({ cmd = "fd . ~/.config --type f --exclude '*.git' --exclude raycast" })
+    require("fzf-lua").files({ cmd = "fd . ~/.config --type f --exclude '*.git' --exclude raycast --exclude op" })
 end)
 mappings.nnoremap("<leader>b", require("fzf-lua").buffers)
 mappings.nnoremap("<leader>d", require("telescope.builtin").diagnostics)

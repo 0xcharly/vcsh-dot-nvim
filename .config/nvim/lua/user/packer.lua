@@ -1,16 +1,14 @@
 local is_bootstrap_run = false
-
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     is_bootstrap_run = true
-    fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-    vim.cmd([[packadd packer.nvim]])
+    vim.fn.execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+    vim.cmd.packadd("packer.nvim")
 end
 
 return require("packer").startup({
     function(use)
-        -- Use local checkout when available.
+        -- Use local checkout when available, or fall back to personal fork otherwise.
         local local_use = function(plugin_name, opts)
             opts = opts or {}
 
@@ -94,25 +92,26 @@ return require("packer").startup({
         use("j-hui/fidget.nvim")
 
         -- UI.
-        use({ "yamatsum/nvim-web-nonicons", requires = "nvim-tree/nvim-web-devicons" })
+        use({ "yamatsum/nvim-web-nonicons", requires = { "nvim-tree/nvim-web-devicons" } })
 
         -- Colorschemes.
         use({ "catppuccin/nvim", as = "catppuccin" })
 
         -- Telescope.
-        use({ "nvim-telescope/telescope.nvim", requires = "nvim-lua/plenary.nvim" })
+        use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
         use("nvim-telescope/telescope-symbols.nvim")
         use("nvim-telescope/telescope-file-browser.nvim")
         use({
             "nvim-telescope/telescope-fzf-native.nvim",
-            run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+            run = "make",
+            cond = vim.fn.executable("make") == 1,
         })
         use_if_exists("telescope-codesearch.nvim")
 
         -- External tools integration.
-        use({ "ibhagwan/fzf-lua", requires = "nvim-tree/nvim-web-devicons" })
+        use({ "ibhagwan/fzf-lua", requires = { "nvim-tree/nvim-web-devicons" } })
         use("ThePrimeagen/git-worktree.nvim")
-        use({ "sindrets/diffview.nvim", requires = "nvim-lua/plenary.nvim" })
+        use({ "sindrets/diffview.nvim", requires = { "nvim-lua/plenary.nvim" } })
 
         -- Formatters.
         use("sbdchd/neoformat")
@@ -120,17 +119,16 @@ return require("packer").startup({
         --- Motions and convenience plugins.
         use("tpope/vim-repeat") -- Repeat actions better
         use("tpope/vim-surround") -- Surround text objects easily
-        use({ "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" })
+        use({ "ThePrimeagen/harpoon", requires = { "nvim-lua/plenary.nvim" } })
         use("mbbill/undotree")
         use("numToStr/Comment.nvim")
         use("ethanholz/nvim-lastplace")
-        use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" })
+        use({ "TimUntersberger/neogit", requires = { "nvim-lua/plenary.nvim" } })
         use("folke/zen-mode.nvim")
 
         if is_bootstrap_run then require("packer").sync() end
     end,
     config = {
-        luarocks = { python_cmd = "python3" },
         display = {
             open_fn = function() return require("packer.util").float({ border = "single" }) end,
         },
