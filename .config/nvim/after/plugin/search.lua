@@ -78,7 +78,7 @@ mappings.nnoremap("<leader>.", function()
         require("fzf-lua").files({ cwd = "~/.config" })
     end
 end)
-mappings.nnoremap("<leader>b", require("fzf-lua").buffers)
+mappings.nnoremap("<leader>b", require("telescope.builtin").buffers)
 mappings.nnoremap("<leader>d", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
 mappings.nnoremap("<leader>tm", require("telescope.builtin").man_pages)
