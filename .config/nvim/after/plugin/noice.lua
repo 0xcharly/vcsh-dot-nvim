@@ -1,1 +1,5 @@
-require("noice").setup()
+require("noice").setup({
+    messages = {
+        enabled = false,
+    }
+})

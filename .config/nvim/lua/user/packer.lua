@@ -41,7 +41,6 @@ return require("packer").startup({
         use("nvim-treesitter/nvim-treesitter-context")
         use("nvim-treesitter/nvim-treesitter-textobjects")
         use("nvim-treesitter/playground")
-        use("JoosepAlviste/nvim-ts-context-commentstring")
 
         use("joelspadin/tree-sitter-devicetree")
 
