@@ -106,6 +106,7 @@ return require("packer").startup({
             run = "make",
             cond = vim.fn.executable("make") == 1,
         })
+        use("debugloop/telescope-undo.nvim")
         use_if_exists("telescope-codesearch.nvim")
 
         -- External tools integration.

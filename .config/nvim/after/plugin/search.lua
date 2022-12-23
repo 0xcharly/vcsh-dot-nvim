@@ -5,7 +5,7 @@ require("telescope").setup({
         prompt_prefix = "   ",
         entry_prefix = "   ",
         selection_caret = " ❯ ",
-        layout_strategy = "vertical",
+        layout_strategy = "flex",
 
         file_previewer = require("telescope.previewers").vim_buffer_cat.new,
         grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
@@ -47,24 +47,13 @@ require("telescope").setup({
             return path
         end,
     },
-    pickers = {
-        find_files = {
-            disable_devicons = true,
-        },
-    },
-    extensions = {
-        codesearch = {
-            disable_devicons = true,
-        },
-    },
 })
 
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("git_worktree")
 require("telescope").load_extension("harpoon")
-
-local function workspace_symbols() require("telescope.builtin").lsp_dynamic_workspace_symbols({}) end
+require("telescope").load_extension("undo")
 
 local mappings = require("user.mappings")
 
@@ -83,7 +72,8 @@ mappings.nnoremap("<leader>d", require("telescope.builtin").diagnostics)
 mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
 mappings.nnoremap("<leader>tm", require("telescope.builtin").man_pages)
 mappings.nnoremap("<leader>tw", require("telescope").extensions.git_worktree.git_worktrees)
-mappings.nnoremap("<leader>ts", workspace_symbols)
+mappings.nnoremap("<leader>ts", require("telescope.builtin").lsp_dynamic_workspace_symbols)
+mappings.nnoremap("<leader>su", require("telescope").extensions.undo.undo)
 mappings.nnoremap("<leader>*", require("telescope.builtin").grep_string)
 mappings.nnoremap("<leader>/", require("telescope.builtin").find_files)
 mappings.nnoremap("<leader>?", require("telescope.builtin").help_tags)

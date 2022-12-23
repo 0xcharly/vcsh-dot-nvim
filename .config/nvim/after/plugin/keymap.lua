@@ -24,10 +24,10 @@ mappings.nnoremap("<M-Up>", "<C-w>k")
 mappings.nnoremap("<M-Right>", "<C-w>l")
 
 mappings.nnoremap("<leader>pv", vim.cmd.Ex)
-mappings.nnoremap("<LocalLeader>u", ":UndotreeShow<cr>")
+mappings.nnoremap("<LocalLeader>u", ":UndotreeShow<cr>", { silent = true })
 
-mappings.vnoremap("J", ":m '>+1<cr>gv=gv")
-mappings.vnoremap("K", ":m '<-2<cr>gv=gv")
+mappings.vnoremap("J", ":m '>+1<cr>gv=gv", { silent = true })
+mappings.vnoremap("K", ":m '<-2<cr>gv=gv", { silent = true })
 
 mappings.nnoremap("Y", "yg$")
 mappings.nnoremap("n", "nzzzv")
@@ -57,7 +57,7 @@ mappings.nnoremap("<leader>k", "<cmd>lnext<cr>zz")
 mappings.nnoremap("<leader>j", "<cmd>lprev<cr>zz")
 
 -- Format.
-mappings.nnoremap("<LocalLeader>bf", ":Neoformat<cr>")
+mappings.nnoremap("<LocalLeader>bf", ":Neoformat<cr>", { silent = true })
 
 -- Tools integration.
 mappings.nnoremap("<c-f>", "<cmd>!tmux new-window ~/.local/bin/open-tmux-workspace<cr>", { silent = true })
