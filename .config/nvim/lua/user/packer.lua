@@ -88,7 +88,6 @@ return require("packer").startup({
         use("mfussenegger/nvim-dap")
         use("simrat39/rust-tools.nvim")
         use("onsails/lspkind-nvim")
-        use("j-hui/fidget.nvim")
 
         -- UI.
         use({ "yamatsum/nvim-web-nonicons", requires = { "nvim-tree/nvim-web-devicons" } })

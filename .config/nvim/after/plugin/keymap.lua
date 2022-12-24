@@ -7,7 +7,6 @@ mappings.tnoremap("<M-Up>", "<C-\\><C-N><C-w>k")
 mappings.tnoremap("<M-Right>", "<C-\\><C-N><C-w>l")
 
 -- Make esc leave terminal mode
-mappings.tnoremap("<leader><Esc>", "<C-\\><C-n>")
 mappings.tnoremap("<Esc><Esc>", "<C-\\><C-n>")
 
 -- Try and make sure to not mangle space items

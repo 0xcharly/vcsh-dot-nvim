@@ -81,15 +81,3 @@ lsp_config.ciderlsp.setup(lsp.common_config())
 
 -- Add-ons for Lua in Neovim.
 lsp.setup_nvim_workspace()
-
-require("fidget").setup({
-    text = {
-        spinner = "dots",
-    },
-    align = {
-        bottom = true,
-    },
-    window = {
-        relative = "editor",
-    },
-})
