@@ -3,10 +3,7 @@ local cmp = require("cmp")
 -- Don't show the dumb matching stuff.
 vim.opt.shortmess:append("c")
 
-require("lspkind").init({ preset = "codicons" })
-
 cmp.setup({
-    -- view = { entries = "native" },
     mapping = cmp.mapping.preset.insert({
         ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }), { "i", "c" }),
         ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }), { "i", "c" }),
@@ -59,20 +56,23 @@ cmp.setup({
     snippet = {
         expand = function(args) require("luasnip").lsp_expand(args.body) end,
     },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
     formatting = {
-        format = require("lspkind").cmp_format({
-            mode = "symbol",
-            with_text = true,
+        format = require('lspkind').cmp_format({
+            mode = 'symbol_text',
+            preset = 'codicons',
+            maxwidth = 50,
+            ellipsis_char = '…',
             menu = {
-                buffer = "[buf]",
-                nvim_lsp = "[LSP]",
-                nvim_lua = "[api]",
-                path = "[path]",
-                luasnip = "[snip]",
-            },
+                buffer = " (buf)",
+                nvim_lsp = " (lsp)",
+                nvim_lua = " (lua)",
+            }
         }),
     },
-
     experimental = {
         ghost_text = true,
     },

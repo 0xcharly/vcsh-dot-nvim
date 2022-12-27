@@ -35,20 +35,23 @@ return require("packer").startup({
 
         -- Switch to self-managed on the first run after manual checkout.
         use("wbthomason/packer.nvim")
+        use("lewis6991/impatient.nvim")
 
         --- Language syntaxes.
         use("nvim-treesitter/nvim-treesitter")
         use("nvim-treesitter/nvim-treesitter-context")
         use("nvim-treesitter/nvim-treesitter-textobjects")
-        use("nvim-treesitter/playground")
+        use({ "nvim-treesitter/playground", fn = "LoadTSPlayground" })
 
-        use("joelspadin/tree-sitter-devicetree")
+        -- 3rd-party Treesitter language support.
+        use({ "joelspadin/tree-sitter-devicetree", ft = "devicetree" })
 
         -- Language support.
-        use("crispgm/cmp-beancount")
-        use("fladson/vim-kitty")
+        use({ "crispgm/cmp-beancount", ft = "beancount" })
+        use({ "fladson/vim-kitty", ft = "kitty" })
         use({
             "nvim-neorg/neorg",
+            tag = "0.0.18", -- Until GTD makes it back in the main branch.
             ft = "norg",
             after = "nvim-treesitter",
             config = function()
@@ -76,41 +79,38 @@ return require("packer").startup({
         use("hrsh7th/cmp-nvim-lsp")
         use("hrsh7th/cmp-nvim-lua")
 
-        use("saadparwaiz1/cmp_luasnip")
-        use("mtoohey31/cmp-fish")
-        use("tamago324/cmp-zsh")
+        use("onsails/lspkind.nvim")
 
-        -- Snippets.
-        use("L3MON4D3/LuaSnip")
-        use("rafamadriz/friendly-snippets")
+        -- 3rd-party languages completion support.
+        use({ "mtoohey31/cmp-fish", ft = "fish" })
+        use({ "tamago324/cmp-zsh", ft = "zsh" })
 
         -- Tools.
-        use("mfussenegger/nvim-dap")
-        use("simrat39/rust-tools.nvim")
-        use("onsails/lspkind-nvim")
+        use({ "mfussenegger/nvim-dap", ft = "rust" })
+        use({ "simrat39/rust-tools.nvim", ft = "rust" })
 
         -- UI.
         use({ "yamatsum/nvim-web-nonicons", requires = { "nvim-tree/nvim-web-devicons" } })
 
         -- Colorschemes.
         use({ "catppuccin/nvim", as = "catppuccin" })
-        use({ "https://github.com/folke/noice.nvim", requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } })
+        use({ "folke/noice.nvim", requires = "MunifTanjim/nui.nvim" })
 
         -- Telescope.
         use({ "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } })
         use("nvim-telescope/telescope-symbols.nvim")
-        use("nvim-telescope/telescope-file-browser.nvim")
         use({
             "nvim-telescope/telescope-fzf-native.nvim",
             run = "make",
             cond = vim.fn.executable("make") == 1,
         })
+
+        -- 3rd-party telescope plugins.
         use("debugloop/telescope-undo.nvim")
         use_if_exists("telescope-codesearch.nvim")
 
         -- External tools integration.
         use({ "ibhagwan/fzf-lua", requires = { "nvim-tree/nvim-web-devicons" } })
-        use("ThePrimeagen/git-worktree.nvim")
         use({ "sindrets/diffview.nvim", requires = { "nvim-lua/plenary.nvim" } })
 
         -- Formatters.
@@ -123,8 +123,6 @@ return require("packer").startup({
         use("mbbill/undotree")
         use("numToStr/Comment.nvim")
         use("ethanholz/nvim-lastplace")
-        use({ "TimUntersberger/neogit", requires = { "nvim-lua/plenary.nvim" } })
-        use("folke/zen-mode.nvim")
 
         if is_bootstrap_run then require("packer").sync() end
     end,

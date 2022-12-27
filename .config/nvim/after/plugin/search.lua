@@ -1,19 +1,21 @@
+local telescope = require("telescope")
 local actions = require("telescope.actions")
+local previewers = require("telescope.previewers")
 
-require("telescope").setup({
+telescope.setup({
     defaults = {
         prompt_prefix = "   ",
         entry_prefix = "   ",
         selection_caret = " ❯ ",
-        layout_strategy = "flex",
+        layout_strategy = "vertical",
 
-        file_previewer = require("telescope.previewers").vim_buffer_cat.new,
-        grep_previewer = require("telescope.previewers").vim_buffer_vimgrep.new,
-        qflist_previewer = require("telescope.previewers").vim_buffer_qflist.new,
+        file_previewer = previewers.vim_buffer_cat.new,
+        grep_previewer = previewers.vim_buffer_vimgrep.new,
+        qflist_previewer = previewers.vim_buffer_qflist.new,
 
         mappings = {
             i = {
-                ["<esc>"] = require("telescope.actions").close,
+                ["<esc>"] = actions.close,
                 ["<C-x>"] = false,
                 ["<C-q>"] = actions.send_to_qflist,
                 ["<CR>"] = actions.select_default,
@@ -49,36 +51,34 @@ require("telescope").setup({
     },
 })
 
-require("telescope").load_extension("file_browser")
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("git_worktree")
-require("telescope").load_extension("harpoon")
-require("telescope").load_extension("undo")
+telescope.load_extension("fzf")
+telescope.load_extension("harpoon")
+telescope.load_extension("undo")
 
 local mappings = require("user.mappings")
+local fzf_lua = require("fzf-lua")
+local builtin = require("telescope.builtin")
 
-mappings.nnoremap("<leader>ff", require("fzf-lua").files)
-mappings.nnoremap("<C-p>", require("fzf-lua").git_files)
-mappings.nnoremap("<leader>g", require("fzf-lua").live_grep)
+mappings.nnoremap("<leader>ff", fzf_lua.files)
+mappings.nnoremap("<C-p>", fzf_lua.git_files)
+mappings.nnoremap("<leader>g", fzf_lua.live_grep)
 mappings.nnoremap("<leader>.", function()
     if vim.fn.executable("fd") == 1 then
-        require("fzf-lua").files({ cmd = "fd . ~/.config --type f --exclude '*.git' --exclude raycast --exclude op" })
+        fzf_lua.files({ cmd = "fd . ~/.config --type f --exclude '*.git' --exclude raycast --exclude op" })
     else
-        require("fzf-lua").files({ cwd = "~/.config" })
+        fzf_lua.files({ cwd = "~/.config" })
     end
 end)
-mappings.nnoremap("<leader>b", require("telescope.builtin").buffers)
-mappings.nnoremap("<leader>d", require("telescope.builtin").diagnostics)
-mappings.nnoremap("<leader>te", require("telescope").extensions.file_browser.file_browser)
-mappings.nnoremap("<leader>tm", require("telescope.builtin").man_pages)
-mappings.nnoremap("<leader>tw", require("telescope").extensions.git_worktree.git_worktrees)
-mappings.nnoremap("<leader>ts", require("telescope.builtin").lsp_dynamic_workspace_symbols)
-mappings.nnoremap("<leader>su", require("telescope").extensions.undo.undo)
-mappings.nnoremap("<leader>*", require("telescope.builtin").grep_string)
-mappings.nnoremap("<leader>/", require("telescope.builtin").find_files)
-mappings.nnoremap("<leader>?", require("telescope.builtin").help_tags)
+mappings.nnoremap("<leader>b", builtin.buffers)
+mappings.nnoremap("<leader>d", builtin.diagnostics)
+mappings.nnoremap("<leader>tm", builtin.man_pages)
+mappings.nnoremap("<leader>ts", builtin.lsp_dynamic_workspace_symbols)
+mappings.nnoremap("<leader>su", telescope.extensions.undo.undo)
+mappings.nnoremap("<leader>*", builtin.grep_string)
+mappings.nnoremap("<leader>/", builtin.find_files)
+mappings.nnoremap("<leader>?", builtin.help_tags)
 
-if pcall(function() require("telescope").load_extension("codesearch") end) then
-    mappings.nnoremap("<LocalLeader>gs", function() require("telescope").extensions.codesearch.find_query({}) end)
-    mappings.nnoremap("<LocalLeader>gf", function() require("telescope").extensions.codesearch.find_files({}) end)
+if pcall(function() telescope.load_extension("codesearch") end) then
+    mappings.nnoremap("<LocalLeader>gs", function() telescope.extensions.codesearch.find_query({}) end)
+    mappings.nnoremap("<LocalLeader>gf", function() telescope.extensions.codesearch.find_files({}) end)
 end

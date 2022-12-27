@@ -44,6 +44,7 @@ require("mason-lspconfig").setup({
     ensure_installed = { "clangd", "pylsp", "rust_analyzer", "sumneko_lua", "tsserver" },
 })
 
+---[[[
 -- Custom configuration for CiderLSP.
 require("lspconfig.configs").ciderlsp = {
     default_config = {
@@ -71,13 +72,14 @@ require("lspconfig.configs").ciderlsp = {
         settings = {},
     },
 }
+---]]]
 
 -- Setup common LSP servers.
 lsp_config.clangd.setup(lsp.common_config())
 lsp_config.pylsp.setup(lsp.common_config())
 lsp_config.rust_analyzer.setup(lsp.common_config())
 lsp_config.tsserver.setup(lsp.common_config())
-lsp_config.ciderlsp.setup(lsp.common_config())
+-- lsp_config.ciderlsp.setup(lsp.common_config())
 
 -- Add-ons for Lua in Neovim.
 lsp.setup_nvim_workspace()
