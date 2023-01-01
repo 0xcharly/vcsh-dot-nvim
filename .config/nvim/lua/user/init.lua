@@ -1,5 +1,0 @@
-require("user.core")
-require("user.options")
-require("user.packer")
-require("user.autocmd")
-require("user.mappings")

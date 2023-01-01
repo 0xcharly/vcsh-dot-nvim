@@ -1,4 +1,3 @@
-
 " I want the filetype "term" for terminal windows
 augroup TermDetect
     au!
