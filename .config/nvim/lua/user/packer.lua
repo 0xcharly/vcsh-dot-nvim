@@ -78,6 +78,7 @@ return require("packer").startup({
         use("hrsh7th/cmp-nvim-lsp-document-symbol")
         use("hrsh7th/cmp-nvim-lsp")
         use("hrsh7th/cmp-nvim-lua")
+        use("L3MON4D3/LuaSnip")
 
         use("onsails/lspkind.nvim")
 
@@ -86,8 +87,7 @@ return require("packer").startup({
         use({ "tamago324/cmp-zsh", ft = "zsh" })
 
         -- Tools.
-        use({ "mfussenegger/nvim-dap", ft = "rust" })
-        use({ "simrat39/rust-tools.nvim", ft = "rust" })
+        use({ "simrat39/rust-tools.nvim", requires = "mfussenegger/nvim-dap" })
 
         -- UI.
         use({ "yamatsum/nvim-web-nonicons", requires = { "nvim-tree/nvim-web-devicons" } })
