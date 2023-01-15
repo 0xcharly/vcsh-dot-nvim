@@ -23,7 +23,9 @@ vim.g.maplocalleader = ','
 require 'lazy'.setup('user.plugins', {
     dev = {
         path = '~/dev',
+        patterns = { '0xcharly' },
     },
+    install = { colorscheme = { 'primebuddy', 'habamax' } },
     ui = {
         border = 'rounded',
     },
@@ -46,10 +48,6 @@ require 'lazy'.setup('user.plugins', {
         },
     },
 })
-
--- Colorscheme.
-vim.o.termguicolors = true
-vim.cmd.colorscheme 'catppuccin'
 
 -- Netrw plugin.
 vim.g.netrw_browse_split = 0

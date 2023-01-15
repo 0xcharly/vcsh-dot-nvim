@@ -20,6 +20,8 @@ return {
                     'java',
                     'kotlin',
                     'lua',
+                    'markdown',
+                    'markdown_inline',
                     'python',
                     'regex',
                     'rst',

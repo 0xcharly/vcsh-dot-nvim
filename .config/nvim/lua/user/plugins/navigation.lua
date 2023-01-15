@@ -105,7 +105,7 @@ return {
             { '<leader>b', function() require 'telescope.builtin'.buffers() end },
             { '<leader>d', function() require 'telescope.builtin'.diagnostics() end },
             { '<leader>tm', function() require 'telescope.builtin'.man_pages() end },
-            { '<leader>ts', function() require 'telescope.builtin'.lsp_dynamic_workspace_symbols() end },
+            { '<LocalLeader>ts', function() require 'telescope.builtin'.lsp_dynamic_workspace_symbols() end },
             { '<leader>su', function() require 'telescope'.extensions.undo.undo() end },
             { '<leader>*', function() require 'telescope.builtin'.grep_string() end },
             { '<leader>/', function() require 'telescope.builtin'.find_files() end },

@@ -88,6 +88,12 @@ return {
         },
     },
 
+    { -- Flutter development.
+        'akinsho/flutter-tools.nvim',
+        ft = 'dart',
+        config = true,
+    },
+
     { -- Run formatters.
         'sbdchd/neoformat',
         config = function()
