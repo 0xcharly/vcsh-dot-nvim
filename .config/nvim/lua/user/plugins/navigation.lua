@@ -16,11 +16,12 @@ return {
     -- Search engines.
     {
         'nvim-telescope/telescope.nvim',
-        cmd = 'Telescope',
+        lazy = false,
         dependencies = {
             -- 1st-party telescope plugins.
             { 'nvim-telescope/telescope-symbols.nvim' },
             { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+            { 'nvim-telescope/telescope-ui-select.nvim' },
 
             -- 3rd-party telescope plugins.
             { 'debugloop/telescope-undo.nvim' },
@@ -95,11 +96,18 @@ return {
                         return path
                     end,
                 },
+                extensions = {
+                    ['ui-select'] = {
+                        require 'telescope.themes'.get_dropdown(),
+                    },
+                },
             }
 
-            pcall(require 'telescope'.load_extension, 'fzf')
-            pcall(require 'telescope'.load_extension, 'harpoon')
-            pcall(require 'telescope'.load_extension, 'undo')
+            require 'telescope'.load_extension 'fzf'
+            require 'telescope'.load_extension 'harpoon'
+            require 'telescope'.load_extension 'noice'
+            require 'telescope'.load_extension 'undo'
+            require 'telescope'.load_extension 'ui-select'
         end,
         keys = {
             { '<leader>b', function() require 'telescope.builtin'.buffers() end },

@@ -4,7 +4,7 @@ local M = {}
 -- This function gets run when an LSP connects to a particular buffer.
 function M.user_on_attach(client, bufnr)
     -- Disable semantic tokens (overrides tree-sitter highlighting).
-    client.server_capabilities.semanticTokensProvider = nil
+    -- client.server_capabilities.semanticTokensProvider = nil
 
     -- Buffer-specific keymap.
     local buf_opts = { buffer = bufnr }
