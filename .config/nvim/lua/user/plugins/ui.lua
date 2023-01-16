@@ -1,21 +1,15 @@
 -- UI-related plugins.
 
 return {
-    { -- Colorscheme: catppuccin
-        'catppuccin/nvim',
-        name = 'catppuccin',
-        opts = { flavour = 'mocha' },
-    },
-
-    { -- Colorscheme: Github
-        '0xcharly/primebuddy.nvim',
+    { -- Colorscheme: Coalescence
+        '0xcharly/coalescence.nvim',
         dependencies = { 'tjdevries/colorbuddy.nvim' },
         dev = true,
         lazy = false,
         priority = 1000,
         config = function()
             vim.o.termguicolors = true
-            require 'colorbuddy'.colorscheme 'primebuddy'
+            require 'colorbuddy'.colorscheme 'coalescence'
         end,
     },
 
