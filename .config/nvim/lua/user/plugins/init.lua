@@ -11,6 +11,7 @@ return {
             { '<LocalLeader>ut', '<cmd>UndotreeToggle<cr>', desc = '[U]ndo [T]ree' },
         },
     },
+    { 'asiryk/auto-hlsearch.nvim', event = 'BufReadPost', config = true },
     { 'numToStr/Comment.nvim', lazy = false, config = true },
     { 'ethanholz/nvim-lastplace', lazy = false, config = true },
 }

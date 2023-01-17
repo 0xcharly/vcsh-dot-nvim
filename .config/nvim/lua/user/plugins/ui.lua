@@ -43,6 +43,13 @@ return {
                 lsp_doc_border = true,
                 inc_rename = true,
             },
+            lsp = {
+                override = {
+                    ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+                    ['vim.lsp.util.stylize_markdown'] = true,
+                    ['cmp.entry.get_documentation'] = true,
+                },
+            },
         },
     },
     { -- Scrollbar.
@@ -56,8 +63,16 @@ return {
     { -- Comments markers.
         'folke/todo-comments.nvim', opts = {
             highlight = {
-                keyword = 'fg',
+                keyword = 'wide',
                 pattern = [[.*<(KEYWORDS)(\([a-zA-Z]+\))?\s*:]],
+            },
+            colors = {
+                error = { 'TodoCommentError' },
+                warn = { 'TodoCommentWarning' },
+                info = { 'TodoCommentInfo' },
+                hint = { 'TodoCommentHint' },
+                default = { 'TodoCommentDefault' },
+                test = { 'TodoCommentTest' },
             },
         }
     },
