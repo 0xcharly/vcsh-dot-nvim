@@ -6,7 +6,7 @@ if not vim.loop.fs_stat(lazypath) then
         'clone',
         '--filter=blob:none',
         'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
+        '--branch=v9.1.3', -- TODO: change that back when stable is fixed upstream.
         lazypath,
     }
 end
@@ -65,6 +65,7 @@ vim.keymap.set('n', '<ScrollWheelRight>', '<Nop>', { silent = true })
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes'
+vim.wo.cursorline = true
 
 vim.o.breakindent = true
 vim.o.undofile = true
