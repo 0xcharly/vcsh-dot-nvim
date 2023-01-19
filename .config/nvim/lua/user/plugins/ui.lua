@@ -59,21 +59,4 @@ return {
             excluded_filetypes = { 'prompt', 'TelescopePrompt', 'noice', 'notify' },
         },
     },
-
-    { -- Comments markers.
-        'folke/todo-comments.nvim', opts = {
-            highlight = {
-                keyword = 'wide',
-                pattern = [[.*<(KEYWORDS)(\([a-zA-Z]+\))?\s*:]],
-            },
-            colors = {
-                error = { 'TodoCommentError' },
-                warn = { 'TodoCommentWarning' },
-                info = { 'TodoCommentInfo' },
-                hint = { 'TodoCommentHint' },
-                default = { 'TodoCommentDefault' },
-                test = { 'TodoCommentTest' },
-            },
-        }
-    },
 }
