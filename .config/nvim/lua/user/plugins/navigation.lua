@@ -26,8 +26,7 @@ return {
             -- 3rd-party telescope plugins.
             { 'debugloop/telescope-undo.nvim' },
             {
-                'telescope-codesearch.nvim',
-                dev = true,
+                dir = '~/dev/telescope-codesearch.nvim',
                 cond = company.is_corporate_host(),
                 config = function()
                     require 'telescope'.load_extension 'codesearch'
