@@ -52,4 +52,32 @@ function M.setup_lsp(capabilities)
     }
 end
 
+function M.path_display(opts, path)
+    -- Do common substitutions.
+    -- Google3 generic.
+    path = path:gsub('^/google/src/cloud/[^/]+/[^/]+/google3/', 'google3/', 1)
+    path = path:gsub('^google3/java/com/google/', 'g3/jcg/', 1)
+    path = path:gsub('^google3/javatests/com/google/', 'g3/jtcg/', 1)
+    path = path:gsub('^google3/third_party/', 'g3/3rdp/', 1)
+    path = path:gsub('^google3/', 'g3/', 1)
+
+    -- GMM specific.
+    path = path:gsub('^g3/jcg/apps/android/gmm', 'agmm/', 1)
+    path = path:gsub('^g3/jtcg/apps/android/gmm', 'agmm/tests/', 1)
+
+    -- Do truncation. This allows us to combine our custom display formatter with the built-in truncation.
+    -- `truncate` handler in transform_path memoizes computed truncation length in opts.__length.
+    -- Here we are manually propagating this value between new_opts and opts.
+    -- We can make this cleaner and more complicated using metatables :)
+    local new_opts = {
+        path_display = {
+            truncate = true,
+        },
+        __length = opts.__length,
+    }
+    path = require 'telescope.utils'.transform_path(new_opts, path)
+    opts.__length = new_opts.__length
+    return path
+end
+
 return M

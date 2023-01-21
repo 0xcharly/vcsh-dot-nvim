@@ -1,14 +1,14 @@
 -- Bootstrap package manager.
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system {
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=v9.1.3', -- TODO: change that back when stable is fixed upstream.
-        lazypath,
-    }
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=v9.1.3', -- TODO: change that back when stable is fixed upstream.
+    lazypath,
+  }
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -21,32 +21,32 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ','
 
 require 'lazy'.setup('user.plugins', {
-    dev = {
-        path = '~/dev',
-        patterns = { '0xcharly' },
+  dev = {
+    path = '~/dev',
+    patterns = { '0xcharly' },
+  },
+  install = { colorscheme = { 'primebuddy', 'habamax' } },
+  ui = {
+    border = 'rounded',
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        'health',
+        'gzip',
+        'matchit',
+        -- 'matchparen',
+        -- 'netrwPlugin',
+        'rplugin',
+        'shada',
+        'spellfile',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
     },
-    install = { colorscheme = { 'primebuddy', 'habamax' } },
-    ui = {
-        border = 'rounded',
-    },
-    performance = {
-        rtp = {
-            disabled_plugins = {
-                'health',
-                'gzip',
-                'matchit',
-                -- 'matchparen',
-                -- 'netrwPlugin',
-                'rplugin',
-                'shada',
-                'spellfile',
-                'tarPlugin',
-                'tohtml',
-                'tutor',
-                'zipPlugin',
-            },
-        },
-    },
+  },
 })
 
 -- Netrw plugin.
@@ -67,6 +67,14 @@ vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes'
 vim.wo.cursorline = true
 
+-- Large fold level on startup.
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+require 'user.utils.status'
+
 vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.belloff = 'all'
@@ -75,9 +83,9 @@ vim.o.belloff = 'all'
 vim.o.autoindent = true
 vim.o.expandtab = true
 vim.o.shiftround = true
-vim.o.shiftwidth = 4
-vim.o.softtabstop = 4
-vim.o.tabstop = 4
+vim.o.shiftwidth = 2
+vim.o.softtabstop = 2
+vim.o.tabstop = 2
 vim.o.textwidth = 80
 vim.o.wrap = false
 
@@ -103,17 +111,17 @@ vim.opt.formatoptions = vim.opt.formatoptions -- :h fo
 
 -- Message output.
 vim.opt.shortmess = {
-    t = true, -- truncate file messages at start
-    a = true, -- ignore annoying save file messages
-    A = true, -- ignore annoying swap file messages
-    o = true, -- file-read message overwrites previous
-    O = true, -- file-read message overwrites previous
-    T = true, -- truncate non-file messages in middle
-    f = true, -- (file x of x) instead of just (x of x
-    F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
-    s = true,
-    c = true,
-    W = true, -- Dont show [w] or written when writing
+  t = true, -- truncate file messages at start
+  a = true, -- ignore annoying save file messages
+  A = true, -- ignore annoying swap file messages
+  o = true, -- file-read message overwrites previous
+  O = true, -- file-read message overwrites previous
+  T = true, -- truncate non-file messages in middle
+  f = true, -- (file x of x) instead of just (x of x
+  F = true, -- Don't give file info when editing a file, NOTE: this breaks autocommand messages
+  s = true,
+  c = true,
+  W = true, -- Dont show [w] or written when writing
 }
 
 -- Keymaps for better default experience.
@@ -126,33 +134,33 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Use faster grep alternatives if possible.
 if vim.fn.executable 'rg' > 0 then
-    vim.o.grepprg = [[rg --hidden --glob '!.git' --no-heading --smart-case --vimgrep --follow $*]]
-    vim.opt.grepformat = vim.opt.grepformat ^ { '%f:%l:%c:%m' }
+  vim.o.grepprg = [[rg --hidden --glob '!.git' --no-heading --smart-case --vimgrep --follow $*]]
+  vim.opt.grepformat = vim.opt.grepformat ^ { '%f:%l:%c:%m' }
 elseif vim.fn.executable 'ag' > 0 then
-    vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
-    vim.opt.grepformat = vim.opt.grepformat ^ { '%f:%l:%c:%m' }
+  vim.o.grepprg = [[ag --nogroup --nocolor --vimgrep]]
+  vim.opt.grepformat = vim.opt.grepformat ^ { '%f:%l:%c:%m' }
 end
 
 -- [[ Flash on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local yank_group = vim.api.nvim_create_augroup('HighlightYank', {})
 vim.api.nvim_create_autocmd('TextYankPost', {
-    group = yank_group,
-    pattern = '*',
-    callback = function()
-        vim.highlight.on_yank {
-            higroup = 'IncSearch',
-            timeout = 40,
-        }
-    end,
+  group = yank_group,
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank {
+      higroup = 'IncSearch',
+      timeout = 40,
+    }
+  end,
 })
 
 -- [[ Remove trailing whitespaces ]]
 local whitespace_group = vim.api.nvim_create_augroup('WhitespaceGroup', {})
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-    group = whitespace_group,
-    pattern = '*',
-    command = '%s/\\s\\+$//e',
+  group = whitespace_group,
+  pattern = '*',
+  command = '%s/\\s\\+$//e',
 })
 
 -- [[ Key bindings ]]
