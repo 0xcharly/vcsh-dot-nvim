@@ -35,7 +35,7 @@ require 'lazy'.setup('user.plugins', {
                 'health',
                 'gzip',
                 'matchit',
-                'matchparen',
+                -- 'matchparen',
                 -- 'netrwPlugin',
                 'rplugin',
                 'shada',

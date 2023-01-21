@@ -13,13 +13,13 @@ return {
         end,
     },
 
-
     { -- Iconography.
         'yamatsum/nvim-nonicons',
         config = true,
         event = 'VeryLazy',
         dependencies = { 'nvim-tree/nvim-web-devicons', config = true },
     },
+
     { -- Nicer UI primitives.
         'folke/noice.nvim',
         dependencies = 'MunifTanjim/nui.nvim',
@@ -52,11 +52,10 @@ return {
             },
         },
     },
+
     { -- Scrollbar.
         'petertriho/nvim-scrollbar',
         event = 'BufReadPost',
-        opts = {
-            excluded_filetypes = { 'prompt', 'TelescopePrompt', 'noice', 'notify' },
-        },
+        config = true,
     },
 }
