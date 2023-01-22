@@ -134,17 +134,6 @@ return {
     },
   },
 
-  { -- Run formatters.
-    'sbdchd/neoformat',
-    config = function()
-      vim.g.neoformat_enabled_beancount = { 'beanformat' }
-      vim.g.neoformat_enabled_python = { 'black' }
-    end,
-    keys = {
-      { '<LocalLeader>bf', '<cmd>Neoformat<cr>', desc = '[F]ormat ([B]uffer)' },
-    },
-  },
-
   {
     'jose-elias-alvarez/null-ls.nvim',
     config = function()
@@ -153,23 +142,19 @@ return {
         debounce = 150,
         save_after_format = false,
         sources = {
-          -- nls.builtins.formatting.prettierd,
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.fish_indent,
-          -- nls.builtins.formatting.fixjson.with({ filetypes = { "jsonc" } }),
-          -- nls.builtins.diagnostics.shellcheck,
           nls.builtins.formatting.jq,
           nls.builtins.formatting.shfmt,
           nls.builtins.formatting.bean_format,
           nls.builtins.formatting.mdformat,
           nls.builtins.diagnostics.markdownlint,
           nls.builtins.diagnostics.fish,
-          -- nls.builtins.diagnostics.luacheck,
           nls.builtins.diagnostics.selene,
           nls.builtins.formatting.prettierd.with {
             filetypes = { 'markdown' }, -- only runs `deno fmt` for markdown
           },
-          -- nls.builtins.code_actions.gitsigns,
+          nls.builtins.code_actions.gitsigns,
           nls.builtins.formatting.isort,
           nls.builtins.formatting.black,
           nls.builtins.diagnostics.flake8,

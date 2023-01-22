@@ -16,7 +16,6 @@ function M.is_corporate_host()
 end
 
 function M.setup_lsp(capabilities)
-    -- TODO: re-enable this.
     -- Custom configuration for CiderLSP.
     require 'lspconfig.configs'.ciderlsp = {
         default_config = {
