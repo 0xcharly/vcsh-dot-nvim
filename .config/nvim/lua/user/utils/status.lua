@@ -1,5 +1,4 @@
 local M = {}
-_G.Status = M
 
 function M.fold()
 	local line = vim.v.lnum
@@ -14,8 +13,8 @@ function M.status_column()
 	local components = {
     -- [[%#FoldColumn#%{v:lua.Status.fold()}]],
     [[ %s]],
-		[[%=]],
-		[[%{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''}]],
+    [[%=]],
+    [[%{&nu?(&rnu&&v:relnum?v:relnum:v:lnum):''}]],
     [[ ]],
 	}
 	return table.concat(components, "")
