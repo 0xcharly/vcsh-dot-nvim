@@ -31,6 +31,7 @@ return {
       },
       messages = {
         enabled = true,
+        view_search = false,
       },
       popupmenu = {
         backend = 'cmp',
