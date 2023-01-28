@@ -150,7 +150,7 @@ return {
           nls.builtins.formatting.mdformat,
           nls.builtins.diagnostics.markdownlint,
           nls.builtins.diagnostics.fish,
-          nls.builtins.diagnostics.selene,
+          -- nls.builtins.diagnostics.selene,
           nls.builtins.formatting.prettierd.with {
             filetypes = { 'markdown' }, -- only runs `deno fmt` for markdown
           },
