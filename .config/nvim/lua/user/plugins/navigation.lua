@@ -109,7 +109,7 @@ return {
       },
       -- Telescope only.
       { '<leader>b', require('user.utils.telescope').buffers },
-      { '<leader>d', function() require('telescope.builtin').diagnostics() end },
+      { '<LocalLeader>ld', function() require('telescope.builtin').diagnostics() end },
       { '<leader>F', function() require('telescope').extensions.flutter.commands() end },
       { '<leader>L', function() require('telescope').extensions.lazy.lazy() end },
       { '<leader>tm', function() require('telescope.builtin').man_pages() end },
