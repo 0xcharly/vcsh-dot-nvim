@@ -78,17 +78,4 @@ return {
     event = 'BufReadPost',
     config = true,
   },
-
-  { -- Better folds.
-    'kevinhwang91/nvim-ufo',
-    dependencies = 'kevinhwang91/promise-async',
-    event = 'BufReadPost',
-    config = true,
-
-    init = function()
-      -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-      vim.keymap.set('n', 'zO', function() require 'ufo'.openAllFolds() end)
-      vim.keymap.set('n', 'zC', function() require 'ufo'.closeAllFolds() end)
-    end,
-  },
 }

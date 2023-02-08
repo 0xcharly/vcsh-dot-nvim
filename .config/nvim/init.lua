@@ -73,8 +73,6 @@ vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
-require 'user.utils.status'
-
 vim.o.breakindent = true
 vim.o.undofile = true
 vim.o.belloff = 'all'
