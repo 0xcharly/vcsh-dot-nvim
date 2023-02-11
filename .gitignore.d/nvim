@@ -6,6 +6,9 @@
 !/.config/nvim/stylua.toml
 !/.config/nvim/init.lua
 !/.config/nvim/lua/
+!/.config/nvim/lua/lualine
+!/.config/nvim/lua/lualine/components
+!/.config/nvim/lua/lualine/components/*.lua
 !/.config/nvim/lua/user
 !/.config/nvim/lua/user/*
 !/.config/nvim/lua/user/plugins/*.lua
