@@ -1,10 +1,11 @@
 local M = {}
 
+-- { error = '󰅗 󰅙 󰅘 󰅚 󱄊 ', warn = '󰀨 󰗖 󱇎 󱇏 󰲼 ', info = '󰋽 󱔢 ', hint = '󰲽 ' },
 M.diagnostic_signs = {
   Error = ' ',
-  Warn = ' ',
-  Hint = ' ',
-  Info = ' ',
+  Warn = '󰗖 ',
+  Info = '󱔢 ',
+  Hint = '󰲽 ',
 }
 
 -- [[ LSP ]]
