@@ -18,7 +18,7 @@ return {
     config = function()
       -- nvim-cmp supports additional completion capabilities.
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+      capabilities = require 'cmp_nvim_lsp'.default_capabilities(capabilities)
       capabilities.textDocument = {
         foldingRange = {
           dynamicRegistration = false,
@@ -53,7 +53,7 @@ return {
       }
 
       -- Ensure the commonly used servers are installed.
-      require('mason').setup { ui = { border = 'rounded', check_outdated_packages_on_open = true } }
+      require 'mason'.setup { ui = { border = 'rounded', check_outdated_packages_on_open = true } }
 
       local mason_lspconfig = require 'mason-lspconfig'
       mason_lspconfig.setup {
@@ -62,9 +62,9 @@ return {
 
       mason_lspconfig.setup_handlers {
         function(server_name)
-          require('lspconfig')[server_name].setup {
+          require 'lspconfig'[server_name].setup {
             capabilities = capabilities,
-            on_attach = require('user.utils.lsp').user_on_attach,
+            on_attach = require 'user.utils.lsp'.user_on_attach,
             settings = servers[server_name],
           }
         end,
@@ -87,7 +87,7 @@ return {
         },
       })
 
-      local signs = require('user.utils.lsp').diagnostic_signs
+      local signs = require 'user.utils.lsp'.diagnostic_signs
       for type, icon in pairs(signs) do
         local hl = 'DiagnosticSign' .. type
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -101,7 +101,7 @@ return {
     ft = 'rust',
     opts = {
       server = {
-        on_attach = require('user.utils.lsp').user_on_attach,
+        on_attach = require 'user.utils.lsp'.user_on_attach,
       },
       tools = {
         inlay_hints = { highlight = 'LspCodeLens' },
@@ -120,7 +120,7 @@ return {
         },
       },
       lsp = {
-        on_attach = require('user.utils.lsp').user_on_attach,
+        on_attach = require 'user.utils.lsp'.user_on_attach,
       },
     },
   },
@@ -141,6 +141,7 @@ return {
       nls.setup {
         debounce = 150,
         save_after_format = false,
+        on_attach = require 'user.utils.lsp'.user_on_attach,
         sources = {
           nls.builtins.formatting.stylua,
           nls.builtins.formatting.fish_indent,
@@ -159,7 +160,6 @@ return {
           nls.builtins.formatting.black,
           nls.builtins.diagnostics.flake8,
         },
-        root_dir = require('null-ls.utils').root_pattern('.null-ls-root', '.neoconf.json', '.git'),
       }
     end,
   },
