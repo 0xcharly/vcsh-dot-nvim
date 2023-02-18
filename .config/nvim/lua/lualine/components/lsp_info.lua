@@ -12,24 +12,9 @@ LspInfo.default = {
     lsp_client_name = colorscheme.chroma.onSurface1,
     status_icon = colorscheme.chroma.skyBlueOnSurface,
   },
-  separators = {
-    status_icon = { pre = '', post = '' },
-    lsp_client_name = { pre = '', post = '' },
-  },
+  component_sep = ' ',
   hide = { 'null-ls', 'pyright' },
   only_show_attached = true,
-  display_components = { 'status_icon', 'lsp_client_name' },
-  status_refresh_rate_ms = 200,
-  spinner_symbols = {
-    '⠋ ',
-    '⠙ ',
-    '⠸ ',
-    '⢰ ',
-    '⣠ ',
-    '⣄ ',
-    '⡆ ',
-    '⠇ ',
-  },
   status_icon = { initializing = '󰦖 ', ready = '󰲽 ' },
   max_message_length = 30,
 }
@@ -40,30 +25,13 @@ LspInfo.init = function(self, options)
 
   self.options.max_message_length = self.options.max_message_length or LspInfo.default.max_message_length
   self.options.colors = vim.tbl_extend('force', LspInfo.default.colors, self.options.colors or {})
-  self.options.separators = vim.tbl_deep_extend('force', LspInfo.default.separators, self.options.separators or {})
-  self.options.display_components = self.options.display_components or LspInfo.default.display_components
   self.options.hide = self.options.hide or LspInfo.default.hide
-  self.options.status_refresh_rate_ms = self.options.status_refresh_rate_ms or LspInfo.default.status_refresh_rate_ms
-  self.options.spinner_symbols =
-    vim.tbl_extend('force', LspInfo.default.spinner_symbols, self.options.spinner_symbols or {})
   self.options.status_icon = vim.tbl_extend('force', LspInfo.default.status_icon, self.options.status_icon or {})
 
-  self.highlights = { percentage = '', lsp_client_name = '', status_icon = '', spinner = '' }
-  self.highlights.title =
-    highlight.create_component_highlight_group({ fg = self.options.colors.title }, 'lspprogress_title', self.options)
-  self.highlights.percentage = highlight.create_component_highlight_group(
-    { fg = self.options.colors.percentage },
-    'lspprogress_percentage',
-    self.options
-  )
+  self.highlights = { lsp_client_name = '', status_icon = '' }
   self.highlights.status_icon = highlight.create_component_highlight_group(
     { fg = self.options.colors.status_icon },
     'lspprogress_message',
-    self.options
-  )
-  self.highlights.spinner = highlight.create_component_highlight_group(
-    { fg = self.options.colors.spinner },
-    'lspprogress_spinner',
     self.options
   )
   self.highlights.lsp_client_name = highlight.create_component_highlight_group(
@@ -74,12 +42,10 @@ LspInfo.init = function(self, options)
   -- Setup callback to get updates from the lsp to update lualine.
 
   self:register_progress()
-  self:setup_spinner()
 end
 
 LspInfo.update_status = function(self)
-  self:update_progress()
-  return self.progress_message
+  return self:update_progress()
 end
 
 LspInfo.suppress_server = function(self, name)
@@ -150,62 +116,18 @@ LspInfo.register_progress = function(self)
 end
 
 LspInfo.update_progress = function(self)
-  local options = self.options
   local result = {}
 
   for client_name, client in pairs(self.clients) do
-    for _, display_component in pairs(self.options.display_components) do
-      if display_component == 'lsp_client_name' then
-        table.insert(
-          result,
-          highlight.component_format_highlight(self.highlights.lsp_client_name)
-            .. options.separators.lsp_client_name.pre
-            .. client_name
-            .. options.separators.lsp_client_name.post
-        )
-      elseif display_component == 'status_icon' then
-        local status_icon = self.spinner.symbol
-        if client.status == STATUS_INIT then
-          status_icon = self.options.status_icon.initializing
-        elseif client.status == STATUS_DONE then
-          status_icon = self.options.status_icon.ready
-        end
-        table.insert(
-          result,
-          highlight.component_format_highlight(self.highlights.status_icon)
-            .. options.separators.status_icon.pre
-            .. status_icon
-            .. options.separators.status_icon.post
-        )
-      end
-    end
+    -- Status icon.
+    local status_icon = self.options.status_icon.ready
+    if client.status == STATUS_INIT then status_icon = self.options.status_icon.initializing end
+    table.insert(result, highlight.component_format_highlight(self.highlights.status_icon) .. status_icon)
+    -- LSP client name.
+    table.insert(result, highlight.component_format_highlight(self.highlights.lsp_client_name) .. client_name)
   end
-  if #result > 0 then
-    self.progress_message = table.concat(result, options.separators.component)
-    if not self.timer then self:setup_spinner() end
-  else
-    self.progress_message = ''
-    if self.timer then
-      self.timer:stop()
-      self.timer = nil
-    end
-  end
-end
 
-LspInfo.setup_spinner = function(self)
-  self.spinner = {}
-  self.spinner.index = 0
-  self.spinner.symbol_mod = #self.options.spinner_symbols
-  self.spinner.symbol = self.options.spinner_symbols[1]
-  self.timer = vim.loop.new_timer()
-  self.timer:start(
-    0,
-    self.options.status_refresh_rate_ms,
-    vim.schedule_wrap(function()
-      self.spinner.index = (self.spinner.index % self.spinner.symbol_mod) + 1
-      self.spinner.symbol = self.options.spinner_symbols[self.spinner.index]
-    end)
-  )
+  return table.concat(result, self.options.component_sep)
 end
 
 return LspInfo
