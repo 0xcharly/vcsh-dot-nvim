@@ -27,7 +27,8 @@ function M.buffers(opts)
     return true
   end
 
-  require 'telescope.builtin'.buffers(require 'telescope.themes'.get_dropdown(opts))
+  require 'telescope.builtin'.buffers(opts)
+  -- require 'telescope.builtin'.buffers(require 'telescope.themes'.get_dropdown(opts))
 end
 
 return M
